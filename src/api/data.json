@@ -1,0 +1,23 @@
+[
+    {
+        "id":"1",
+        "name":"js面试",
+        "price":18,
+        "discount":1    
+        
+    },
+    {
+        "id":"2",
+        "name":"js高级面试题",
+        "price":18,
+        "discount":1
+        
+    },
+    {
+        "id":"3",
+        "name":"js高级面试ssdfs题",
+        "price":18,
+        "discount":0
+        
+    }
+]
