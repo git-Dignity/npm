@@ -95,15 +95,61 @@ import {Storage} from './Storage/Storage'
         // console.log(tool.formatMoney(5465615654465))  // 5,465,615,654,465
         // console.log(tool.subText("fgfsd水电费水电费",5))   // fgfsd...
         // console.log(tool.formatFileSize(1254))  // 1.22KB
-        console.log(tool.inArray("1",[1,2,3,4]))
-        // console.log(tool.formatMoney())
-        // console.log(tool.formatMoney())
-        // console.log(tool.formatMoney())
-        // console.log(tool.formatMoney())
-        // console.log(tool.formatMoney())
-        // console.log(tool.formatMoney())
-        // console.log(tool.formatMoney())
+        // console.log(tool.inArray(2,[1,2,3,4]))   // 1
+        // console.log(tool.OutOsName("10.0.18362 Windows 10专业版"))
+        // console.log(tool.getOSType())
 
+        function printWidth(){
+            console.info(window.document.body.clientWidth);
+        }
+        function printHeight(){
+            console.info(window.document.body.clientHeight);
+        }
+        // window.addEventListener('resize', tool.debounce(printWidth, 900,true), false)
+        // window.addEventListener('resize', tool.debounce(printHeight, 900,false), false)
+
+        // window.addEventListener("mousemove",tool.throttle(printHeight,1000,2));
+
+
+        // console.log(tool.type([""]))  //array
+        // console.log(tool.RandomNum(0,10))
+        // console.log(tool.arrScrambling([1,5,9]))
+        // console.log(tool.similarity([1,2,3],[5,2]))  // 2
+        // console.log(tool.countOccurrences([1,2,2,3],2))
+        // console.log(tool.add(0.1,0.2))  // 0.3
+        // console.log(tool.sub(0.2,0.1))  // 0.1
+        // console.log(tool.division(0.2,0.1))  // 2
+        // console.log(tool.mcl(0.2,0.1))   // 0.02
+        // 尾递归
+        var sumTco = tool.tco(function(x, y) {  
+            if (y > 0) {
+              return sumTco(x + 1, y - 1)//重点在这里, 每次递归返回真正函数其实还是accumulator函数
+            }
+            else {
+            //   console.log(x)
+              return x
+            }
+          });
+        //   console.log(sumTco(1, 5));   //6    实际上现在sum函数就是accumulator函数   else那得到的
+       
+       
+        // console.log(tool.randomNumInteger(10))
+        // console.log(tool.randomNumInteger(10,20))
+        // console.log(tool.trim(" dg   g145415  44 ",1)) // dgg14541544
+        // console.log(tool.turnCase("asFG",1))  // ASFG
+        // console.log(tool.hexColor())
+
+//         console.log(tool.escapeHTML(`
+//         <div id="app" class="a" style="height: 1500px;"></div>
+// <P class="a" id="aaa">1</P>
+//         `))
+        // &lt;div id=&quot;app&quot; class=&quot;a&quot; style=&quot;height: 1500px;&quot;&gt;&lt;/div&gt;
+        // &lt;P class=&quot;a&quot; id=&quot;aaa&quot;&gt;1&lt;/P&gt;
+
+
+        // console.log(tool.outOfNum(100,99))  // 99+
+        // console.log(tool.getOSType())
+      
 
     }
 
@@ -183,7 +229,6 @@ import {Storage} from './Storage/Storage'
 
     }
 
-    
     intiStorage(){
         let storage = new Storage();
         var asas = {
@@ -229,4 +274,4 @@ import {Storage} from './Storage/Storage'
 }
 
 
-export  {App,Tool}
+export  {App,Tool, Check, Browser, DateOperation, Storage}
