@@ -1,5 +1,5 @@
-import  React  from  'react'
-import ReactDom from 'react-dom'
+// import  React  from  'react'
+// import ReactDom from 'react-dom'
 
 // ES6 方法，用来解决实际开发的 JS 问题
 

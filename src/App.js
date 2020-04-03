@@ -1,41 +1,30 @@
 // import $ from 'jquery'
 // import 'bootstrap/dist/js/bootstrap.min.js'
-// import ShoppingCart from './ShoppingCart/ShoppingCart'
-// import List from './List/List'
-// import ProgressBar from './ProgressBar/ProgressBar'
-// import Popover from './Popover/Popover'
 import {Tool} from './JsLib/Tool'
 import {Check} from './Check/Check'
 import {Browser} from './Browser/Browser'
 import {DateOperation} from './Date/Date'
 import {Storage} from './Storage/Storage'
 
+//设计模式
+import {Creator, _ } from './DesignModel/工厂模式'
+import SingleObject from './DesignModel/单例模式'
+import Adapter from './DesignModel/适配器模式'
+import {Circle, Decorator} from './DesignModel/装饰器模式'
+import { ProxyImg, agent} from './DesignModel/代理模式'
+import bindEvent from './DesignModel/外观模式'
+import {Subject, Observers} from './DesignModel/观察者模式'
+import { Container, each} from './DesignModel/迭代器模式'
+import { State, Context, fsm, fsm_promise, MyPromise} from './DesignModel/状态模式'
+import updateText from './DesignModel/js/状态管理update'
+import Action from './DesignModel/职责链模式'
+import {Receiver, Command, Invoker} from './DesignModel/命令模式'
+import { CareTaker, Editor } from './DesignModel/备忘录模式'
 
  class App{
     constructor(id){
         // this.$el = $('#'+id)
     }
-
-    // initShoppingCart(){
-    //     let shoppingCart = new ShoppingCart(this)
-    //     shoppingCart.init()
-
-    // }
-
-    // initList(){
-    //     let list = new List(this)
-    //     list.init()
-    // }
-
-    // initProgressBar(){
-    //     let progressBar = new ProgressBar();
-    //     progressBar.init()
-    // }
-
-    // initPopover(){
-    //     let popover = new Popover();
-    //     popover.init();
-    // }
 
     initTool(){
         let tool = new Tool()
@@ -211,20 +200,7 @@ import {Storage} from './Storage/Storage'
         // console.log(date.get_current_timestamp())
         // console.log(date.get_appoint_timestamp("2019/10/24 08:00:00"))
         // console.log(date.get_appoint_timestamp("2019-10-24 08:00:00"))
-
-
-
-        // console.log(date.get_current_timestamp())
-        // console.log(date.get_current_timestamp())
-        // console.log(date.get_current_timestamp())
-        // console.log(date.get_current_timestamp())
-        // console.log(date.get_current_timestamp())
-        // console.log(date.get_current_timestamp())
-        // console.log(date.get_current_timestamp())
-        // console.log(date.get_current_timestamp())
-        // console.log(date.get_current_timestamp())
-        // console.log(date.get_current_timestamp())
-
+        // console.log(date.nowInDateBetwen("2019-01-01","2019-02-02","2019-01-02"))
 
 
     }
@@ -258,6 +234,220 @@ import {Storage} from './Storage/Storage'
 
     }
 
+    // 工厂模式
+    initCreator(){
+        let creator = new Creator()
+        let product =  creator.createProduct("zhangsan")
+        product.getName()
+
+
+        _("lisi").getName() //这种写法就和jq有点像了  $('div')
+    }
+
+    // 单例模式
+    initSingleObject(){
+        let aaa = SingleObject;
+        let bbb = SingleObject;
+
+        console.log(aaa)
+        console.log(aaa == bbb) //true   因为两者都是一个实例，引用地址一样
+    }
+
+    // 适配器模式
+    initAdapter(){
+        let adapter = new Adapter()
+        console.log(adapter.request())
+    }
+
+    //装饰器模式
+    initDecorator(){
+        let circle = new Circle()
+        let decorator = new Decorator(circle)
+        decorator.draw();
+    }
+
+    //代理模式
+    initProxyImg(){
+        let proxyImg = new ProxyImg("img.png");
+        proxyImg.display();
+
+        console.log('下面是演示es6的proxy拦截器----------------')
+
+        //明星
+        console.log(agent.name) //明星的
+        console.log(agent.age)//明星的
+        console.log(agent.phone)    //经纪人，明星不可能给你电话
+        console.log(agent.pirce)  //经纪人给的
+
+        agent.customPrice = 150000
+        console.log(agent.customPrice)
+
+        agent.customPrice = 9000
+        console.log(agent.customPrice) // //报错，因为上面需要大于10w
+    }
+
+    //观察者模式
+    initObservers(){
+        let subject = new Subject();
+        let observers = new Observers('o1',subject);
+        let observers2 = new Observers('o2',subject);
+        let observers3 = new Observers('o3',subject);
+        subject.setState(1)
+        //每次setState，都会触发所有观察者
+    }
+
+    //迭代器模式
+    initContainer(){
+        let arr = [1,2,3,4]
+       
+        let constainer = new Container(arr)
+        let iterator = constainer.getIterator()
+        while(iterator.hasNex()){
+            console.log(iterator.next())
+        }
+
+        let m = new Map()
+        m.set('a',100)
+        m.set('b',200)
+        each(m)
+    }
+
+     
+
+    //状态模式
+    initState(){
+        
+        let context = new Context();
+
+        let green = new State("geren")
+        let red = new State("red")
+        let yellow = new State("yellow")
+
+        //绿灯亮了
+        green.handle(context)
+        console.log(context.getState()) //打印状态
+
+        //红灯亮了
+        red.handle(context)
+        console.log(context.getState()) //打印状态
+
+
+       //初始化文案
+       updateText('btn')
+      
+        $('#btn').click(function(){
+            if(fsm.is('收藏')){
+                fsm.doStore()
+            }else{
+                fsm.deleteStore()
+            }
+        })
+
+
+
+        //promise
+        function loadImg(src){
+            //这里传一个函数，需要马上执行，所以这个函数写在constructor上
+            const promise = new MyPromise(function(resolve,reject){
+                let img  = document.createElement('img')
+                img.onload = function(){
+                    resolve(img)
+                }
+                img.onerror = function(){
+                    reject()
+                }
+                img.src = src;
+            })
+        
+            return promise
+        }
+        
+        
+        let src = "https://dss0.baidu.com/73x1bjeh1BF3odCf/it/u=4003888963,1806138384&fm=85&s=9102FE5E6413E3CE9E3E1911030010DE"
+        let result = loadImg(src)   //返回一个promise对象
+        
+        //then的函数在resolve下才执行，第二个是在reject下执行的
+        result.then(function(){
+            console.log('ok1')
+        },function(){
+            console.log('fail1')
+        })
+        
+        result.then(function(){
+            console.log('ok2')
+        },function(){
+            console.log('fail2')
+        })
+
+        
+    }
+
+    //职责链模式
+    initAction(){
+        let a  = new Action("组长")
+        let b  = new Action("敏哥")
+        let c  = new Action("博士")
+        a.setNextAction(b)
+        b.setNextAction(c)
+        a.handle()
+        // a里面有b，b有c
+        // 通过nextAction将这些串起来
+        // handle这样子写，是为了实现a1 a2 a3这样链操作
+    }
+
+    // 命令模式
+    initInvoker(){
+        let receiver = new Receiver()
+        let command = new Command(receiver)
+        let invoker = new Invoker(command)
+        invoker.invoke()
+        // 开始
+        // 执行命令
+        // 执行
+    }
+
+    //备忘录模式
+    initEditor(){
+        let editor = new Editor()
+        let careTaker = new CareTaker();
+
+        editor.setContent("111")
+        editor.setContent("222")
+        careTaker.add(editor.saveContentToMenento())    //将当前内容备份
+        editor.setContent('333')
+        careTaker.add(editor.saveContentToMenento())  
+        editor.setContent('444')
+
+        console.log(editor.getContent())
+        editor.getContentFromMemento(careTaker.get(1))
+        console.log(editor.getContent())
+        editor.getContentFromMemento(careTaker.get(0))
+        console.log(editor.getContent())
+    }
+
+   
+
+    // 外观模式
+    initBindEvent(){
+        // bindEven(elem, 'click', '#div',fn)
+        // bindEven(elem, 'click', fn)
+    }
+
+    initDesignModel(){
+        // this.initCreator();
+        // this.initSingleObject()
+        // this.initAdapter()
+        // this.initDecorator()
+        // this.initProxyImg()
+        // this.initBindEvent()
+        // this.initObservers()
+        // this.initContainer()
+        this.initState()
+        // this.initAction()
+        // this.initInvoker()
+        // this.initEditor()
+    }
+
     init(){
         // this.initShoppingCart();
         // this.initList();
@@ -268,10 +458,17 @@ import {Storage} from './Storage/Storage'
         this.initBrowser()
         this.initDate()
         this.intiStorage()
-        
+        this.initDesignModel()
 
     }
 }
 
 
-export  {App,Tool, Check, Browser, DateOperation, Storage}
+export  {
+    App,
+    Tool, 
+    Check, 
+    Browser, 
+    DateOperation, 
+    Storage
+}
