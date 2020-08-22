@@ -47,7 +47,7 @@ module.exports = {
     devServer:{
         contentBase:path.join(__dirname,'./release'), //根目录
         open:true,   //自动打开浏览器
-        port:9002,
+        port:9052,
         //请求ajax，不使用跨域，使用代理
         //这里就是代理模式了，无权在9000访问接口，所以使用代理来访问
         proxy:{

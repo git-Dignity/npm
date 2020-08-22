@@ -84,6 +84,20 @@ class Browser{
         }
     }
 
+    /**
+     * 获取当前元素相对于document的偏移量
+     * @param {el} el 
+     */
+    getOffset(el){
+        const { top, left } = el.getBoundingClientRect();
+        const {scrollTop, scrollLeft} = document.body;
+
+        return {
+            top: top + scrollTop,
+            left: left + scrollLeft
+        }
+    }
+
     // 滚动到页面的最下/最上
     //传true向上平滑，不传就是向下（默认）
     smoothScroll (isEnd){

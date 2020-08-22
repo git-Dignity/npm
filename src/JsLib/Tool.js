@@ -3,9 +3,9 @@
 
 // ES6 方法，用来解决实际开发的 JS 问题
 
- class Tool{
-    constructor(){
-          
+class Tool {
+    constructor() {
+
     }
 
     // getDom(el){
@@ -20,49 +20,49 @@
     // }
 
     // 如何隐藏所有指定的元素
-    hide(el){
+    hide(el) {
         Array.from(el).forEach(e => (e.style.display = 'none'));
     }
 
     // 如何检查元素是否具有指定的类？
-    hasClass(el, className){
+    hasClass(el, className) {
         return el.classList.contains(className)
     }
 
     // 如何切换一个元素的类? 有类就删除，无类就添加
-    toggleClass(el, className){
+    toggleClass(el, className) {
         el.classList.toggle(className)
     }
 
     // 如何获取当前页面的滚动位置？
-    getScrollPosition(el = window){
+    getScrollPosition(el = window) {
         return {
             x: el.pageXOffset !== undefined ? el.pageXOffset : el.scrollLeft,
             y: el.pageYOffset !== undefined ? el.pageYOffset : el.scrollTop
-          }
+        }
 
         //   scrollLeft和scrollTop是IE8可兼容
     }
 
     // 如何检查父元素是否包含子元素？
-    elementContains(parent, child){
+    elementContains(parent, child) {
         return parent !== child && parent.contains(child);
     }
 
     // 如何检查指定的元素在视口中是否可见？
-    elementIsVisibleInViewport(el, partiallyVisible = false){
+    elementIsVisibleInViewport(el, partiallyVisible = false) {
         // partiallyVisible是否开启全屏； 为true 需要全屏(上下左右)可以见
 
         const { top, left, bottom, right } = el.getBoundingClientRect();
         const { innerHeight, innerWidth } = window;
         return partiallyVisible
-          ? ((top > 0 && top < innerHeight) || (bottom > 0 && bottom < innerHeight)) &&
-              ((left > 0 && left < innerWidth) || (right > 0 && right < innerWidth))
-          : top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth;
+            ? ((top > 0 && top < innerHeight) || (bottom > 0 && bottom < innerHeight)) &&
+            ((left > 0 && left < innerWidth) || (right > 0 && right < innerWidth))
+            : top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth;
     }
 
     // 如何获取元素中的所有图像？
-    getImages(el, includeDuplicates = false){
+    getImages(el, includeDuplicates = false) {
         // includeDuplicates为false就是去重，true不去重
 
         const images = [...el.getElementsByTagName('img')].map(img => img.getAttribute('src'));
@@ -70,54 +70,49 @@
     }
 
     // 如何确定设备是移动设备还是台式机/笔记本电脑？
-    detectDeviceType(){
-       return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
+    detectDeviceType() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
     }
 
     // 获取当前url
-    currentURL(){
+    currentURL() {
         return window.location.href
     }
 
     // 如何创建一个包含当前URL参数的对象？
-    getURLParameters(url){
+    getURLParameters(url) {
         // reduce() 对于空数组是不会执行回调函数的。
         return (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce(
-            (a, v) =>  ((a[v.slice(0, v.indexOf('='))] = v.slice(v.indexOf('=') + 1)), a),
+            (a, v) => ((a[v.slice(0, v.indexOf('='))] = v.slice(v.indexOf('=') + 1)), a),
             {}
-          );
+        );
     }
 
     // 如何从元素中移除事件监听器?
-    off(el, evt, fn, opts = false){
+    off(el, evt, fn, opts = false) {
         el.removeEventListener(evt, fn, opts);
     }
 
     // 如何获得给定毫秒数的可读格式？   1000ms = 1s
-    formatDuration(ms){
+    formatDuration(ms) {
         if (ms < 0) ms = -ms;
         const time = {
-          day: Math.floor(ms / 86400000),
-          hour: Math.floor(ms / 3600000) % 24,
-          minute: Math.floor(ms / 60000) % 60,
-          second: Math.floor(ms / 1000) % 60,
-          millisecond: Math.floor(ms) % 1000
+            day: Math.floor(ms / 86400000),
+            hour: Math.floor(ms / 3600000) % 24,
+            minute: Math.floor(ms / 60000) % 60,
+            second: Math.floor(ms / 1000) % 60,
+            millisecond: Math.floor(ms) % 1000
         };
         return Object.entries(time)
-          .filter(val => val[1] !== 0)
-          .map(([key, val]) => `${val} ${key}${val !== 1 ? 's' : ''}`)
-          .join(', ');
+            .filter(val => val[1] !== 0)
+            .map(([key, val]) => `${val} ${key}${val !== 1 ? 's' : ''}`)
+            .join(', ');
     }
 
-    // 如何获得两个日期之间的差异（以天为单位）？
-    // 两个new Date()相减得到毫秒
-    getDaysDiffBetweenDates(dateInitial, dateFinal){
-        console.log(dateFinal-dateInitial)
-        return (dateFinal - dateInitial) / (1000 * 3600 * 24);
-    }
+
 
     // 如何向传递的URL发出GET请求？
-    httpGet(url, callback, err = console.error){
+    httpGet(url, callback, err = console.error) {
         const request = new XMLHttpRequest();
         request.open('GET', url, true);
         request.onload = () => callback(request.responseText);
@@ -126,7 +121,7 @@
     }
 
     // 如何对传递的URL发出POST请求？
-    httpPost (url, data, callback, err = console.error){
+    httpPost(url, data, callback, err = console.error) {
         const request = new XMLHttpRequest();
         request.open('POST', url, true);
         request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
@@ -136,7 +131,7 @@
     }
 
     // 如何将字符串复制到剪贴板？
-    copyToClipboard(str){
+    copyToClipboard(str) {
         const el = document.createElement('textarea');
         el.value = str;
         el.setAttribute('readonly', '');
@@ -160,7 +155,7 @@
 
 
     // 金钱格式化，三位加逗号
-    formatMoney (num){
+    formatMoney(num) {
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
@@ -178,7 +173,7 @@
 
     // B转换到KB,MB,GB并保留两位小数
     // @param { number } fileSize
-    formatFileSize(fileSize){
+    formatFileSize(fileSize) {
         let temp;
         if (fileSize < 1024) {
             return fileSize + 'B';
@@ -208,8 +203,8 @@
     }
 
     // Windows根据详细版本号判断当前系统名称
-    OutOsName(osVersion){
-        if(!osVersion){
+    OutOsName(osVersion) {
+        if (!osVersion) {
             return
         }
         let str = osVersion.substr(0, 3);
@@ -235,7 +230,7 @@
     }
 
     // 判断手机是Andoird还是IOS
-    getOSType(){
+    getOSType() {
         let u = navigator.userAgent, app = navigator.appVersion;
         let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1;
         let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
@@ -248,6 +243,14 @@
         return "其它";
     }
 
+
+    /**
+     * 判断是否是移动端
+     */
+    isMobile() {
+        return 'ontouchstart' in window
+    }
+
     // 函数防抖
     //  * @param { function } func
     //  * @param { number } wait 延迟执行毫秒数
@@ -257,7 +260,7 @@
     //  立即执行版的意思是触发事件后函数会立即执行，然后 n 秒内不触发事件才能继续执行函数的效果。
     //  立即执行版解说：timeout为null，callNow为true，执行函数,无触发定时器；
     //  一秒内，又调用这个函数，清空定时器（因为timeout为true），callNow为false，不执行函数；timeout为true，开启定时器，等待一秒无人访问就将timeout设null
-    debounce(func,wait,immediate) {
+    debounce(func, wait, immediate) {
         let timeout;
         return function () {
             let context = this;
@@ -287,24 +290,24 @@
     // * @param { function } func 函数
     // * @param { number } wait 延迟执行毫秒数
     // * @param { number } type 1 表时间戳版，2 表定时器版
-    throttle(func, wait ,type){
+    throttle(func, wait, type) {
         let previous, timeout;
-        if(type===1){
+        if (type === 1) {
             previous = 0;
-        }else if(type===2){
+        } else if (type === 2) {
             timeout = null;
         }
-        return function() {
+        return function () {
             let context = this;
             let args = arguments;
-            if(type===1){
+            if (type === 1) {
                 let now = Date.now();
 
                 if (now - previous > wait) {
                     func.apply(context, args);
                     previous = now;
                 }
-            }else if(type===2){
+            } else if (type === 2) {
                 if (!timeout) {
                     timeout = setTimeout(() => {
                         timeout = null;
@@ -312,26 +315,26 @@
                     }, wait)
                 }
             }
-        }   
+        }
     }
 
     // 判断数据类型
     type(target) {
-        let ret = typeof(target);
+        let ret = typeof (target);
         let template = {
             "[object Array]": "array",
-            "[object Object]":"object",
-            "[object Number]":"number - object",
-            "[object Boolean]":"boolean - object",
-            "[object String]":'string-object'
+            "[object Object]": "object",
+            "[object Number]": "number - object",
+            "[object Boolean]": "boolean - object",
+            "[object String]": 'string-object'
         };
-    
-        if(target === null) {
+
+        if (target === null) {
             return 'null';
-        }else if(ret == "object"){
+        } else if (ret == "object") {
             let str = Object.prototype.toString.call(target);
             return template[str];
-        }else{
+        } else {
             return ret;
         }
     }
@@ -339,7 +342,7 @@
     // 生成指定范围随机数
     // @param { number } min 
     // @param { number } max 
-    RandomNum (min, max){
+    RandomNum(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
@@ -363,12 +366,12 @@
     // 数组交集
     // @param { array} arr1
     // @param { array } arr2
-    similarity (arr1, arr2){
+    similarity(arr1, arr2) {
         return arr1.filter(v => arr2.includes(v));;
     }
 
     // 数组中某元素出现的次数  ([1,2,2,3],2)
-    countOccurrences(arr, value) {  
+    countOccurrences(arr, value) {
         return arr.reduce((a, v) => v === value ? a + 1 : a + 0, 0);
         //最后面那个0是我们将index索引从0开始，也就是a默认为0
         // reduce第一个参数的计算后的返回值，这里来说，a为0，因为后面加上参数0
@@ -397,31 +400,31 @@
         n = (r1 >= r2) ? r1 : r2;
         return Number(((arg1 * m - arg2 * m) / m).toFixed(n));
     }
-    
+
     // 除法函数（精度丢失问题）
-    division(num1,num2){
-        let t1,t2,r1,r2;
-        try{
+    division(num1, num2) {
+        let t1, t2, r1, r2;
+        try {
             t1 = num1.toString().split('.')[1].length;
-        }catch(e){
+        } catch (e) {
             t1 = 0;
         }
-        try{
-            t2=num2.toString().split(".")[1].length;
-        }catch(e){
-            t2=0;
+        try {
+            t2 = num2.toString().split(".")[1].length;
+        } catch (e) {
+            t2 = 0;
         }
-        r1=Number(num1.toString().replace(".",""));
-        r2=Number(num2.toString().replace(".",""));
-        return (r1/r2)*Math.pow(10,t2-t1);
+        r1 = Number(num1.toString().replace(".", ""));
+        r2 = Number(num2.toString().replace(".", ""));
+        return (r1 / r2) * Math.pow(10, t2 - t1);
     }
 
     // 乘法函数（精度丢失问题）
-    mcl(num1,num2){
-        let m=0,s1=num1.toString(),s2=num2.toString();
-        try{m+=s1.split(".")[1].length}catch(e){}
-        try{m+=s2.split(".")[1].length}catch(e){}
-        return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m);
+    mcl(num1, num2) {
+        let m = 0, s1 = num1.toString(), s2 = num2.toString();
+        try { m += s1.split(".")[1].length } catch (e) { }
+        try { m += s2.split(".")[1].length } catch (e) { }
+        return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
     }
 
     // 递归优化（尾递归）
@@ -446,11 +449,11 @@
         let value;
         let active = false;
         let accumulated = [];
-    
+
         return function accumulator() {
-            
+
             accumulated.push(arguments);   //每次将参数传入. 例如, 1 100000
-         
+
             if (!active) {
                 active = true;
                 // 出循环条件, 当最后一次返回一个数字而不是一个函数时, accmulated已经被shift(), 所以出循环
@@ -477,7 +480,7 @@
                 return 0
         }
     }
-    
+
     // 去除空格
     // * @param { string } str 待处理字符串
     // * @param  { number } type 去除空格类型 1-所有空格  2-前后空格  3-前空格 4-后空格 默认为1
@@ -486,15 +489,15 @@
         switch (type) {
             case 1:
                 return str.replace(/\s/g, "");
-                // return str.trim()
+            // return str.trim()
             case 2:
                 return str.replace(/(^\s)|(\s*$)/g, "");
             case 3:
                 return str.replace(/(^\s)/g, "");
-                // return str.trimStart()
+            // return str.trimStart()
             case 4:
                 return str.replace(/(\s$)/g, "");
-                // return str.trimEnd()
+            // return str.trimEnd()
             default:
                 return str;
         }
@@ -530,13 +533,13 @@
 
     // 随机16进制颜色 randomHexColorCode
     // 方法二
-    randomHexColorCode  () {
+    randomHexColorCode() {
         let n = (Math.random() * 0xfffff * 1000000).toString(16);
         return '#' + n.slice(0, 6);
     };
 
     // 转义html(防XSS攻击)
-    escapeHTML (str){
+    escapeHTML(str) {
         return str.replace(
             /[&<>'"]/g,
             tag =>
@@ -553,35 +556,145 @@
     // 数字超过规定大小加上加号“+”，如数字超过99显示99+
     // @param { number } val 输入的数字
     // @param { number } maxNum 数字规定界限
-    outOfNum (val, maxNum){
-        val = val ? val-0 :0;
-        if (val > maxNum ) {
+    outOfNum(val, maxNum) {
+        val = val ? val - 0 : 0;
+        if (val > maxNum) {
             return `${maxNum}+`
-        }else{
+        } else {
             return val;
         }
     };
-    
-    
-    
 
 
-    
-    
-    
+    /**
+     * 分割指定长度的元素数组
+     * @param {Array} list 传进来的数组
+     * @param {number} size  要分成几个为一组的数据
+     * @param {Array} cacheList  返回出去的结果
+     */
+    listChunk(list, size = 1, cacheList = []) {
+        var tmp = [...list]
+        if (size <= 0) {
+            return cacheList;
+        }
+
+        while (tmp.length) {
+            cacheList.push(tmp.splice(0, size))  // 因为split会改变原数组
+        }
+        return cacheList
+    }
+
+
+    /**
+     * 获取当前子元素是其父元素下子元素的排位
+     * @param {el} el 
+     * 小知识：先走do,index++，在去while(5) 循环五次 
+     * previousElementSibling 属性返回指定元素的前一个兄弟元素（相同节点树层中的前一个元素节点）
+     */
+    getChildInParentIndex(el) {
+        if (!el) {
+            return -1
+        }
+
+        let index = 0;
+        do {
+            index++;
+        } while (el = el.previousElementSibling);
+        return index;
+    }
 
 
 
-   
-
-   
 
 
-    init(){
-       
+    /**
+     * 获取元素类型
+     * @param {any(number, string, object, array, null, undefined)} obj 
+     */
+    dataType(obj) {
+        return Object.prototype.toString.call(obj).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
+    }
+
+
+    /**
+     * fade动画
+     * @param {el} el 
+     * @param {*} type 
+     * 思路：其实就是让opacity从0慢慢加到1,利用requestAnimationFrame使opacity在变化的过程添加动画
+     * window.requestAnimationFrame() 告诉浏览器——你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。
+     * 该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行
+     * 所以requestAnimationFrame会一直回调，直到opacity大于1，则停止动画
+     */
+    setFade(el, type = 'in') {
+        el.style.opacity = (type === 'in' ? 0 : 1)
+        let last = +new Date()
+        const tick = () => {
+            const opacityValue = (type === 'in'
+                ? (new Date() - last) / 400
+                : -(new Date() - last) / 400)
+            el.style.opacity = +el.style.opacity + opacityValue
+            last = +new Date()
+            if (type === 'in'
+                ? (+el.style.opacity < 1)
+                : (+el.style.opacity > 0)) {
+                requestAnimationFrame(tick)
+            }
+        }
+        tick()
+    }
+
+
+    /**
+     * 禁止网页复制粘贴（默认都禁止）
+     * @param {boolean} isStopCopy 是否禁止网页复制
+     * @param {boolean} isStopPaste 是否禁止网页被黏贴
+     */
+    stopCopyOrPaste(isStopCopy = true, isStopPaste = true) {
+        const html = document.querySelector('html');
+        if (isStopCopy && isStopPaste) {
+            html.oncopy = () => false;
+            html.onpaste = () => false;
+            return;
+        }
+        if (isStopCopy) {
+            html.oncopy = () => false;
+            return;
+        }
+        if (isStopPaste) {
+            html.onpaste = () => false;
+            return;
+        }
+
+    }
+
+
+    /**
+     * 去除字符串中的html代码
+     * @param {string} str 
+     */
+    removeHTML (str = ''){
+        return str.replace(/<[\/\!]*[^<>]*>/ig, '')
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    init() {
+
     }
 
 
 }
 
-export {Tool}
+export { Tool }

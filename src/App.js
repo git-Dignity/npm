@@ -1,11 +1,16 @@
 // import $ from 'jquery'
 // import 'bootstrap/dist/js/bootstrap.min.js'
+
+// 一些工具类
 import {Tool} from './JsLib/Tool'
 import {Check} from './Check/Check'
 import {Browser} from './Browser/Browser'
 import {DateOperation} from './Date/Date'
 import {Storage} from './Storage/Storage'
 
+// 算法
+import {Algorithm} from './Algorithm/index'
+ 
 //设计模式
 import {Creator, _ } from './DesignModel/工厂模式'
 import SingleObject from './DesignModel/单例模式'
@@ -20,6 +25,10 @@ import updateText from './DesignModel/js/状态管理update'
 import Action from './DesignModel/职责链模式'
 import {Receiver, Command, Invoker} from './DesignModel/命令模式'
 import { CareTaker, Editor } from './DesignModel/备忘录模式'
+
+// 手写系列
+import { objectFactory, HandleWritePromise } from './HandWrit/index'
+import { myAxios } from './HandWrit/myAxios/myAxios'
 
  class App{
     constructor(id){
@@ -88,6 +97,21 @@ import { CareTaker, Editor } from './DesignModel/备忘录模式'
         // console.log(tool.OutOsName("10.0.18362 Windows 10专业版"))
         // console.log(tool.getOSType())
 
+        // console.log(tool.listChunk([1, 2, 3, 4, 5, 6, 7, 8, 9]))  // [[1], [2], [3], [4], [5], [6], [7], [8], [9]]
+        // console.log(tool.listChunk([1, 2, 3, 4, 5, 6, 7, 8, 9], 3)) // [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        // console.log(tool.listChunk([1, 2, 3, 4, 5, 6, 7, 8, 9], 0)) // []
+        // console.log(tool.listChunk([1, 2, 3, 4, 5, 6, 7, 8, 9], -1)) // []
+
+        // console.log(tool.getChildInParentIndex(document.getElementById("btn")))  // 1
+        // console.log(tool.getOffset(document.getElementById("btn")))  // {top: 8, left: 8}
+        // console.log(tool.dataType([]))  // array
+        // console.log(tool.isMobile())    // false || true
+        tool.setFade(document.getElementById("btn"));
+        tool.stopCopyOrPaste(true,true)
+        // console.log(tool.removeHTML(tool.removeHTML('<h1>哈哈哈哈<呵呵呵</h1>')))
+
+
+
         function printWidth(){
             console.info(window.document.body.clientWidth);
         }
@@ -141,7 +165,7 @@ import { CareTaker, Editor } from './DesignModel/备忘录模式'
       
 
     }
-
+ 
     initCheck(){
         let check = new Check()
         // console.log(check.isNoWord("3436"))   // true
@@ -201,6 +225,7 @@ import { CareTaker, Editor } from './DesignModel/备忘录模式'
         // console.log(date.get_appoint_timestamp("2019/10/24 08:00:00"))
         // console.log(date.get_appoint_timestamp("2019-10-24 08:00:00"))
         // console.log(date.nowInDateBetwen("2019-01-01","2019-02-02","2019-01-02"))
+        console.log(date.dataPattern("12-25-1995"))   // // Mon Dec 25 1995 00:00:00 GMT+0800 (中国标准时间)
 
 
     }
@@ -448,6 +473,139 @@ import { CareTaker, Editor } from './DesignModel/备忘录模式'
         // this.initEditor()
     }
 
+
+    initAlgorithm(){
+        let algorithm = new Algorithm()
+        // console.log(algorithm.combinationNewStr(['a', 's', 'd', '1', '2', '3', '5', '6', 'h2', '9', '12', '13', '14', '15', 'f', 'g']));
+        // a;s;d;1-3;5-6;h2;9;12-15;f;g
+
+        
+    }
+
+
+    initHandleWrite() {
+        console.log("手写系列 start-_--_--_--_--_--_--_-")
+
+        // new的例子
+        // function Person(name, age) {
+        //     this.name = name;
+        //     this.age = age;
+        //     this.sex = 'male';
+        // }
+        // Person.prototype.isHandsome = true;
+        // Person.prototype.sayName = function () {
+        //     console.log(`Hello , my name is ${this.name}`);
+        // }
+
+        // let handsomeBoy = objectFactory(Person, 'Nealyang', 25);
+        // console.log(handsomeBoy.name) // Nealyang
+        // console.log(handsomeBoy.isHandsome) // true
+        // handsomeBoy.sayName(); // Hello , my name is Nealyang
+
+
+        // call，apply例子
+        var value = 2;
+
+        var obj11 = {
+            value: 1
+        }
+
+        function bar(name, age) {
+           
+            console.log(name);
+            return {
+                value: this.value,
+                name: name,
+                age: age
+            }
+        }
+
+        // bar.call(null); // 2
+
+        // console.log(bar.myCall(obj11, 'kevin', 18));  // {value: 1, name: {…}, age: "kevin"}
+        // console.log(bar.myApply(obj11, ['kevin', 18]));  // {value: 1, name: {…}, age: "kevin"}
+      
+   
+        // var obj45 = { name : 'Tom' };
+        // function fun(){
+        //     console.log(this.name);
+        // }
+        // fun.myBind(obj45)(); 
+        
+
+
+        //promise的例子
+        // let p = new HandleWritePromise((resolve, reject)=>{
+        //     console.log('hello');
+        //     resolve(5);
+        // });
+        // p.then((res)=>{
+        //     console.log(res);
+        // })
+        // p.then(()=>{
+        //     console.log('jj');
+        // })
+
+
+
+
+
+
+        // console.log("手写系列 end-_--_--_--_--_-")
+
+      
+
+        /**
+         * 手写ajax测试
+         * axios(config)这种形式调用axios
+         * axios.get()这种形式调用axios
+         * 添加拦截器
+         */
+        // axios(config)这种形式调用axios
+        myAxios({
+            method: 'get',
+            url: 'https://zhengzemin.cn/dist/static/fonts/element-icons.535877f.woff'
+        }).then(res =>{
+            console.log('getAxios 成功响应',res)
+        }).catch(err =>{
+            console.log(err)
+        })
+
+
+        // //  添加请求拦截器
+        // myAxios.interceptors.request.use(function (config) {
+        //     // 在发送请求之前做些什么
+        //     config.method = "get";
+        //     console.log("被我请求拦截器拦截了，哈哈:",config);
+        //     return config;
+        // }, function (error) {
+        //     // 对请求错误做些什么
+        //     return Promise.reject(error);
+        // });
+
+        // // 添加响应拦截器
+        // myAxios.interceptors.response.use(function (response) {
+        //     // 对响应数据做点什么
+        //     console.log("被我响应拦截拦截了，哈哈 ");
+        //     response = {message:"响应数据被我替换了，啊哈哈哈"}
+        //     return response;
+        // }, function (error) {
+        //     // 对响应错误做点什么
+        //     console.log("错了吗");
+        //     return Promise.reject(error);
+        // });
+
+
+
+        // axios.get()这种形式调用axios
+        // myAxios.get('https://zhengzemin.cn/dist/static/fonts/element-icons.535877f.woff').then(res =>{
+        //     console.log(res)
+        // })
+
+    }
+
+    
+
     init(){
         // this.initShoppingCart();
         // this.initList();
@@ -459,6 +617,9 @@ import { CareTaker, Editor } from './DesignModel/备忘录模式'
         this.initDate()
         this.intiStorage()
         this.initDesignModel()
+
+        this.initAlgorithm()
+        this.initHandleWrite()
 
     }
 }

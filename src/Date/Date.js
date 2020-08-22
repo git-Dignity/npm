@@ -47,6 +47,31 @@ class DateOperation{
     }
 
 
+    // 如何获得两个日期之间的差异（以天为单位）？
+    // 两个new Date()相减得到毫秒
+    getDaysDiffBetweenDates(dateInitial, dateFinal){
+        // console.log(dateFinal-dateInitial)
+        return (dateFinal - dateInitial) / (1000 * 3600 * 24);
+    }
+
+
+    /**
+     * 将指定格式的字符串解析为日期字符串
+     * @param {string} str  "12-25-1995"
+     * @param {string} format 
+     * return Mon Dec 25 1995 00:00:00 GMT+0800 (中国标准时间)
+     * exec()接受一个参数，即要应用模式的字符串，然后返回包含第一个匹配项信息的数组;或者在没有匹配项的情况下返回null.
+     */
+    dataPattern(str, format = '-') {
+        if (!str) {
+            return new Date()
+        }
+        const dateReg = new RegExp(`^(\\d{2})${format}(\\d{2})${format}(\\d{4})$`)
+        // console.log(dateReg.exec(str))
+        const [, month, day, year] = dateReg.exec(str)
+        // console.log(`${month}, ${day} ${year}`)
+        return new Date(`${month}, ${day} ${year}`)
+    }
 
 
 
