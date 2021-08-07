@@ -1,4 +1,4 @@
-# [个人NPM组件库zzmcomponentlib](https://www.npmjs.com/package/zzmcomponentlib)
+# [npm工具类](https://www.npmjs.com/package/javascript-tool-class)
 
 与大家分享自己所涉及到的npm知识
 
@@ -7,6 +7,15 @@
 
 # 卸载
 `npm uninstall zzmcomponentlib`
+
+# 使用
+```
+import myTool from "@/utils/tool/javascript-tool-class";
+
+import { Check } from "javascript-tool-class/src/App";
+public myCheck = new Check();
+myCheck.isMPRelaxed(value)
+```
 
 
 
