@@ -1,12 +1,12 @@
-# [个人npm组件库zzmcomponentlib](https://www.npmjs.com/package/zzmcomponentlib)
+# [个人NPM组件库zzmcomponentlib](https://www.npmjs.com/package/zzmcomponentlib)
 
 与大家分享自己所涉及到的npm知识
 
 # 安装
-npm install zzmcomponentlib --save-dev
+`npm install zzmcomponentlib --save-dev`
 
 # 卸载
-npm uninstall zzmcomponentlib 
+`npm uninstall zzmcomponentlib`
 
 
 
