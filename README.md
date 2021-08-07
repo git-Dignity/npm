@@ -1,4 +1,4 @@
-# [zzmcomponentlib](https://www.npmjs.com/package/zzmcomponentlib)
+# [个人组件库zzmcomponentlib](https://www.npmjs.com/package/zzmcomponentlib)
 
 
 # npm
