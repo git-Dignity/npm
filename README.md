@@ -1,16 +1,15 @@
 # [npm工具类](https://www.npmjs.com/package/javascript-tool-class)
 
-与大家分享自己所涉及到的npm知识
+与大家分享自己所涉及到的npm知识，将常用方法封装成工具类
 
 # 安装
-`npm install zzmcomponentlib --save-dev`
+`npm install javascript-tool-class --save-dev`
 
 # 卸载
-`npm uninstall zzmcomponentlib`
+`npm uninstall javascript-tool-class`
 
 # 使用
 ```
-import myTool from "@/utils/tool/javascript-tool-class";
 
 import { Check } from "javascript-tool-class/src/App";
 public myCheck = new Check();
