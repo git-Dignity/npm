@@ -5,7 +5,11 @@ class Check{
 
     }
 
-    // 验证不能包含字母
+    /**
+      * @description: 验证不能包含字母
+      * @param { String } value
+      * @return { Boolean } true / false
+    */
     isNoWord (value ){
         return  /^[^A-Za-z]*$/g.test(value); 
     }

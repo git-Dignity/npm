@@ -1,3 +1,4 @@
+
 // 前端的各种日期操作
 
 class DateOperation{
@@ -5,7 +6,10 @@ class DateOperation{
 
     }
 
-    // 获取当前时间戳
+    /**
+      * @description: 获取当前时间戳
+      * @return { Number } 
+    */
     get_current_timestamp(){
         return Date.parse(new  Date())
     }

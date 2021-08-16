@@ -9,12 +9,16 @@ class Storage{
     // localStorage 长期存储在浏览器
 
 
-    //  localStorage 存贮
-    //  * 目前对象值如果是函数 、RegExp等特殊对象存贮会被忽略
-    // JSON 不允许包含函数，JSON.stringify() 会删除 JavaScript 对象的函数，包括 key 和 value。
-    // JSON 不允许包含正则，JSON.stringify() 会删除 正则 对象，value，key保留。
-    //  * @param { String } key  属性
-    //  * @param { string } value 值
+    /**
+      * @description: 存贮
+      * @description: 目前对象值如果是函数 、RegExp等特殊对象存贮会被忽略
+      * @description: JSON 不允许包含函数，JSON.stringify() 会删除 JavaScript 对象的函数，包括 key 和 value。
+      * @description: JSON 不允许包含正则，JSON.stringify() 会删除 正则 对象，value，key保留。
+      * @param {HTMLElement} el
+      * @param { String } key  属性
+      * @param { String } value 值
+      * @return 
+    */
     localStorageSet (key, value){
         if (typeof (value) === 'object') value = JSON.stringify(value);
         localStorage.setItem(key, value)

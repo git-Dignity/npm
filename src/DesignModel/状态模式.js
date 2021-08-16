@@ -38,7 +38,7 @@ class Context{
 
 //有限状态机
 import StateMachine  from 'javascript-state-machine'
-import $ from 'jquery'
+// import $ from 'jquery'
 import updateText from './js/状态管理update'
 
 //像取消关注’取消点赞这些都可以用这个

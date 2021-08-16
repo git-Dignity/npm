@@ -562,17 +562,17 @@ import { myAxios } from './HandWrit/myAxios/myAxios'
          * 添加拦截器
          */
         // axios(config)这种形式调用axios
-        myAxios({
-            method: 'get',
-            url: 'https://zhengzemin.cn/dist/static/fonts/element-icons.535877f.woff'
-        }).then(res =>{
-            console.log('getAxios 成功响应',res)
-        }).catch(err =>{
-            console.log(err)
-        })
+        // myAxios({
+        //     method: 'get',
+        //     url: 'https://zhengzemin.cn/dist/static/fonts/element-icons.535877f.woff'
+        // }).then(res =>{
+        //     console.log('getAxios 成功响应',res)
+        // }).catch(err =>{
+        //     console.log(err)
+        // })
 
 
-        // //  添加请求拦截器
+        //  添加请求拦截器
         // myAxios.interceptors.request.use(function (config) {
         //     // 在发送请求之前做些什么
         //     config.method = "get";
@@ -597,7 +597,7 @@ import { myAxios } from './HandWrit/myAxios/myAxios'
 
 
 
-        // axios.get()这种形式调用axios
+        // // axios.get()这种形式调用axios
         // myAxios.get('https://zhengzemin.cn/dist/static/fonts/element-icons.535877f.woff').then(res =>{
         //     console.log(res)
         // })

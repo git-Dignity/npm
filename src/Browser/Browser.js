@@ -5,7 +5,10 @@ class Browser{
 
     }
 
-    // 返回当前url
+    /**
+      * @description: 返回当前url
+      * @return { String } 
+    */
     currentURL (){
         return window.location.href;
     }

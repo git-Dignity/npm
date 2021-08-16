@@ -1,3 +1,4 @@
+
 // import  React  from  'react'
 // import ReactDom from 'react-dom'
 
@@ -19,40 +20,65 @@ class Tool {
     //     )
     // }
 
-    // 如何隐藏所有指定的元素
+    /**
+      * @description: 如何隐藏所有指定的元素
+      * @param {HTMLElement} el
+      * @return 
+    */
     hide(el) {
         Array.from(el).forEach(e => (e.style.display = 'none'));
     }
 
-    // 如何检查元素是否具有指定的类？
+    /**
+      * @description: 如何检查元素是否具有指定的类？
+      * @param {HTMLElement} el
+      * @param {String} className
+      * @return { Boolean } true/false
+    */
     hasClass(el, className) {
         return el.classList.contains(className)
     }
 
-    // 如何切换一个元素的类? 有类就删除，无类就添加
+    /**
+      * @description: 如何切换一个元素的类? 有类就删除，无类就添加
+      * @param {HTMLElement} el
+      * @param {String} className
+      * @return 
+    */
     toggleClass(el, className) {
         el.classList.toggle(className)
     }
 
-    // 如何获取当前页面的滚动位置？
+    /**
+      * @description: 如何获取当前页面的滚动位置？
+      * @description: scrollLeft和scrollTop是IE8可兼容
+      * @param {HTMLElement} el
+      * @return { Object } {x: 0, y: 200}
+    */
     getScrollPosition(el = window) {
         return {
             x: el.pageXOffset !== undefined ? el.pageXOffset : el.scrollLeft,
             y: el.pageYOffset !== undefined ? el.pageYOffset : el.scrollTop
         }
-
-        //   scrollLeft和scrollTop是IE8可兼容
     }
 
-    // 如何检查父元素是否包含子元素？
+    /**
+      * @description: 如何检查父元素是否包含子元素？
+      * @param {HTMLElement} parent
+      * @param {HTMLElement} child
+      * @return { Boolean } true/false
+    */
     elementContains(parent, child) {
         return parent !== child && parent.contains(child);
     }
 
-    // 如何检查指定的元素在视口中是否可见？
+    /**
+      * @description: 如何检查指定的元素在视口中是否可见？
+      * @param {HTMLElement} el
+      * @param {HTMLElement} partiallyVisible = false partiallyVisible是否开启全屏； 为true 需要全屏(上下左右)可以见
+      * @return { Boolean } true/false
+    */
     elementIsVisibleInViewport(el, partiallyVisible = false) {
-        // partiallyVisible是否开启全屏； 为true 需要全屏(上下左右)可以见
-
         const { top, left, bottom, right } = el.getBoundingClientRect();
         const { innerHeight, innerWidth } = window;
         return partiallyVisible
@@ -61,39 +87,63 @@ class Tool {
             : top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth;
     }
 
-    // 如何获取元素中的所有图像？
+    /**
+      * @description: 如何获取元素中的所有图像？
+      * @param {HTMLElement} el
+      * @param {Boolean} includeDuplicates = false false：去重；true：不去重
+      * @return { Array } ['image1.jpg', 'image2.png', 'image1.png', '...']
+    */
     getImages(el, includeDuplicates = false) {
-        // includeDuplicates为false就是去重，true不去重
-
         const images = [...el.getElementsByTagName('img')].map(img => img.getAttribute('src'));
         return includeDuplicates ? images : [...new Set(images)];
     }
 
-    // 如何确定设备是移动设备还是台式机/笔记本电脑？
+    /**
+      * @description: 如何确定设备是移动设备还是台式机/笔记本电脑？
+      * @return { String } 'Mobile' / 'Desktop'
+    */
     detectDeviceType() {
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
     }
 
-    // 获取当前url
+    /**
+      * @description: 获取当前url
+      * @return { String } 
+    */
     currentURL() {
         return window.location.href
     }
 
-    // 如何创建一个包含当前URL参数的对象？
+    /**
+      * @description: 如何创建一个包含当前URL参数的对象？
+      * @description: reduce() 对于空数组是不会执行回调函数的。
+      * @param { String } url
+      * @return { Object } {n: 'Adam', s: 'Smith'}
+    */
     getURLParameters(url) {
-        // reduce() 对于空数组是不会执行回调函数的。
         return (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce(
             (a, v) => ((a[v.slice(0, v.indexOf('='))] = v.slice(v.indexOf('=') + 1)), a),
             {}
         );
     }
 
-    // 如何从元素中移除事件监听器?
+    /**
+      * @description: 如何从元素中移除事件监听器?
+      * @param {HTMLElement} el
+      * @param { String } evt 事件类型 如：'click'
+      * @param { Function } fn 绑定函数
+      * @param { Boolean } opts = false 指定移除事件句柄的阶段。true：在捕获阶段移除事件句柄；false- 默认：在冒泡阶段移除事件句柄
+      * @return 
+    */
     off(el, evt, fn, opts = false) {
         el.removeEventListener(evt, fn, opts);
     }
 
-    // 如何获得给定毫秒数的可读格式？   1000ms = 1s
+    /**
+     * @description: 如何获得给定毫秒数的可读格式？
+     * @param {Number} ms 毫秒数
+     * @return { String }  1000ms = 1s
+     */    
     formatDuration(ms) {
         if (ms < 0) ms = -ms;
         const time = {
@@ -110,8 +160,13 @@ class Tool {
     }
 
 
-
-    // 如何向传递的URL发出GET请求？
+    /**
+     * @description: 如何向传递的URL发出GET请求？
+     * @param { String } url
+     * @param {Function} callback 成功回调函数
+     * @param {Function} err 失败回调函数
+     * @return {*}
+     */    
     httpGet(url, callback, err = console.error) {
         const request = new XMLHttpRequest();
         request.open('GET', url, true);
@@ -120,7 +175,14 @@ class Tool {
         request.send();
     }
 
-    // 如何对传递的URL发出POST请求？
+    /**
+     * @description: 如何对传递的URL发出POST请求？
+     * @param { String } url
+     * @param { Object } data
+     * @param {Function} callback 成功回调函数
+     * @param {Function} err 失败回调函数
+     * @return {*}
+     */    
     httpPost(url, data, callback, err = console.error) {
         const request = new XMLHttpRequest();
         request.open('POST', url, true);
@@ -130,7 +192,11 @@ class Tool {
         request.send(data);
     }
 
-    // 如何将字符串复制到剪贴板？
+    /**
+     * @description: 如何将字符串复制到剪贴板？
+     * @param {String} str
+     * @return {*}
+     */    
     copyToClipboard(str) {
         const el = document.createElement('textarea');
         el.value = str;
@@ -147,19 +213,27 @@ class Tool {
             document.getSelection().removeAllRanges();
             document.getSelection().addRange(selected);
         }
-
     }
 
 
     // 常用的工具函数，包含数字，字符串，数组和对象等等操作。
 
 
-    // 金钱格式化，三位加逗号
+    /**
+     * @description: 金钱格式化，三位加逗号
+     * @param {Number} num
+     * @return {String} 5,465,615,654,465
+     */    
     formatMoney(num) {
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
-    // 截取字符串并加省略号
+    /**
+     * @description: 截取字符串并加省略号
+     * @param {String} str
+     * @param {Number} length
+     * @return {String} abcd....
+     */    
     subText(str, length) {
         if (str.length === 0) {
             return '';
@@ -171,8 +245,11 @@ class Tool {
         }
     }
 
-    // B转换到KB,MB,GB并保留两位小数
-    // @param { number } fileSize
+    /**
+     * @description: B转换到KB,MB,GB并保留两位小数
+     * @param {Number} fileSize
+     * @return {String} 1254 -> 1.22KB
+     */    
     formatFileSize(fileSize) {
         let temp;
         if (fileSize < 1024) {
@@ -192,7 +269,12 @@ class Tool {
         }
     }
 
-    // 查询数组中是否存在某个元素并返回元素第一次出现的下标
+    /**
+     * @description: 查询数组中是否存在某个元素并返回元素第一次出现的下标
+     * @param {*} item 要查询的元素
+     * @param {Array} data
+     * @return {Number} 元素第一次出现的下标
+     */    
     inArray(item, data) {
         for (let i = 0; i < data.length; i++) {
             if (item === data[i]) {
@@ -202,7 +284,11 @@ class Tool {
         return -1;
     }
 
-    // Windows根据详细版本号判断当前系统名称
+    /**
+     * @description: Windows根据详细版本号判断当前系统名称
+     * @param {String} osVersion 详细版本号
+     * @return {String} 当前系统名称
+     */    
     OutOsName(osVersion) {
         if (!osVersion) {
             return
@@ -229,7 +315,10 @@ class Tool {
         }
     }
 
-    // 判断手机是Andoird还是IOS
+    /**
+     * @description: 判断手机是Andoird还是IOS
+     * @return {String}
+     */    
     getOSType() {
         let u = navigator.userAgent, app = navigator.appVersion;
         let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1;
@@ -244,23 +333,29 @@ class Tool {
     }
 
 
+    
     /**
-     * 判断是否是移动端
-     */
+     * @description: 判断是否是移动端
+     * @return {Boolean}
+     */    
     isMobile() {
         return 'ontouchstart' in window
     }
 
-    // 函数防抖
-    //  * @param { function } func
-    //  * @param { number } wait 延迟执行毫秒数
-    //  * @param { boolean } immediate  true 表立即执行，false 表非立即执行
-    //  非立即执行版的意思是触发事件后函数不会立即执行，而是在 n 秒后执行，如果在 n 秒内又触发了事件，则会重新计算函数执行时间。
-    //  非立即执行版解说：第一开始进来，timeout为null，不用清空，走else等待一秒执行函数，在这期间，又执行这个函数，timeout不为空，清除一下定时器，又继续来等待一秒
-    //  立即执行版的意思是触发事件后函数会立即执行，然后 n 秒内不触发事件才能继续执行函数的效果。
-    //  立即执行版解说：timeout为null，callNow为true，执行函数,无触发定时器；
-    //  一秒内，又调用这个函数，清空定时器（因为timeout为true），callNow为false，不执行函数；timeout为true，开启定时器，等待一秒无人访问就将timeout设null
-    debounce(func, wait, immediate) {
+  
+    /**
+     * @description: 函数防抖
+     * @description: 非立即执行版的意思是触发事件后函数不会立即执行，而是在 n 秒后执行，如果在 n 秒内又触发了事件，则会重新计算函数执行时间。
+     * @description: 非立即执行版解说：第一开始进来，timeout为null，不用清空，走else等待一秒执行函数，在这期间，又执行这个函数，timeout不为空，清除一下定时器，又继续来等待一秒
+     * @description: 立即执行版的意思是触发事件后函数会立即执行，然后 n 秒内不触发事件才能继续执行函数的效果。
+     * @description: 立即执行版解说：timeout为null，callNow为true，执行函数,无触发定时器；
+     * @description: 一秒内，又调用这个函数，清空定时器（因为timeout为true），callNow为false，不执行函数；timeout为true，开启定时器，等待一秒无人访问就将timeout设null
+     * @param {Function} func
+     * @param {Number} wait 延迟执行毫秒数
+     * @param {Boolean} immediate = false true：表立即执行；false：表非立即执行
+     * @return {*}
+     */    
+    debounce(func, wait, immediate = false) {
         let timeout;
         return function () {
             let context = this;
@@ -286,11 +381,15 @@ class Tool {
         }
     }
 
-    // 函数节流:限制一个函数在一定时间内只能执行一次。
-    // * @param { function } func 函数
-    // * @param { number } wait 延迟执行毫秒数
-    // * @param { number } type 1 表时间戳版，2 表定时器版
-    throttle(func, wait, type) {
+    /**
+     * @description: 函数节流
+     * @description: 限制一个函数在一定时间内只能执行一次。
+     * @param {Function} func 函数
+     * @param {Number} wait 延迟执行毫秒数
+     * @param {Number} type = 1  1：表时间戳版；2：表定时器版
+     * @return {*}
+     */    
+    throttle(func, wait, type = 1) {
         let previous, timeout;
         if (type === 1) {
             previous = 0;
@@ -318,7 +417,11 @@ class Tool {
         }
     }
 
-    // 判断数据类型
+    /**
+     * @description: 判断数据类型
+     * @param {*} target
+     * @return {String}
+     */    
     type(target) {
         let ret = typeof (target);
         let template = {
@@ -339,14 +442,21 @@ class Tool {
         }
     }
 
-    // 生成指定范围随机数
-    // @param { number } min 
-    // @param { number } max 
+    /**
+     * @description: 生成指定范围随机数
+     * @param {number } min 
+     * @param {number} max
+     * @return {Number}
+     */    
     RandomNum(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    // 数组乱序
+    /**
+     * @description: 数组乱序
+     * @param {Array} arr
+     * @return {Array}
+     */    
     arrScrambling(arr) {
         let array = arr;
         let index = array.length;
@@ -363,25 +473,37 @@ class Tool {
         return array
     }
 
-    // 数组交集
-    // @param { array} arr1
-    // @param { array } arr2
+    /**
+     * @description: 数组交集
+     * @param {Array} arr1
+     * @param {Array} arr2
+     * @return {Array}
+     */    
     similarity(arr1, arr2) {
         return arr1.filter(v => arr2.includes(v));;
     }
 
-    // 数组中某元素出现的次数  ([1,2,2,3],2)
+    /**
+     * @description: 数组中某元素出现的次数  ([1,2,2,3],2)
+     * @description: 最后面那个0是我们将index索引从0开始，也就是a默认为0
+     * @description: reduce第一个参数的计算后的返回值，这里来说，a为0，因为后面加上参数0
+     * @description: reduce第二个参数是数组的第n个
+     * @param {Array} arr
+     * @param {Number/String} value
+     * @return {Number}
+     */    
     countOccurrences(arr, value) {
         return arr.reduce((a, v) => v === value ? a + 1 : a + 0, 0);
-        //最后面那个0是我们将index索引从0开始，也就是a默认为0
-        // reduce第一个参数的计算后的返回值，这里来说，a为0，因为后面加上参数0
-        // reduce第二个参数是数组的第n个
     }
 
-    // 加法函数（精度丢失问题）
-    // 还有解决方式：把小数放到位整数（乘倍数），再缩小回原来倍数（除倍数）
-    // 0.1 + 0.2
-    // (0.1*10 + 0.2*10) / 10 == 0.3 // true
+    /**
+     * @description: 加法函数（精度丢失问题）
+     * @description: 还有解决方式：把小数放到位整数（乘倍数），再缩小回原来倍数（除倍数）
+     * @description: 0.1 + 0.2  ->  (0.1*10 + 0.2*10) / 10 == 0.3   // true
+     * @param {Number} arg1
+     * @param {Number} arg2
+     * @return {Number}
+     */    
     add(arg1, arg2) {
         let r1, r2, m;
         try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
@@ -391,7 +513,12 @@ class Tool {
     }
 
 
-    // 减法函数（精度丢失问题）
+    /**
+     * @description: 减法函数（精度丢失问题）
+     * @param {*} arg1
+     * @param {*} arg2
+     * @return {*}
+     */    
     sub(arg1, arg2) {
         let r1, r2, m, n;
         try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
