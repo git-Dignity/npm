@@ -17,7 +17,7 @@ class Storage{
       * @param {HTMLElement} el
       * @param { String } key  属性
       * @param { String } value 值
-      * @return 
+      * @return  { * }
     */
     localStorageSet (key, value){
         if (typeof (value) === 'object') value = JSON.stringify(value);

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Date/Date.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Axios.html">Axios</a></li><li><a href="Tool.html">Tool</a><ul class='methods'><li data-type='method'><a href="Tool.html#add">add</a></li><li data-type='method'><a href="Tool.html#arrScrambling">arrScrambling</a></li><li data-type='method'><a href="Tool.html#copyToClipboard">copyToClipboard</a></li><li data-type='method'><a href="Tool.html#countOccurrences">countOccurrences</a></li><li data-type='method'><a href="Tool.html#currentURL">currentURL</a></li><li data-type='method'><a href="Tool.html#dataType">dataType</a></li><li data-type='method'><a href="Tool.html#debounce">debounce</a></li><li data-type='method'><a href="Tool.html#detectDeviceType">detectDeviceType</a></li><li data-type='method'><a href="Tool.html#elementContains">elementContains</a></li><li data-type='method'><a href="Tool.html#elementIsVisibleInViewport">elementIsVisibleInViewport</a></li><li data-type='method'><a href="Tool.html#formatDuration">formatDuration</a></li><li data-type='method'><a href="Tool.html#formatFileSize">formatFileSize</a></li><li data-type='method'><a href="Tool.html#formatMoney">formatMoney</a></li><li data-type='method'><a href="Tool.html#getChildInParentIndex">getChildInParentIndex</a></li><li data-type='method'><a href="Tool.html#getImages">getImages</a></li><li data-type='method'><a href="Tool.html#getOSType">getOSType</a></li><li data-type='method'><a href="Tool.html#getScrollPosition">getScrollPosition</a></li><li data-type='method'><a href="Tool.html#getURLParameters">getURLParameters</a></li><li data-type='method'><a href="Tool.html#hasClass">hasClass</a></li><li data-type='method'><a href="Tool.html#hide">hide</a></li><li data-type='method'><a href="Tool.html#httpGet">httpGet</a></li><li data-type='method'><a href="Tool.html#httpPost">httpPost</a></li><li data-type='method'><a href="Tool.html#inArray">inArray</a></li><li data-type='method'><a href="Tool.html#isMobile">isMobile</a></li><li data-type='method'><a href="Tool.html#listChunk">listChunk</a></li><li data-type='method'><a href="Tool.html#off">off</a></li><li data-type='method'><a href="Tool.html#OutOsName">OutOsName</a></li><li data-type='method'><a href="Tool.html#RandomNum">RandomNum</a></li><li data-type='method'><a href="Tool.html#removeHTML">removeHTML</a></li><li data-type='method'><a href="Tool.html#setFade">setFade</a></li><li data-type='method'><a href="Tool.html#similarity">similarity</a></li><li data-type='method'><a href="Tool.html#stopCopyOrPaste">stopCopyOrPaste</a></li><li data-type='method'><a href="Tool.html#sub">sub</a></li><li data-type='method'><a href="Tool.html#subText">subText</a></li><li data-type='method'><a href="Tool.html#throttle">throttle</a></li><li data-type='method'><a href="Tool.html#toggleClass">toggleClass</a></li><li data-type='method'><a href="Tool.html#type">type</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#objectFactory">objectFactory</a></li><li><a href="global.html#PENDING">PENDING</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Date/Date.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
+// 前端的各种日期操作
+
+class DateOperation{
+    constructor(){
+
+    }
+
+    /**
+      * @description: 获取当前时间戳
+      * @return { Number } 
+    */
+    get_current_timestamp(){
+        return Date.parse(new  Date())
+    }
+
+    // 获取指定时间戳
+    // 支持格式："2019/10/24 08:00:00"、"2019-10-24 08:00:00"
+    get_appoint_timestamp(str){
+        return (new Date(str)).getTime();
+    }
+
+    // 判断一个时间是否在两个时间范围内，返回true或false
+    nowInDateBetwen(d1, d2, date) {
+        //如果时间格式是正确的，那下面这一步转化时间格式就可以不用了
+        var dateBegin = new Date(d1.replace(/-/g, "/"));//将-转化为/，使用new Date
+        var dateEnd = new Date(d2.replace(/-/g, "/"));//将-转化为/，使用new Date
+        var dateNow = new Date(date.replace(/-/g, "/"));//将-转化为/，使用new Date
+        //var dateBegin = new Date(d1);//将-转化为/，使用new Date
+        //var dateEnd = new Date(d2);//将-转化为/，使用new Date
+        //var dateNow = new Date();//获取当前时间
+    
+        var beginDiff = dateNow.getTime() - dateBegin.getTime();//时间差的毫秒数
+        var beginDayDiff = Math.floor(beginDiff / (24 * 3600 * 1000));//计算出相差天数
+    
+        var endDiff = dateEnd.getTime() - dateNow.getTime();//时间差的毫秒数
+        var endDayDiff = Math.floor(endDiff / (24 * 3600 * 1000));//计算出相差天数
+        if (endDayDiff &lt; 0) {//已过期
+            return false
+        }
+        if (beginDayDiff &lt; 0) {//没到开始时间
+            return false;
+        }
+        if (endDayDiff == 0) {
+            return true
+        }
+        if (beginDayDiff == 0) {
+            return true;
+        }
+        return true;
+    }
+
+
+    // 如何获得两个日期之间的差异（以天为单位）？
+    // 两个new Date()相减得到毫秒
+    getDaysDiffBetweenDates(dateInitial, dateFinal){
+        // console.log(dateFinal-dateInitial)
+        return (dateFinal - dateInitial) / (1000 * 3600 * 24);
+    }
+
+
+    /**
+     * 将指定格式的字符串解析为日期字符串
+     * @param {string} str  "12-25-1995"
+     * @param {string} format 
+     * return Mon Dec 25 1995 00:00:00 GMT+0800 (中国标准时间)
+     * exec()接受一个参数，即要应用模式的字符串，然后返回包含第一个匹配项信息的数组;或者在没有匹配项的情况下返回null.
+     */
+    dataPattern(str, format = '-') {
+        if (!str) {
+            return new Date()
+        }
+        const dateReg = new RegExp(`^(\\d{2})${format}(\\d{2})${format}(\\d{4})$`)
+        // console.log(dateReg.exec(str))
+        const [, month, day, year] = dateReg.exec(str)
+        // console.log(`${month}, ${day} ${year}`)
+        return new Date(`${month}, ${day} ${year}`)
+    }
+
+
+
+}
+
+
+
+export {DateOperation}</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Tue Aug 17 2021 22:58:23 GMT+0800 (GMT+08:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+</body>
+</html>

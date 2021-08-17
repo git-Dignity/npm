@@ -1,4 +1,50 @@
-// ES6 方法，用来解决实际开发的 JS 问题
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>JsLib/Tool.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Axios.html">Axios</a></li><li><a href="Tool.html">Tool</a><ul class='methods'><li data-type='method'><a href="Tool.html#add">add</a></li><li data-type='method'><a href="Tool.html#arrScrambling">arrScrambling</a></li><li data-type='method'><a href="Tool.html#copyToClipboard">copyToClipboard</a></li><li data-type='method'><a href="Tool.html#countOccurrences">countOccurrences</a></li><li data-type='method'><a href="Tool.html#currentURL">currentURL</a></li><li data-type='method'><a href="Tool.html#dataType">dataType</a></li><li data-type='method'><a href="Tool.html#debounce">debounce</a></li><li data-type='method'><a href="Tool.html#detectDeviceType">detectDeviceType</a></li><li data-type='method'><a href="Tool.html#elementContains">elementContains</a></li><li data-type='method'><a href="Tool.html#elementIsVisibleInViewport">elementIsVisibleInViewport</a></li><li data-type='method'><a href="Tool.html#formatDuration">formatDuration</a></li><li data-type='method'><a href="Tool.html#formatFileSize">formatFileSize</a></li><li data-type='method'><a href="Tool.html#formatMoney">formatMoney</a></li><li data-type='method'><a href="Tool.html#getChildInParentIndex">getChildInParentIndex</a></li><li data-type='method'><a href="Tool.html#getImages">getImages</a></li><li data-type='method'><a href="Tool.html#getOSType">getOSType</a></li><li data-type='method'><a href="Tool.html#getScrollPosition">getScrollPosition</a></li><li data-type='method'><a href="Tool.html#getURLParameters">getURLParameters</a></li><li data-type='method'><a href="Tool.html#hasClass">hasClass</a></li><li data-type='method'><a href="Tool.html#hide">hide</a></li><li data-type='method'><a href="Tool.html#httpGet">httpGet</a></li><li data-type='method'><a href="Tool.html#httpPost">httpPost</a></li><li data-type='method'><a href="Tool.html#inArray">inArray</a></li><li data-type='method'><a href="Tool.html#isMobile">isMobile</a></li><li data-type='method'><a href="Tool.html#listChunk">listChunk</a></li><li data-type='method'><a href="Tool.html#off">off</a></li><li data-type='method'><a href="Tool.html#OutOsName">OutOsName</a></li><li data-type='method'><a href="Tool.html#RandomNum">RandomNum</a></li><li data-type='method'><a href="Tool.html#removeHTML">removeHTML</a></li><li data-type='method'><a href="Tool.html#setFade">setFade</a></li><li data-type='method'><a href="Tool.html#similarity">similarity</a></li><li data-type='method'><a href="Tool.html#stopCopyOrPaste">stopCopyOrPaste</a></li><li data-type='method'><a href="Tool.html#sub">sub</a></li><li data-type='method'><a href="Tool.html#subText">subText</a></li><li data-type='method'><a href="Tool.html#throttle">throttle</a></li><li data-type='method'><a href="Tool.html#toggleClass">toggleClass</a></li><li data-type='method'><a href="Tool.html#type">type</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#objectFactory">objectFactory</a></li><li><a href="global.html#PENDING">PENDING</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">JsLib/Tool.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// ES6 方法，用来解决实际开发的 JS 问题
 
 /**
  * 工具类
@@ -74,7 +120,7 @@ class Tool {
       * elementContains(document.querySelector('head'), document.querySelector('body')) // false
     */
     elementContains(parent, child) {
-        return parent !== child && parent.contains(child);
+        return parent !== child &amp;&amp; parent.contains(child);
     }
 
     /**
@@ -87,9 +133,9 @@ class Tool {
         const { top, left, bottom, right } = el.getBoundingClientRect();
         const { innerHeight, innerWidth } = window;
         return partiallyVisible
-            ? ((top > 0 && top < innerHeight) || (bottom > 0 && bottom < innerHeight)) &&
-            ((left > 0 && left < innerWidth) || (right > 0 && right < innerWidth))
-            : top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth;
+            ? ((top > 0 &amp;&amp; top &lt; innerHeight) || (bottom > 0 &amp;&amp; bottom &lt; innerHeight)) &amp;&amp;
+            ((left > 0 &amp;&amp; left &lt; innerWidth) || (right > 0 &amp;&amp; right &lt; innerWidth))
+            : top >= 0 &amp;&amp; left >= 0 &amp;&amp; bottom &lt;= innerHeight &amp;&amp; right &lt;= innerWidth;
     }
 
     /**
@@ -126,7 +172,7 @@ class Tool {
       * @return { Object } {n: 'Adam', s: 'Smith'}
     */
     getURLParameters(url) {
-        return (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce(
+        return (url.match(/([^?=&amp;]+)(=([^&amp;]*))/g) || []).reduce(
             (a, v) => ((a[v.slice(0, v.indexOf('='))] = v.slice(v.indexOf('=') + 1)), a),
             {}
         );
@@ -150,7 +196,7 @@ class Tool {
      * @return { String }  1000ms = 1s
      */    
     formatDuration(ms) {
-        if (ms < 0) ms = -ms;
+        if (ms &lt; 0) ms = -ms;
         const time = {
             day: Math.floor(ms / 86400000),
             hour: Math.floor(ms / 3600000) % 24,
@@ -257,13 +303,13 @@ class Tool {
      */    
     formatFileSize(fileSize) {
         let temp;
-        if (fileSize < 1024) {
+        if (fileSize &lt; 1024) {
             return fileSize + 'B';
-        } else if (fileSize < (1024 * 1024)) {
+        } else if (fileSize &lt; (1024 * 1024)) {
             temp = fileSize / 1024;
             temp = temp.toFixed(2);
             return temp + 'KB';
-        } else if (fileSize < (1024 * 1024 * 1024)) {
+        } else if (fileSize &lt; (1024 * 1024 * 1024)) {
             temp = fileSize / (1024 * 1024);
             temp = temp.toFixed(2);
             return temp + 'MB';
@@ -281,7 +327,7 @@ class Tool {
      * @return {Number} 元素第一次出现的下标
      */    
     inArray(item, data) {
-        for (let i = 0; i < data.length; i++) {
+        for (let i = 0; i &lt; data.length; i++) {
             if (item === data[i]) {
                 return i;
             }
@@ -577,7 +623,7 @@ class Tool {
     // fact(3, 120)
     // fact(2, 360)
     // fact(1, 720)
-    // 720 // <= 最终的结果
+    // 720 // &lt;= 最终的结果
     // 其实只是最后一个我们想要而已，中间那些计算的（430-434行），我们不想要保存栈里面浪费资源，尾递归就是将中间那些操作优化掉
 
 
@@ -626,7 +672,7 @@ class Tool {
     // * @param { string } str 待处理字符串
     // * @param  { number } type 去除空格类型 1-所有空格  2-前后空格  3-前空格 4-后空格 默认为1
     trim(str, type = 1) {
-        if (type && type !== 1 && type !== 2 && type !== 3 && type !== 4) return;
+        if (type &amp;&amp; type !== 1 &amp;&amp; type !== 2 &amp;&amp; type !== 3 &amp;&amp; type !== 4) return;
         switch (type) {
             case 1:
                 return str.replace(/\s/g, "");
@@ -665,7 +711,7 @@ class Tool {
     hexColor() {
         let str = '#';
         let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F'];
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i &lt; 6; i++) {
             let index = Number.parseInt((Math.random() * 16).toString());
             str += arr[index]
         }
@@ -682,14 +728,14 @@ class Tool {
     // 转义html(防XSS攻击)
     escapeHTML(str) {
         return str.replace(
-            /[&<>'"]/g,
+            /[&amp;&lt;>'"]/g,
             tag =>
                 ({
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    "'": '&#39;',
-                    '"': '&quot;'
+                    '&amp;': '&amp;amp;',
+                    '&lt;': '&amp;lt;',
+                    '>': '&amp;gt;',
+                    "'": '&amp;#39;',
+                    '"': '&amp;quot;'
                 }[tag] || tag)
         );
     }
@@ -715,7 +761,7 @@ class Tool {
      */
     listChunk(list, size = 1, cacheList = []) {
         var tmp = [...list]
-        if (size <= 0) {
+        if (size &lt;= 0) {
             return cacheList;
         }
 
@@ -776,7 +822,7 @@ class Tool {
             el.style.opacity = +el.style.opacity + opacityValue
             last = +new Date()
             if (type === 'in'
-                ? (+el.style.opacity < 1)
+                ? (+el.style.opacity &lt; 1)
                 : (+el.style.opacity > 0)) {
                 requestAnimationFrame(tick)
             }
@@ -792,7 +838,7 @@ class Tool {
      */
     stopCopyOrPaste(isStopCopy = true, isStopPaste = true) {
         const html = document.querySelector('html');
-        if (isStopCopy && isStopPaste) {
+        if (isStopCopy &amp;&amp; isStopPaste) {
             html.oncopy = () => false;
             html.onpaste = () => false;
             return;
@@ -814,7 +860,7 @@ class Tool {
      * @param {string} str 
      */
     removeHTML (str = ''){
-        return str.replace(/<[\/\!]*[^<>]*>/ig, '')
+        return str.replace(/&lt;[\/\!]*[^&lt;>]*>/ig, '')
     }
 
 
@@ -838,4 +884,30 @@ class Tool {
 
 }
 
-export { Tool }
+export { Tool }</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Tue Aug 17 2021 22:58:23 GMT+0800 (GMT+08:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Storage/Storage.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Axios.html">Axios</a></li><li><a href="Tool.html">Tool</a><ul class='methods'><li data-type='method'><a href="Tool.html#add">add</a></li><li data-type='method'><a href="Tool.html#arrScrambling">arrScrambling</a></li><li data-type='method'><a href="Tool.html#copyToClipboard">copyToClipboard</a></li><li data-type='method'><a href="Tool.html#countOccurrences">countOccurrences</a></li><li data-type='method'><a href="Tool.html#currentURL">currentURL</a></li><li data-type='method'><a href="Tool.html#dataType">dataType</a></li><li data-type='method'><a href="Tool.html#debounce">debounce</a></li><li data-type='method'><a href="Tool.html#detectDeviceType">detectDeviceType</a></li><li data-type='method'><a href="Tool.html#elementContains">elementContains</a></li><li data-type='method'><a href="Tool.html#elementIsVisibleInViewport">elementIsVisibleInViewport</a></li><li data-type='method'><a href="Tool.html#formatDuration">formatDuration</a></li><li data-type='method'><a href="Tool.html#formatFileSize">formatFileSize</a></li><li data-type='method'><a href="Tool.html#formatMoney">formatMoney</a></li><li data-type='method'><a href="Tool.html#getChildInParentIndex">getChildInParentIndex</a></li><li data-type='method'><a href="Tool.html#getImages">getImages</a></li><li data-type='method'><a href="Tool.html#getOSType">getOSType</a></li><li data-type='method'><a href="Tool.html#getScrollPosition">getScrollPosition</a></li><li data-type='method'><a href="Tool.html#getURLParameters">getURLParameters</a></li><li data-type='method'><a href="Tool.html#hasClass">hasClass</a></li><li data-type='method'><a href="Tool.html#hide">hide</a></li><li data-type='method'><a href="Tool.html#httpGet">httpGet</a></li><li data-type='method'><a href="Tool.html#httpPost">httpPost</a></li><li data-type='method'><a href="Tool.html#inArray">inArray</a></li><li data-type='method'><a href="Tool.html#isMobile">isMobile</a></li><li data-type='method'><a href="Tool.html#listChunk">listChunk</a></li><li data-type='method'><a href="Tool.html#off">off</a></li><li data-type='method'><a href="Tool.html#OutOsName">OutOsName</a></li><li data-type='method'><a href="Tool.html#RandomNum">RandomNum</a></li><li data-type='method'><a href="Tool.html#removeHTML">removeHTML</a></li><li data-type='method'><a href="Tool.html#setFade">setFade</a></li><li data-type='method'><a href="Tool.html#similarity">similarity</a></li><li data-type='method'><a href="Tool.html#stopCopyOrPaste">stopCopyOrPaste</a></li><li data-type='method'><a href="Tool.html#sub">sub</a></li><li data-type='method'><a href="Tool.html#subText">subText</a></li><li data-type='method'><a href="Tool.html#throttle">throttle</a></li><li data-type='method'><a href="Tool.html#toggleClass">toggleClass</a></li><li data-type='method'><a href="Tool.html#type">type</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#objectFactory">objectFactory</a></li><li><a href="global.html#PENDING">PENDING</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Storage/Storage.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// 浏览器存储相关storage工具函数
+
+class Storage{
+    constructor(){
+
+    }
+
+
+    // localStorage 长期存储在浏览器
+
+
+    /**
+      * @description: 存贮
+      * @description: 目前对象值如果是函数 、RegExp等特殊对象存贮会被忽略
+      * @description: JSON 不允许包含函数，JSON.stringify() 会删除 JavaScript 对象的函数，包括 key 和 value。
+      * @description: JSON 不允许包含正则，JSON.stringify() 会删除 正则 对象，value，key保留。
+      * @param {HTMLElement} el
+      * @param { String } key  属性
+      * @param { String } value 值
+      * @return  { * }
+    */
+    localStorageSet (key, value){
+        if (typeof (value) === 'object') value = JSON.stringify(value);
+        localStorage.setItem(key, value)
+    }
+
+    // localStorage 获取
+    localStorageGet (key){
+        return localStorage.getItem(key)
+    }
+
+    // localStorage 移除
+    localStorageRemove (key){
+        localStorage.removeItem(key)
+    }
+
+    // localStorage 存贮某一段时间失效
+    // * @param {String} key  属性
+    // * @param {*} value 存贮值
+    // * @param { number } expire 过期时间,毫秒数
+    localStorageSetExpire (key, value, expire){
+        if (typeof (value) === 'object') value = JSON.stringify(value);
+        localStorage.setItem(key, value);
+        setTimeout(() => {
+            localStorage.removeItem(key)
+        }, expire)
+    }
+
+
+
+    // sessionStorage 浏览器关闭消失
+
+
+    // sessionStorage 存贮
+    sessionStorageSet (key, value){
+        if (typeof (value) === 'object') value = JSON.stringify(value);
+        sessionStorage.setItem(key, value)
+    }
+
+    // sessionStorage 获取
+    sessionStorageGet (key){
+        return sessionStorage.getItem(key)
+    }
+
+    // sessionStorage 删除
+    sessionStorageRemove (key){
+        sessionStorage.removeItem(key)
+    }
+
+    // sessionStorage 存贮某一段时间失效
+    // * @param {String} key  属性
+    // * @param {*} value 存贮值
+    // * @param { number } expire 过期时间,毫秒数
+    sessionStorageSetExpire (key, value, expire){
+        if (typeof (value) === 'object') value = JSON.stringify(value);
+        sessionStorage.setItem(key, value);
+        setTimeout(() => {
+            sessionStorage.removeItem(key)
+        }, expire)
+    }
+
+
+
+
+    // cookie 存储在服务器  只能存4k
+
+
+    // cookie 存贮
+    // * @param {String} key  属性
+    // * @param {*} value  值
+    // * @param { String } expire  过期时间,单位天
+    cookieSet (key, value, expire){
+        const d = new Date();
+        d.setDate(d.getDate() + expire);
+        document.cookie = `${key}=${value};expires=${d.toUTCString()}`
+    }
+
+    // cookie 获取
+    cookieGet (key){
+        const cookieStr = unescape(document.cookie);
+        const arr = cookieStr.split('; ');
+        let cookieValue = '';
+        for (let i = 0; i &lt; arr.length; i++) {
+            const temp = arr[i].split('=');
+            if (temp[0] === key) {
+                cookieValue = temp[1];
+                break
+            }
+        }
+        return cookieValue
+    }
+
+    // cookie 删除   key还在，val为空
+    cookieRemove (key){
+        document.cookie = `${encodeURIComponent(key)}=;expires=${new Date()}`
+    }
+
+
+
+}
+
+
+export {Storage}</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Tue Aug 17 2021 22:58:23 GMT+0800 (GMT+08:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+</body>
+</html>

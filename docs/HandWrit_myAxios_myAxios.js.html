@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>HandWrit/myAxios/myAxios.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Axios.html">Axios</a></li><li><a href="Tool.html">Tool</a><ul class='methods'><li data-type='method'><a href="Tool.html#add">add</a></li><li data-type='method'><a href="Tool.html#arrScrambling">arrScrambling</a></li><li data-type='method'><a href="Tool.html#copyToClipboard">copyToClipboard</a></li><li data-type='method'><a href="Tool.html#countOccurrences">countOccurrences</a></li><li data-type='method'><a href="Tool.html#currentURL">currentURL</a></li><li data-type='method'><a href="Tool.html#dataType">dataType</a></li><li data-type='method'><a href="Tool.html#debounce">debounce</a></li><li data-type='method'><a href="Tool.html#detectDeviceType">detectDeviceType</a></li><li data-type='method'><a href="Tool.html#elementContains">elementContains</a></li><li data-type='method'><a href="Tool.html#elementIsVisibleInViewport">elementIsVisibleInViewport</a></li><li data-type='method'><a href="Tool.html#formatDuration">formatDuration</a></li><li data-type='method'><a href="Tool.html#formatFileSize">formatFileSize</a></li><li data-type='method'><a href="Tool.html#formatMoney">formatMoney</a></li><li data-type='method'><a href="Tool.html#getChildInParentIndex">getChildInParentIndex</a></li><li data-type='method'><a href="Tool.html#getImages">getImages</a></li><li data-type='method'><a href="Tool.html#getOSType">getOSType</a></li><li data-type='method'><a href="Tool.html#getScrollPosition">getScrollPosition</a></li><li data-type='method'><a href="Tool.html#getURLParameters">getURLParameters</a></li><li data-type='method'><a href="Tool.html#hasClass">hasClass</a></li><li data-type='method'><a href="Tool.html#hide">hide</a></li><li data-type='method'><a href="Tool.html#httpGet">httpGet</a></li><li data-type='method'><a href="Tool.html#httpPost">httpPost</a></li><li data-type='method'><a href="Tool.html#inArray">inArray</a></li><li data-type='method'><a href="Tool.html#isMobile">isMobile</a></li><li data-type='method'><a href="Tool.html#listChunk">listChunk</a></li><li data-type='method'><a href="Tool.html#off">off</a></li><li data-type='method'><a href="Tool.html#OutOsName">OutOsName</a></li><li data-type='method'><a href="Tool.html#RandomNum">RandomNum</a></li><li data-type='method'><a href="Tool.html#removeHTML">removeHTML</a></li><li data-type='method'><a href="Tool.html#setFade">setFade</a></li><li data-type='method'><a href="Tool.html#similarity">similarity</a></li><li data-type='method'><a href="Tool.html#stopCopyOrPaste">stopCopyOrPaste</a></li><li data-type='method'><a href="Tool.html#sub">sub</a></li><li data-type='method'><a href="Tool.html#subText">subText</a></li><li data-type='method'><a href="Tool.html#throttle">throttle</a></li><li data-type='method'><a href="Tool.html#toggleClass">toggleClass</a></li><li data-type='method'><a href="Tool.html#type">type</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#objectFactory">objectFactory</a></li><li><a href="global.html#PENDING">PENDING</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">HandWrit/myAxios/myAxios.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { utils } from './utils'
+import InterceptorsManage from './InterceptorsManage'
+
+/**
+ * 手写axios
+ * 分析：从axios(config)的使用上可以看出导出的axios是一个方法。
+ * 从axios.method(url, data , config)的使用可以看出导出的axios上或者原型上挂有get，post等方法。
+ */
+class Axios {
+    constructor(){
+        this.interceptors = {
+            request: new InterceptorsManage,    // 请求拦截器
+            response: new InterceptorsManage    // 响应拦截器
+        }
+    }
+
+    request(config){
+        this.sendAjax(config)
+        // 拦截器和请求组装队列
+        let chain = [this.sendAjax.bind(this), undefined]  // 成对出现的，失败回调暂时不处理
+
+        // 请求拦截器的handlers的成对回调放到chain数组头部
+        this.interceptors.request.handlers.forEach(interceptor =>{
+            chain.unshift(interceptor.fullfield, interceptor.rejected)
+        })
+
+        // 响应拦截器的handlers的承兑回调反倒chain数组的尾部
+        this.interceptors.response.handlers.forEach(interceptor =>{
+            chain.push(interceptor.fullfield, interceptor.rejected)
+        })
+
+        // 执行队列，每次执行一对，并给promise赋最新的值
+        let promise  = Promise.resolve(config)
+        while(chain.length > 0){
+            promise = promise.then(chain.shift(), chain.shift())
+        }
+        return promise;
+    }
+    sendAjax(config){
+        return new Promise((resolve) => {
+            const { url = '', method = 'get', data = {}} = config;
+            // 发送ajax请求
+            const xhr = new XMLHttpRequest();
+            xhr.open(method, url, true);
+            xhr.onload = function(){
+                // console.log(xhr.responseText);
+                resolve(xhr.responseText)
+            }
+            xhr.send(data);
+
+        })
+    }
+}
+
+// 定义get, post...方法，挂在Axios原型上
+const methodsArr = [ 'get', 'delete', 'head', 'options', 'put', 'patch', 'post' ];
+methodsArr.forEach(met => {
+    Axios.prototype[met] = function(){
+        console.log('执行' + met + '方法')
+        // 处理单个方法, get不把参数放body的
+        if(['get', 'delete', 'head', 'options'].includes(met)){   // 2个参数(url[, config])
+            return this.request({
+                method: met, 
+                url: arguments[0],
+                ...arguments[1]  || {},
+            })
+        }else{  // 3个参数(url[,data[,config]])
+            // post...
+            return this.request({
+                method: met,
+                url: arguments[0],
+                data: arguments[1] || {},
+                ...arguments[2] || {}
+            })
+        }
+    }
+})
+
+
+// 最终导出axios的方法，即实例的request方法
+function CreateAxiosFn(){
+    let axios = new Axios();
+    let req = axios.request.bind(axios);
+    
+     // 混入方法， 处理axios的request方法，使之拥有get,post...方法
+    utils.extend(req, Axios.prototype, axios) // 把Axios.prototype上的方法搬运到request上
+    // 因为interceptors是axios上的，我们导出的是request，
+    // 把Axios上的方法和属性搬到request过去，也就是遍历Axios实例上的方法，得以将interceptors对象挂载到request上
+    utils.extend(req, axios)
+    return req;
+}
+
+
+// 得到最后的全局变量axios
+export let myAxios = CreateAxiosFn();
+
+
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Tue Aug 17 2021 22:58:23 GMT+0800 (GMT+08:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Browser/Browser.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Axios.html">Axios</a></li><li><a href="Tool.html">Tool</a><ul class='methods'><li data-type='method'><a href="Tool.html#add">add</a></li><li data-type='method'><a href="Tool.html#arrScrambling">arrScrambling</a></li><li data-type='method'><a href="Tool.html#copyToClipboard">copyToClipboard</a></li><li data-type='method'><a href="Tool.html#countOccurrences">countOccurrences</a></li><li data-type='method'><a href="Tool.html#currentURL">currentURL</a></li><li data-type='method'><a href="Tool.html#dataType">dataType</a></li><li data-type='method'><a href="Tool.html#debounce">debounce</a></li><li data-type='method'><a href="Tool.html#detectDeviceType">detectDeviceType</a></li><li data-type='method'><a href="Tool.html#elementContains">elementContains</a></li><li data-type='method'><a href="Tool.html#elementIsVisibleInViewport">elementIsVisibleInViewport</a></li><li data-type='method'><a href="Tool.html#formatDuration">formatDuration</a></li><li data-type='method'><a href="Tool.html#formatFileSize">formatFileSize</a></li><li data-type='method'><a href="Tool.html#formatMoney">formatMoney</a></li><li data-type='method'><a href="Tool.html#getChildInParentIndex">getChildInParentIndex</a></li><li data-type='method'><a href="Tool.html#getImages">getImages</a></li><li data-type='method'><a href="Tool.html#getOSType">getOSType</a></li><li data-type='method'><a href="Tool.html#getScrollPosition">getScrollPosition</a></li><li data-type='method'><a href="Tool.html#getURLParameters">getURLParameters</a></li><li data-type='method'><a href="Tool.html#hasClass">hasClass</a></li><li data-type='method'><a href="Tool.html#hide">hide</a></li><li data-type='method'><a href="Tool.html#httpGet">httpGet</a></li><li data-type='method'><a href="Tool.html#httpPost">httpPost</a></li><li data-type='method'><a href="Tool.html#inArray">inArray</a></li><li data-type='method'><a href="Tool.html#isMobile">isMobile</a></li><li data-type='method'><a href="Tool.html#listChunk">listChunk</a></li><li data-type='method'><a href="Tool.html#off">off</a></li><li data-type='method'><a href="Tool.html#OutOsName">OutOsName</a></li><li data-type='method'><a href="Tool.html#RandomNum">RandomNum</a></li><li data-type='method'><a href="Tool.html#removeHTML">removeHTML</a></li><li data-type='method'><a href="Tool.html#setFade">setFade</a></li><li data-type='method'><a href="Tool.html#similarity">similarity</a></li><li data-type='method'><a href="Tool.html#stopCopyOrPaste">stopCopyOrPaste</a></li><li data-type='method'><a href="Tool.html#sub">sub</a></li><li data-type='method'><a href="Tool.html#subText">subText</a></li><li data-type='method'><a href="Tool.html#throttle">throttle</a></li><li data-type='method'><a href="Tool.html#toggleClass">toggleClass</a></li><li data-type='method'><a href="Tool.html#type">type</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#objectFactory">objectFactory</a></li><li><a href="global.html#PENDING">PENDING</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Browser/Browser.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// 浏览器操作相关browser工具函数
+
+class Browser{
+    constructor(){
+
+    }
+
+    /**
+      * @description: 返回当前url
+      * @return { String } 
+    */
+    currentURL (){
+        return window.location.href;
+    }
+
+    // 获取窗口可视范围的高度
+    getClientHeight(){
+        let clientHeight = 0;
+        if (document.body.clientHeight &amp;&amp; document.documentElement.clientHeight) {
+            clientHeight = (document.body.clientHeight &lt; document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+        }
+        else {
+            clientHeight = (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+        }
+        return clientHeight;
+    }
+
+    // 获取窗口可视范围宽度
+    getPageViewWidth(){
+        let d = document,
+        a = d.compatMode == "BackCompat" ? d.body : d.documentElement;
+        return a.clientWidth;
+    }
+
+    // 获取窗口宽度
+    getPageWidth(){
+        let g = document,
+        a = g.body,
+        f = g.documentElement,
+        d = g.compatMode == "BackCompat" ? a : g.documentElement;
+        return Math.max(f.scrollWidth, a.scrollWidth, d.clientWidth);
+
+    }
+
+    // 获取窗口尺寸
+    getViewportOffset(){
+        if (window.innerWidth) {
+            return {
+                w: window.innerWidth,
+                h: window.innerHeight
+            }
+        } else {
+            // ie8及其以下
+            if (document.compatMode === "BackCompat") {
+                // 怪异模式
+                return {
+                    w: document.body.clientWidth,
+                    h: document.body.clientHeight
+                }
+            } else {
+                // 标准模式
+                return {
+                    w: document.documentElement.clientWidth,
+                    h: document.documentElement.clientHeight
+                }
+            }
+        }
+    }
+
+    // 获取滚动条距顶部高度
+    getPageScrollTop(){
+        let a = document;
+        return a.documentElement.scrollTop || a.body.scrollTop;
+    }
+
+    // 获取滚动条距左边的高度
+    getPageScrollLeft(){
+        let a = document;
+        return a.documentElement.scrollLeft || a.body.scrollLeft;
+    }
+
+    // 返回当前滚动条位置
+    getScrollPosition (el = window){
+        return {
+            x: el.pageXOffset !== undefined ? el.pageXOffset : el.scrollLeft,
+            y: el.pageYOffset !== undefined ? el.pageYOffset : el.scrollTop
+        }
+    }
+
+    /**
+     * 获取当前元素相对于document的偏移量
+     * @param {el} el 
+     */
+    getOffset(el){
+        const { top, left } = el.getBoundingClientRect();
+        const {scrollTop, scrollLeft} = document.body;
+
+        return {
+            top: top + scrollTop,
+            left: left + scrollLeft
+        }
+    }
+
+    // 滚动到页面的最下/最上
+    //传true向上平滑，不传就是向下（默认）
+    smoothScroll (isEnd){
+        isEnd = isEnd==true?"start" : "end";
+        document.documentElement.scrollIntoView({
+            behavior: "smooth", //平滑
+            block: isEnd,       //end向下滑动  start向上滑动
+            inline: "nearest"   
+        });
+    }
+
+    // http跳转https（当前url如果是http会帮你转https）
+    httpsRedirect (){
+        if (location.protocol !== 'https:') location.replace('https://' + location.href.split('//')[1]);
+
+    }
+
+    // 打开一个窗口
+    // /**
+    //  * @param { string } url
+    //  * @param { string } windowName
+    //  * @param { number } width
+    //  * @param { number } height
+    //  */
+    openWindow(url, windowName, width, height) {
+        var x = parseInt(screen.width / 2.0) - width / 2.0;
+        var y = parseInt(screen.height / 2.0) - height / 2.0;
+        var isMSIE = navigator.appName == "Microsoft Internet Explorer";
+        if (isMSIE) {
+            var p = "resizable=1,location=no,scrollbars=no,width=";
+            p = p + width;
+            p = p + ",height=";
+            p = p + height;
+            p = p + ",left=";
+            p = p + x;
+            p = p + ",top=";
+            p = p + y;
+            window.open(url, windowName, p);
+        } else {
+            var win = window.open(
+                url,
+                "ZyiisPopup",
+                "top=" +
+                y +
+                ",left=" +
+                x +
+                ",scrollbars=" +
+                scrollbars +
+                ",dialog=yes,modal=yes,width=" +
+                width +
+                ",height=" +
+                height +
+                ",resizable=no"
+            );
+            eval("try { win.resizeTo(width, height); } catch(e) { }");
+            win.focus();
+        }
+    }
+
+}
+
+export {Browser}
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Tue Aug 17 2021 22:58:23 GMT+0800 (GMT+08:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+</body>
+</html>
