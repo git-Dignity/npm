@@ -81,7 +81,14 @@ class Tool {
       * @description 如何检查指定的元素在视口中是否可见？
       * @param {HTMLElement} el
       * @param {HTMLElement} partiallyVisible = false partiallyVisible是否开启全屏； 为true 需要全屏(上下左右)可以见
-      * @return { Boolean } true/false
+      * @return { Boolean } 
+      * @memberof Tool
+      * @example
+      * // 需要左右可见
+      * elementIsVisibleInViewport(document.querySelector('head'), document.querySelector('title')) // true
+      * 
+      * // 需要全屏(上下左右)可以见
+      * elementIsVisibleInViewport(document.querySelector('head'), document.querySelector('body')) // false
     */
     elementIsVisibleInViewport(el, partiallyVisible = false) {
         const { top, left, bottom, right } = el.getBoundingClientRect();
@@ -97,6 +104,13 @@ class Tool {
       * @param {HTMLElement} el
       * @param {Boolean} includeDuplicates = false false：去重；true：不去重
       * @return { Array } ['image1.jpg', 'image2.png', 'image1.png', '...']
+      * @memberof Tool
+      * @example
+      * // 不去重
+      * getImages(document,true) // ['image1.jpg', 'image2.png', 'image1.png', '...']
+      * 
+      * // 去重
+      * getImages(document,false) // ['image1.jpg', 'image2.png', '...']
     */
     getImages(el, includeDuplicates = false) {
         const images = [...el.getElementsByTagName('img')].map(img => img.getAttribute('src'));
@@ -106,6 +120,9 @@ class Tool {
     /**
       * @description 如何确定设备是移动设备还是台式机/笔记本电脑？
       * @return { String } 'Mobile' / 'Desktop'
+      * @memberof Tool
+      * @example
+      * detectDeviceType() // "Mobile" or "Desktop"
     */
     detectDeviceType() {
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
@@ -114,18 +131,27 @@ class Tool {
     /**
       * @description 获取当前url
       * @return { String } 
+      * @memberof Tool
+      * @example
+      * currentURL() // http://localhost:9000/
     */
     currentURL() {
         return window.location.href
     }
 
     /**
-      * @description 如何创建一个包含当前URL参数的对象？
-      * @description reduce() 对于空数组是不会执行回调函数的。
-      * @param { String } url
-      * @return { Object } {n: 'Adam', s: 'Smith'}
+     * @description 如何创建一个包含当前URL参数的对象？
+     * @param { String } url
+     * @return { Object } {n: 'Adam', s: 'Smith'}
+     * @memberof Tool
+     * @example
+     * getURLParameters(tool.currentURL()) // {}
+     * 
+     * getURLParameters('http://url.com/page?n=哈哈&s=Smith') // {n: '哈哈', s: 'Smith'}
     */
     getURLParameters(url) {
+        // reduce() 对于空数组是不会执行回调函数的。
+
         return (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce(
             (a, v) => ((a[v.slice(0, v.indexOf('='))] = v.slice(v.indexOf('=') + 1)), a),
             {}
@@ -133,12 +159,18 @@ class Tool {
     }
 
     /**
-      * @description 如何从元素中移除事件监听器?
-      * @param {HTMLElement} el
-      * @param { String } evt 事件类型 如：'click'
-      * @param { Function } fn 绑定函数
-      * @param { Boolean } opts = false 指定移除事件句柄的阶段。true：在捕获阶段移除事件句柄；false- 默认：在冒泡阶段移除事件句柄
-      * @return  { * }
+     * @description 如何从元素中移除事件监听器?
+     * @param {HTMLElement} el
+     * @param { String } evt 事件类型 如：'click'
+     * @param { Function } fn 绑定函数
+     * @param { Boolean } opts = false 指定移除事件句柄的阶段。true：在捕获阶段移除事件句柄；false- 默认：在冒泡阶段移除事件句柄
+     * @return  { * }
+     * @memberof Tool
+     * @example
+     * const fn = () => console.log('!');
+     * document.body.addEventListener('click', fn);
+     * 
+     * off(document.body, 'click', fn) 
     */
     off(el, evt, fn, opts = false) {
         el.removeEventListener(evt, fn, opts);
@@ -148,6 +180,11 @@ class Tool {
      * @description 如何获得给定毫秒数的可读格式？
      * @param {Number} ms 毫秒数
      * @return { String }  1000ms = 1s
+     * @memberof Tool
+     * @example
+     * formatDuration(1001) // 1 second, 1 millisecond
+     * 
+     * formatDuration(34325055574) // 397 days, 6 hours, 44 minutes, 15 seconds, 574 milliseconds
      */    
     formatDuration(ms) {
         if (ms < 0) ms = -ms;
@@ -171,6 +208,9 @@ class Tool {
      * @param {Function} callback 成功回调函数
      * @param {Function} err 失败回调函数
      * @return {*}
+     * @memberof Tool
+     * @example
+     * httpGet('https://jsonplaceholder.typicode.com/posts/1', console.log) // {"userId": 1, "id": 1, "title": "sample title", "body": "my text"}
      */    
     httpGet(url, callback, err = console.error) {
         const request = new XMLHttpRequest();
@@ -187,6 +227,9 @@ class Tool {
      * @param {Function} callback 成功回调函数
      * @param {Function} err 失败回调函数
      * @return {*}
+     * @memberof Tool
+     * @example
+     * httpPost('https://jsonplaceholder.typicode.com/posts', data, console.log) // {"userId": 1, "id": 1, "title": "sample title", "body": "my text"}
      */    
     httpPost(url, data, callback, err = console.error) {
         const request = new XMLHttpRequest();
@@ -201,6 +244,9 @@ class Tool {
      * @description 如何将字符串复制到剪贴板？
      * @param {String} str
      * @return {*}
+     * @memberof Tool
+     * @example
+     * copyToClipboard('哈哈，我被你的tool.copyToClipboard复制出来了') 
      */    
     copyToClipboard(str) {
         const el = document.createElement('textarea');
@@ -228,6 +274,9 @@ class Tool {
      * @description 金钱格式化，三位加逗号
      * @param {Number} num
      * @return {String} 5,465,615,654,465
+     * @memberof Tool
+     * @example
+     * formatMoney('5465615654465')  // 5,465,615,654,465
      */    
     formatMoney(num) {
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -238,6 +287,9 @@ class Tool {
      * @param {String} str
      * @param {Number} length
      * @return {String} abcd....
+     * @memberof Tool
+     * @example
+     * subText('fgfsd水电费水电费",5)  // fgfsd...
      */    
     subText(str, length) {
         if (str.length === 0) {
@@ -254,6 +306,9 @@ class Tool {
      * @description B转换到KB,MB,GB并保留两位小数
      * @param {Number} fileSize
      * @return {String} 1254 -> 1.22KB
+     * @memberof Tool
+     * @example
+     * formatFileSize(1254)  // 1.22KB
      */    
     formatFileSize(fileSize) {
         let temp;
@@ -279,6 +334,9 @@ class Tool {
      * @param {*} item 要查询的元素
      * @param {Array} data
      * @return {Number} 元素第一次出现的下标
+     * @memberof Tool
+     * @example
+     * inArray(2,[1,2,3,4])  // 1
      */    
     inArray(item, data) {
         for (let i = 0; i < data.length; i++) {
@@ -293,6 +351,9 @@ class Tool {
      * @description Windows根据详细版本号判断当前系统名称
      * @param {String} osVersion 详细版本号
      * @return {String} 当前系统名称
+     * @memberof Tool
+     * @example
+     * OutOsName("10.0.18362 Windows 10专业版")  // Win 10
      */    
     OutOsName(osVersion) {
         if (!osVersion) {
@@ -323,6 +384,9 @@ class Tool {
     /**
      * @description 判断手机是Andoird还是IOS
      * @return {String}
+     * @memberof Tool
+     * @example
+     * getOSType()  
      */    
     getOSType() {
         let u = navigator.userAgent, app = navigator.appVersion;
@@ -342,8 +406,10 @@ class Tool {
     /**
      * @description 判断是否是移动端
      * @return {Boolean}
+     * @memberof Tool
+     * @example
+     * isMobile()  // false || true
      */    
-    
     isMobile() {
         return 'ontouchstart' in window
     }
@@ -351,11 +417,6 @@ class Tool {
   
     /**
      * @description 函数防抖
-     * @description 非立即执行版的意思是触发事件后函数不会立即执行，而是在 n 秒后执行，如果在 n 秒内又触发了事件，则会重新计算函数执行时间。
-     * @description 非立即执行版解说：第一开始进来，timeout为null，不用清空，走else等待一秒执行函数，在这期间，又执行这个函数，timeout不为空，清除一下定时器，又继续来等待一秒
-     * @description 立即执行版的意思是触发事件后函数会立即执行，然后 n 秒内不触发事件才能继续执行函数的效果。
-     * @description 立即执行版解说：timeout为null，callNow为true，执行函数,无触发定时器；
-     * @description 一秒内，又调用这个函数，清空定时器（因为timeout为true），callNow为false，不执行函数；timeout为true，开启定时器，等待一秒无人访问就将timeout设null
      * @param {Function} func
      * @param {Number} wait 延迟执行毫秒数
      * @param {Boolean} immediate = false true：表立即执行；false：表非立即执行
@@ -370,6 +431,12 @@ class Tool {
      * debounce(printWidth, 900,true)
      */    
     debounce(func, wait, immediate = false) {
+        // 非立即执行版的意思是触发事件后函数不会立即执行，而是在 n 秒后执行，如果在 n 秒内又触发了事件，则会重新计算函数执行时间。
+        // 非立即执行版解说：第一开始进来，timeout为null，不用清空，走else等待一秒执行函数，在这期间，又执行这个函数，timeout不为空，清除一下定时器，又继续来等待一秒
+        // 立即执行版的意思是触发事件后函数会立即执行，然后 n 秒内不触发事件才能继续执行函数的效果。
+        // 立即执行版解说：timeout为null，callNow为true，执行函数,无触发定时器；
+        // 一秒内，又调用这个函数，清空定时器（因为timeout为true），callNow为false，不执行函数；timeout为true，开启定时器，等待一秒无人访问就将timeout设null
+
         let timeout;
         return function () {
             let context = this;

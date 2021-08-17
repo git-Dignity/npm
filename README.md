@@ -16,6 +16,19 @@ public myCheck = new Check();
 myCheck.isMPRelaxed(value)
 ```
 
+# 版本介绍
+
+### master
+
+### develop-1.1
+
+添加文档说明，引入了jsdoc为方法添加注释
+
+http://zhengzemin.cn:9052
+
+
+
+
 
 
 
