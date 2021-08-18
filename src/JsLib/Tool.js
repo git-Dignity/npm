@@ -1020,7 +1020,7 @@ class Tool {
      * @description 去除字符串中的html代码
      *
      * @param {string} [str='']
-     * @return {*} 
+     * @return {String} 
      * @memberof Tool
      * @example
      * stopCopyOrPaste('<h1>哈哈哈哈<呵呵呵</h1>')  // 呵呵呵
