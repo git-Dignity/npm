@@ -5,15 +5,27 @@ class Browser{
 
     }
 
+    
     /**
-      * @description: 返回当前url
-      * @return { String } 
-    */
+     * @description 如何隐藏所有指定的元素
+     *
+     * @return {*} 
+     * @memberof Browser
+     * @example
+     * currentURL()   // http://localhost:9000/
+     */
     currentURL (){
         return window.location.href;
     }
 
     // 获取窗口可视范围的高度
+
+    /**
+     * @description 如何隐藏所有指定的元素
+     *
+     * @return {*} 
+     * @memberof Browser
+     */
     getClientHeight(){
         let clientHeight = 0;
         if (document.body.clientHeight && document.documentElement.clientHeight) {
@@ -26,6 +38,12 @@ class Browser{
     }
 
     // 获取窗口可视范围宽度
+    /**
+     * @description 如何隐藏所有指定的元素
+     *
+     * @return {*} 
+     * @memberof Browser
+     */
     getPageViewWidth(){
         let d = document,
         a = d.compatMode == "BackCompat" ? d.body : d.documentElement;
@@ -33,6 +51,13 @@ class Browser{
     }
 
     // 获取窗口宽度
+
+    /**
+     * @description 如何隐藏所有指定的元素
+     *
+     * @return {*} 
+     * @memberof Browser
+     */
     getPageWidth(){
         let g = document,
         a = g.body,
@@ -43,6 +68,12 @@ class Browser{
     }
 
     // 获取窗口尺寸
+    /**
+     * @description 如何隐藏所有指定的元素
+     *
+     * @return {*} 
+     * @memberof Browser
+     */
     getViewportOffset(){
         if (window.innerWidth) {
             return {
@@ -68,18 +99,39 @@ class Browser{
     }
 
     // 获取滚动条距顶部高度
+    /**
+     * @description 如何隐藏所有指定的元素
+     *
+     * @return {*} 
+     * @memberof Browser
+     */
     getPageScrollTop(){
         let a = document;
         return a.documentElement.scrollTop || a.body.scrollTop;
     }
 
     // 获取滚动条距左边的高度
+
+    /**
+     * @description 如何隐藏所有指定的元素
+     *
+     * @return {*} 
+     * @memberof Browser
+     */
     getPageScrollLeft(){
         let a = document;
         return a.documentElement.scrollLeft || a.body.scrollLeft;
     }
 
     // 返回当前滚动条位置
+
+    /**
+     * @description 如何隐藏所有指定的元素
+     *
+     * @param {*} [el=window]
+     * @return {*} 
+     * @memberof Browser
+     */
     getScrollPosition (el = window){
         return {
             x: el.pageXOffset !== undefined ? el.pageXOffset : el.scrollLeft,
@@ -90,6 +142,14 @@ class Browser{
     /**
      * 获取当前元素相对于document的偏移量
      * @param {el} el 
+     */
+
+    /**
+     * @description 如何隐藏所有指定的元素
+     *
+     * @param {*} el
+     * @return {*} 
+     * @memberof Browser
      */
     getOffset(el){
         const { top, left } = el.getBoundingClientRect();
@@ -103,6 +163,13 @@ class Browser{
 
     // 滚动到页面的最下/最上
     //传true向上平滑，不传就是向下（默认）
+
+    /**
+     * @description 如何隐藏所有指定的元素
+     *
+     * @param {*} isEnd
+     * @memberof Browser
+     */
     smoothScroll (isEnd){
         isEnd = isEnd==true?"start" : "end";
         document.documentElement.scrollIntoView({
@@ -113,6 +180,12 @@ class Browser{
     }
 
     // http跳转https（当前url如果是http会帮你转https）
+
+    /**
+     * @description 如何隐藏所有指定的元素
+     *
+     * @memberof Browser
+     */
     httpsRedirect (){
         if (location.protocol !== 'https:') location.replace('https://' + location.href.split('//')[1]);
 
@@ -125,6 +198,16 @@ class Browser{
     //  * @param { number } width
     //  * @param { number } height
     //  */
+
+    /**
+     * @description 如何隐藏所有指定的元素
+     *
+     * @param {*} url
+     * @param {*} windowName
+     * @param {*} width
+     * @param {*} height
+     * @memberof Browser
+     */
     openWindow(url, windowName, width, height) {
         var x = parseInt(screen.width / 2.0) - width / 2.0;
         var y = parseInt(screen.height / 2.0) - height / 2.0;

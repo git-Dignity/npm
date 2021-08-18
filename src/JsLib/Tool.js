@@ -12,6 +12,7 @@ class Tool {
    /**
     * @description 如何隐藏所有指定的元素
     * @param {HTMLElement} el
+    * @return { * }
     * @memberof Tool
     * @example
     * hide(document.querySelectorAll('p'))
