@@ -128,7 +128,7 @@ import { myAxios } from './HandWrit/myAxios/myAxios'
         // console.log(tool.RandomNum(0,10))
         // console.log(tool.arrScrambling([1,5,9]))
         // console.log(tool.similarity([1,2,3],[5,2]))  // 2
-        // console.log(tool.countOccurrences([1,2,2,3],2))
+        // console.log(tool.countOccurrences([1,2,2,3],2)) // 2
         // console.log(tool.add(0.1,0.2))  // 0.3
         // console.log(tool.sub(0.2,0.1))  // 0.1
         // console.log(tool.division(0.2,0.1))  // 2
@@ -156,8 +156,8 @@ import { myAxios } from './HandWrit/myAxios/myAxios'
 //         <div id="app" class="a" style="height: 1500px;"></div>
 // <P class="a" id="aaa">1</P>
 //         `))
-        // &lt;div id=&quot;app&quot; class=&quot;a&quot; style=&quot;height: 1500px;&quot;&gt;&lt;/div&gt;
-        // &lt;P class=&quot;a&quot; id=&quot;aaa&quot;&gt;1&lt;/P&gt;
+//         &lt;div id=&quot;app&quot; class=&quot;a&quot; style=&quot;height: 1500px;&quot;&gt;&lt;/div&gt;
+//         &lt;P class=&quot;a&quot; id=&quot;aaa&quot;&gt;1&lt;/P&gt;
 
 
         // console.log(tool.outOfNum(100,99))  // 99+

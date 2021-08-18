@@ -421,14 +421,13 @@ class Tool {
      * @param {Number} wait 延迟执行毫秒数
      * @param {Boolean} immediate = false true：表立即执行；false：表非立即执行
      * @return {*}
+     * @memberof Tool
      * @example
      * function printWidth(){
      *      console.info(window.document.body.clientWidth);
      * }
      * 
-     * window.addEventListener('resize', myTool.debounce(printWidth, 900,true), false)
-     * 
-     * debounce(printWidth, 900,true)
+     * window.addEventListener('resize', debounce(printWidth, 900,true), false)
      */    
     debounce(func, wait, immediate = false) {
         // 非立即执行版的意思是触发事件后函数不会立即执行，而是在 n 秒后执行，如果在 n 秒内又触发了事件，则会重新计算函数执行时间。
@@ -463,12 +462,18 @@ class Tool {
     }
 
     /**
-     * @description 函数节流
-     * @description 限制一个函数在一定时间内只能执行一次。
+     * @description 函数节流（限制一个函数在一定时间内只能执行一次。）
      * @param {Function} func 函数
      * @param {Number} wait 延迟执行毫秒数
      * @param {Number} type = 1  1：表时间戳版；2：表定时器版
      * @return {*}
+     * @memberof Tool
+     * @example
+     * function printHeight(){
+     *      console.info(window.document.body.clientHeight);
+     * }
+     * 
+     * window.addEventListener("mousemove",throttle(printHeight,1000,2));
      */    
     throttle(func, wait, type = 1) {
         let previous, timeout;
@@ -502,6 +507,9 @@ class Tool {
      * @description 判断数据类型
      * @param {*} target
      * @return {String}
+     * @memberof Tool
+     * @example
+     * type([""])  //array
      */    
     type(target) {
         let ret = typeof (target);
@@ -528,6 +536,9 @@ class Tool {
      * @param {number } min 
      * @param {number} max
      * @return {Number}
+     * @memberof Tool
+     * @example
+     * RandomNum(0,10)  // 5
      */    
     RandomNum(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -537,6 +548,9 @@ class Tool {
      * @description 数组乱序
      * @param {Array} arr
      * @return {Array}
+     * @memberof Tool
+     * @example
+     * arrScrambling([1,5,9])  // [5,1,9]
      */    
     arrScrambling(arr) {
         let array = arr;
@@ -559,6 +573,9 @@ class Tool {
      * @param {Array} arr1
      * @param {Array} arr2
      * @return {Array}
+     * @memberof Tool
+     * @example
+     * similarity([1,2,3],[5,2])  // 2
      */    
     similarity(arr1, arr2) {
         return arr1.filter(v => arr2.includes(v));;
@@ -566,26 +583,34 @@ class Tool {
 
     /**
      * @description 数组中某元素出现的次数  ([1,2,2,3],2)
-     * @description 最后面那个0是我们将index索引从0开始，也就是a默认为0
-     * @description reduce第一个参数的计算后的返回值，这里来说，a为0，因为后面加上参数0
-     * @description reduce第二个参数是数组的第n个
      * @param {Array} arr
      * @param {Number/String} value
      * @return {Number}
+     * @memberof Tool
+     * @example
+     * countOccurrences([1,2,2,3],2)  // 2
      */    
     countOccurrences(arr, value) {
+        // 最后面那个0是我们将index索引从0开始，也就是a默认为0
+        // reduce第一个参数的计算后的返回值，这里来说，a为0，因为后面加上参数0
+        // reduce第二个参数是数组的第n个
+
         return arr.reduce((a, v) => v === value ? a + 1 : a + 0, 0);
     }
 
     /**
      * @description 加法函数（精度丢失问题）
-     * @description 还有解决方式：把小数放到位整数（乘倍数），再缩小回原来倍数（除倍数）
-     * @description 0.1 + 0.2  ->  (0.1*10 + 0.2*10) / 10 == 0.3   // true
      * @param {Number} arg1
      * @param {Number} arg2
      * @return {Number}
+     * @memberof Tool
+     * @example
+     * add(0.1,0.2)  // 0.3
      */    
     add(arg1, arg2) {
+        // 还有解决方式：把小数放到位整数（乘倍数），再缩小回原来倍数（除倍数）
+        // 0.1 + 0.2  ->  (0.1*10 + 0.2*10) / 10 == 0.3   // true
+
         let r1, r2, m;
         try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
         try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
@@ -596,9 +621,12 @@ class Tool {
 
     /**
      * @description 减法函数（精度丢失问题）
-     * @param {*} arg1
-     * @param {*} arg2
-     * @return {*}
+     * @param {Number} arg1
+     * @param {Number} arg2
+     * @return {Number}
+     * @memberof Tool
+     * @example
+     * sub(0.2,0.1)  // 0.1
      */    
     sub(arg1, arg2) {
         let r1, r2, m, n;
@@ -609,7 +637,16 @@ class Tool {
         return Number(((arg1 * m - arg2 * m) / m).toFixed(n));
     }
 
-    // 除法函数（精度丢失问题）
+    /**
+     * @description 除法函数（精度丢失问题）
+     *
+     * @param {Number} num1
+     * @param {Number} num2
+     * @return {Number} 
+     * @memberof Tool
+     * @example
+     * division(0.2,0.1)  // 2
+     */
     division(num1, num2) {
         let t1, t2, r1, r2;
         try {
@@ -627,7 +664,16 @@ class Tool {
         return (r1 / r2) * Math.pow(10, t2 - t1);
     }
 
-    // 乘法函数（精度丢失问题）
+    /**
+     * @description 乘法函数（精度丢失问题）
+     *
+     * @param {Number} num1
+     * @param {Number} num2
+     * @return {Number} 
+     * @memberof Tool
+     * @example
+     * mcl(0.2,0.1)  // 0.02
+     */
     mcl(num1, num2) {
         let m = 0, s1 = num1.toString(), s2 = num2.toString();
         try { m += s1.split(".")[1].length } catch (e) { }
@@ -635,25 +681,44 @@ class Tool {
         return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
     }
 
-    // 递归优化（尾递归）
-
-    // 例子：
-    // fact(6, 1) // 1 是 fact(0) 的值，我们需要手动写一下
-    // fact(5, 6)
-    // fact(4, 30)
-    // fact(3, 120)
-    // fact(2, 360)
-    // fact(1, 720)
-    // 720 // <= 最终的结果
-    // 其实只是最后一个我们想要而已，中间那些计算的（430-434行），我们不想要保存栈里面浪费资源，尾递归就是将中间那些操作优化掉
-
-
-    // 尾递归是指，在函数返回的时候，调用自身本身，并且，return语句不能包含表达式。这样，编译器或者解释器就可以把尾递归做优化，使递归本身无论调用多少次，都只占用一个栈帧，不会出现栈溢出的情况。
-    // 怎么做可以减少调用栈呢？就是采用“循环”换掉“递归”。
-    // 每一轮递归sum返回的都是undefined，所以就避免了递归执行；而accumulated数组存放每一轮sum执行的参数，总是有值的，这就保证了accumulator函数内部的while循环总是会执行
-    // 这样就很巧妙地将“递归”改成了“循环”，而后一轮的参数会取代前一轮的参数，保证了调用栈只有一层。
-    // 其实就是递归就开了很多个栈去跑每一层，尾递归就是内层跑完，才return给下一层，永远只有一个栈在跑
+    /**
+     * @description 递归优化（尾递归）
+     *
+     * @param {Function} f 函数
+     * @return {*} 
+     * @memberof Tool
+     * @example
+     * var sumTco = tco(function(x, y) {  
+     *      if (y > 0) {
+     *          return sumTco(x + 1, y - 1)//重点在这里, 每次递归返回真正函数其实还是accumulator函数
+     *      }
+     *      else {
+     *          //   console.log(x)
+     *          return x
+     *      }
+     * });
+     * 
+     * //   console.log(sumTco(1, 5));   //6    实际上现在sum函数就是accumulator函数   else那得到的
+     */
     tco(f) {
+        // 例子：
+        // fact(6, 1) // 1 是 fact(0) 的值，我们需要手动写一下
+        // fact(5, 6)
+        // fact(4, 30)
+        // fact(3, 120)
+        // fact(2, 360)
+        // fact(1, 720)
+        // 720 // <= 最终的结果
+        // 其实只是最后一个我们想要而已，中间那些计算的（430-434行），我们不想要保存栈里面浪费资源，尾递归就是将中间那些操作优化掉
+
+
+        // 尾递归是指，在函数返回的时候，调用自身本身，并且，return语句不能包含表达式。这样，编译器或者解释器就可以把尾递归做优化，使递归本身无论调用多少次，都只占用一个栈帧，不会出现栈溢出的情况。
+        // 怎么做可以减少调用栈呢？就是采用“循环”换掉“递归”。
+        // 每一轮递归sum返回的都是undefined，所以就避免了递归执行；而accumulated数组存放每一轮sum执行的参数，总是有值的，这就保证了accumulator函数内部的while循环总是会执行
+        // 这样就很巧妙地将“递归”改成了“循环”，而后一轮的参数会取代前一轮的参数，保证了调用栈只有一层。
+        // 其实就是递归就开了很多个栈去跑每一层，尾递归就是内层跑完，才return给下一层，永远只有一个栈在跑
+
+
         let value;
         let active = false;
         let accumulated = [];
@@ -676,8 +741,17 @@ class Tool {
         };
     }
 
-    // 生成随机整数
-    // 支持一个参数或者两个参数
+    /**
+     * @description 生成随机整数（支持一个参数或者两个参数）
+     *
+     * @param {Number} min 最小值
+     * @param {Number} max 最大值
+     * @return {Number} 
+     * @memberof Tool
+     * @example
+     * randomNumInteger(10) // 5
+     * randomNumInteger(10,20)  // 15
+     */
     randomNumInteger(min, max) {
         switch (arguments.length) {
             case 1:
@@ -689,9 +763,16 @@ class Tool {
         }
     }
 
-    // 去除空格
-    // * @param { string } str 待处理字符串
-    // * @param  { number } type 去除空格类型 1-所有空格  2-前后空格  3-前空格 4-后空格 默认为1
+    /**
+     * @description 去除空格
+     *
+     * @param {string} str 待处理字符串
+     * @param {number} [type=1] 去除空格类型 1-所有空格  2-前后空格  3-前空格 4-后空格 默认为1
+     * @return {String} 
+     * @memberof Tool
+     * @example
+     * trim(" dg   g145415  44 ",1) // dgg14541544
+     */
     trim(str, type = 1) {
         if (type && type !== 1 && type !== 2 && type !== 3 && type !== 4) return;
         switch (type) {
@@ -711,9 +792,16 @@ class Tool {
         }
     }
 
-    // 大小写转换
-    // * @param { string } str 待转换的字符串
-    // * @param { number } type 1-全大写 2-全小写 3-首字母大写 其他-不转换
+    /**
+     * @description 大小写转换
+     *
+     * @param {String} str 待转换的字符串
+     * @param {Number} type 1-全大写 2-全小写 3-首字母大写 其他-不转换
+     * @return {*} 
+     * @memberof Tool
+     * @example
+     * turnCase("asFG",1)  // ASFG
+     */
     turnCase(str, type) {
         switch (type) {
             case 1:
@@ -727,8 +815,14 @@ class Tool {
         }
     }
 
-    // 随机16进制颜色 hexColor
-    // 方法一
+    /**
+     * @description 随机16进制颜色 hexColor（方法一）
+     *
+     * @return {String}  16进制颜色
+     * @memberof Tool
+     * @example
+     * hexColor()  // #000000
+     */
     hexColor() {
         let str = '#';
         let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F'];
@@ -739,14 +833,34 @@ class Tool {
         return str;
     }
 
-    // 随机16进制颜色 randomHexColorCode
-    // 方法二
+    /**
+     * @description 随机16进制颜色 randomHexColorCode（方法二）
+     *
+     * @return {String}  16进制颜色
+     * @memberof Tool
+     * @example
+     * randomHexColorCode()  // #000000
+     */
     randomHexColorCode() {
         let n = (Math.random() * 0xfffff * 1000000).toString(16);
         return '#' + n.slice(0, 6);
     };
-
-    // 转义html(防XSS攻击)
+ 
+    /**
+     * @description 转义html(防XSS攻击)
+     *
+     * @param {String} str 待转换的字符串
+     * @return {String} 转义html字符串
+     * @memberof Tool
+     * @example
+     * escapeHTML(`
+     *      <div id="app" class="a" style="height: 1500px;"></div>
+     *      <P class="a" id="aaa">1</P>
+     * `))
+     * 
+     * // &lt;div id=&quot;app&quot; class=&quot;a&quot; style=&quot;height: 1500px;&quot;&gt;&lt;/div&gt;
+     * // &lt;P class=&quot;a&quot; id=&quot;aaa&quot;&gt;1&lt;/P&gt;
+     */
     escapeHTML(str) {
         return str.replace(
             /[&<>'"]/g,
@@ -761,9 +875,16 @@ class Tool {
         );
     }
 
-    // 数字超过规定大小加上加号“+”，如数字超过99显示99+
-    // @param { number } val 输入的数字
-    // @param { number } maxNum 数字规定界限
+    /**
+     * @description 数字超过规定大小加上加号“+”，如数字超过99显示99+
+     *
+     * @param {number} val 输入的数字
+     * @param {number} maxNum 数字规定界限
+     * @return {String} 
+     * @memberof Tool
+     * @example
+     * outOfNum(100,99)     // 99+
+     */
     outOfNum(val, maxNum) {
         val = val ? val - 0 : 0;
         if (val > maxNum) {
@@ -773,12 +894,19 @@ class Tool {
         }
     };
 
-
     /**
-     * 分割指定长度的元素数组
+     * @description 分割指定长度的元素数组
+     *
      * @param {Array} list 传进来的数组
-     * @param {number} size  要分成几个为一组的数据
-     * @param {Array} cacheList  返回出去的结果
+     * @param {number} [size=1] 要分成几个为一组的数据
+     * @param {Array} [cacheList=[]] 返回出去的结果
+     * @return {*} 
+     * @memberof Tool
+     * @example
+     * listChunk([1, 2, 3, 4, 5, 6, 7, 8, 9])  // [[1], [2], [3], [4], [5], [6], [7], [8], [9]]
+     * listChunk([1, 2, 3, 4, 5, 6, 7, 8, 9], 3)  // [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+     * listChunk([1, 2, 3, 4, 5, 6, 7, 8, 9], 0)  // []
+     * listChunk([1, 2, 3, 4, 5, 6, 7, 8, 9], -1)  // []
      */
     listChunk(list, size = 1, cacheList = []) {
         var tmp = [...list]
@@ -792,14 +920,19 @@ class Tool {
         return cacheList
     }
 
-
     /**
-     * 获取当前子元素是其父元素下子元素的排位
-     * @param {el} el 
-     * 小知识：先走do,index++，在去while(5) 循环五次 
-     * previousElementSibling 属性返回指定元素的前一个兄弟元素（相同节点树层中的前一个元素节点）
+     * @description 获取当前子元素是其父元素下子元素的排位
+     *
+     * @param {HTMLElement} el
+     * @return {Number} 
+     * @memberof Tool
+     * @example
+     * getChildInParentIndex(document.getElementById("btn"))  // 1
      */
     getChildInParentIndex(el) {
+        // 小知识：先走do,index++，在去while(5) 循环五次 
+        // previousElementSibling 属性返回指定元素的前一个兄弟元素（相同节点树层中的前一个元素节点）
+
         if (!el) {
             return -1
         }
@@ -811,29 +944,33 @@ class Tool {
         return index;
     }
 
-
-
-
-
     /**
-     * 获取元素类型
-     * @param {any(number, string, object, array, null, undefined)} obj 
+     * @description 获取元素类型
+     *
+     * @param {*} obj
+     * @return {String}  元素类型 (number, string, object, array, null, undefined)
+     * @memberof Tool
+     * @example
+     * dataType([])  // array
      */
     dataType(obj) {
         return Object.prototype.toString.call(obj).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
     }
 
-
     /**
-     * fade动画
-     * @param {el} el 
-     * @param {*} type 
-     * 思路：其实就是让opacity从0慢慢加到1,利用requestAnimationFrame使opacity在变化的过程添加动画
-     * window.requestAnimationFrame() 告诉浏览器——你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。
-     * 该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行
-     * 所以requestAnimationFrame会一直回调，直到opacity大于1，则停止动画
+     * @description fade动画
+     *
+     * @param {HTMLElement} el
+     * @param {string} [type='in'] 动画类型
+     * @memberof Tool
+     * @example
+     * setFade(document.getElementById("btn"))
      */
     setFade(el, type = 'in') {
+        // 思路：其实就是让opacity从0慢慢加到1,利用requestAnimationFrame使opacity在变化的过程添加动画
+        // window.requestAnimationFrame() 告诉浏览器——你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。
+        // 该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行
+        // 所以requestAnimationFrame会一直回调，直到opacity大于1，则停止动画
         el.style.opacity = (type === 'in' ? 0 : 1)
         let last = +new Date()
         const tick = () => {
@@ -851,11 +988,15 @@ class Tool {
         tick()
     }
 
-
     /**
-     * 禁止网页复制粘贴（默认都禁止）
-     * @param {boolean} isStopCopy 是否禁止网页复制
-     * @param {boolean} isStopPaste 是否禁止网页被黏贴
+     * @description 禁止网页复制粘贴（默认都禁止）
+     *
+     * @param {boolean} [isStopCopy=true] 是否禁止网页复制
+     * @param {boolean} [isStopPaste=true] 是否禁止网页被黏贴
+     * @return {*} 
+     * @memberof Tool
+     * @example
+     * stopCopyOrPaste(true,true)
      */
     stopCopyOrPaste(isStopCopy = true, isStopPaste = true) {
         const html = document.querySelector('html');
@@ -874,11 +1015,15 @@ class Tool {
         }
 
     }
-
-
+  
     /**
-     * 去除字符串中的html代码
-     * @param {string} str 
+     * @description 去除字符串中的html代码
+     *
+     * @param {string} [str='']
+     * @return {*} 
+     * @memberof Tool
+     * @example
+     * stopCopyOrPaste('<h1>哈哈哈哈<呵呵呵</h1>')  // 呵呵呵
      */
     removeHTML (str = ''){
         return str.replace(/<[\/\!]*[^<>]*>/ig, '')
@@ -886,23 +1031,7 @@ class Tool {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    init() {
-
-    }
-
-
+    init() {}
 }
 
 export { Tool }
