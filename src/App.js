@@ -2,11 +2,14 @@
 // import 'bootstrap/dist/js/bootstrap.min.js'
 
 // 一些工具类
-import {Tool} from './JsLib/Tool'
+import {Tool, ArrayTool} from './JsLib'
 import {Check} from './Check/Check'
 import {Browser} from './Browser/Browser'
 import {DateOperation} from './Date/Date'
 import {Storage} from './Storage/Storage'
+
+// 测试
+import initArrayTool from './test/JsLib/ArrayTool'
 
 // 算法
 import {Algorithm} from './Algorithm/index'
@@ -165,6 +168,7 @@ import { myAxios } from './HandWrit/myAxios/myAxios'
       
 
     }
+
  
     initCheck(){
         let check = new Check()
@@ -612,6 +616,7 @@ import { myAxios } from './HandWrit/myAxios/myAxios'
         // this.initProgressBar()
         // this.initPopover()
         this.initTool();
+        initArrayTool()
         this.initCheck();
         this.initBrowser()
         this.initDate()
@@ -628,6 +633,7 @@ import { myAxios } from './HandWrit/myAxios/myAxios'
 export  {
     App,
     Tool, 
+    ArrayTool,
     Check, 
     Browser, 
     DateOperation, 

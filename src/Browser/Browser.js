@@ -10,9 +10,9 @@ class Browser{
 
 
     /**
-     * @description 如何隐藏所有指定的元素
+     * @description 获取当前url
      *
-     * @return {*} 
+     * @return {String} 
      * @memberof Browser
      * @example
      * currentURL()   // http://localhost:9000/
@@ -137,6 +137,8 @@ class Browser{
      * @return {Object}  当前滚动条位置
      * @memberof Browser
      * @example
+     * // scrollLeft和scrollTop是IE8可兼容
+     * 
      * getScrollPosition()   // {x: 0, y: 775}
      */
     getScrollPosition (el = window){
@@ -145,6 +147,7 @@ class Browser{
             y: el.pageYOffset !== undefined ? el.pageYOffset : el.scrollTop
         }
     }
+    
 
     /**
      * @description 获取当前元素相对于document的偏移量
