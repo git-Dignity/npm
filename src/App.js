@@ -7,9 +7,12 @@ import {Check} from './Check/Check'
 import {Browser} from './Browser/Browser'
 import {DateOperation} from './Date/Date'
 import {Storage} from './Storage/Storage'
+import {File} from './File'
 
 // 测试
 import initArrayTool from './test/JsLib/ArrayTool'
+import initTool from './test/JsLib/Tool'
+import initFile from './test/File/File'
 
 // 算法
 import {Algorithm} from './Algorithm/index'
@@ -615,7 +618,7 @@ import { myAxios } from './HandWrit/myAxios/myAxios'
         // this.initList();
         // this.initProgressBar()
         // this.initPopover()
-        this.initTool();
+        initTool();
         initArrayTool()
         this.initCheck();
         this.initBrowser()
@@ -625,6 +628,7 @@ import { myAxios } from './HandWrit/myAxios/myAxios'
 
         this.initAlgorithm()
         this.initHandleWrite()
+        initFile()
 
     }
 }
@@ -637,5 +641,6 @@ export  {
     Check, 
     Browser, 
     DateOperation, 
-    Storage
+    Storage,
+    File
 }

@@ -243,6 +243,35 @@ class Browser{
         }
     }
 
+
+    /**
+     * @description 如何将字符串复制到剪贴板？
+     * @description 原理：1. 创建一个textare元素并调用select()方法选中
+     * @description 原理：2. document.execCommand('copy')方法，拷贝当前选中内容到剪贴板。
+     * @param {String} str
+     * @return {*}
+     * @memberof Browser
+     * @example
+     * copyToClipboard('哈哈，我被你的tool.copyToClipboard复制出来了') 
+     */    
+     copyToClipboard(str) {
+        const el = document.createElement('textarea');
+        el.value = str;
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        document.body.appendChild(el);
+        const selected =
+            document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        if (selected) {
+            document.getSelection().removeAllRanges();
+            document.getSelection().addRange(selected);
+        }
+    }
+
 }
 
 export {Browser}

@@ -1,4 +1,5 @@
 
+
 import { ArrayTool} from '../../JsLib'
 
 export default   () =>{
@@ -17,7 +18,30 @@ export default   () =>{
     // console.log(arrayTool.listChunk([1, 2, 3, 4, 5, 6, 7, 8, 9], 0)) // []
     // console.log(arrayTool.listChunk([1, 2, 3, 4, 5, 6, 7, 8, 9], -1)) // []
 
-    // console.log();
+    // const person={
+    //     name:'xiaoming',
+    //     child:{
+    //         name:'Jack',
+    //         eat: function(){
+    //             console.log('阿巴');
+    //         }
+    //     }
+    // }
+
+    // let personCopy = arrayTool.deepCopy(person)
+    // personCopy.child.eat = []
+    // console.log(person.child.eat);      // fn()
+    // console.log(personCopy.child.eat); // []  确实两个对象值引用不相同了
+
+    console.log(arrayTool.uniqueArray([undefined, null, null, 1, 1]));
+
+    console.log(arrayTool.uniqueArray([undefined, null, null, 1, 1, [111, 22], [111, 22]])); // 要实现一下
+
+
+    console.log(arrayTool.cutNumber(1.545454658648));   // 1.55
+    console.log(arrayTool.cutNumber(1.545454658648, 4));   // 1.5455
+
+
 
 
 

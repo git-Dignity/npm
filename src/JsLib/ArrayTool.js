@@ -106,6 +106,78 @@ class ArrayTool{
         return cacheList
     }
 
+    /**
+     * @description 简单的深拷贝
+     *
+     * @param {Object/Array} obj 目标数组
+     * @return {Object/Array}  目标数组Copy
+     * @memberof ArrayTool
+     * @example
+     *  const person={
+     *    name:'xiaoming',
+     *    child:{
+     *       name:'Jack',
+     *       eat: function(){
+     *           console.log('阿巴');
+     *       }
+     *    }
+     * }
+     *
+     * let personCopy = deepCopy(person)
+     * personCopy.child.eat = []
+     * console.log(person.child.eat);      // fn()
+     * console.log(personCopy.child.eat); // []  
+     * // 确实两个对象值引用不相同了
+     */
+    deepCopy(obj){
+        if(typeof obj != 'object' || obj == null){
+            return obj
+        }
+
+        return JSON.parse(JSON.stringify(obj))
+    }
+
+    /**
+     * @description 数组去重
+     * @description 原理：利用Set中不能出现重复元素的特征
+     * @param {Array} arr 目标数组
+     * @return {Array} 
+     * @memberof ArrayTool
+     * @example
+     *  uniqueArray([undefined, null, null, 1, 1])  // [undefined, null, 1]
+     */
+    uniqueArray(arr){
+        if(!Array.isArray(arr)){
+            throw new Error('The first paramter must be an array')
+        }
+        if(arr.length == 1){
+            return arr
+        }
+
+        return [...new Set(arr)]
+    }
+
+    /**
+     * @description 保留到小数点以后n位
+     *
+     * @param {Number} number 目标数字
+     * @param {number} [no=2] 保留到小数点以后no位
+     * @return {Number} 
+     * @memberof ArrayTool
+     */
+    cutNumber(number, no = 2) {
+        if (typeof number != 'number') {
+            number = Number(number)
+        }
+        return Number(number.toFixed(no))
+    }
+    
+    
+
 }
 
 export default ArrayTool
+
+
+
+// 8个工程必备的JavaScript代码片段（建议添加到项目中）：https://juejin.cn/post/6999391770672889893

@@ -213,31 +213,7 @@ class Tool {
         request.send(data);
     }
 
-    /**
-     * @description 如何将字符串复制到剪贴板？
-     * @param {String} str
-     * @return {*}
-     * @memberof Tool
-     * @example
-     * copyToClipboard('哈哈，我被你的tool.copyToClipboard复制出来了') 
-     */    
-    copyToClipboard(str) {
-        const el = document.createElement('textarea');
-        el.value = str;
-        el.setAttribute('readonly', '');
-        el.style.position = 'absolute';
-        el.style.left = '-9999px';
-        document.body.appendChild(el);
-        const selected =
-            document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
-        el.select();
-        document.execCommand('copy');
-        document.body.removeChild(el);
-        if (selected) {
-            document.getSelection().removeAllRanges();
-            document.getSelection().addRange(selected);
-        }
-    }
+    
 
 
     // 常用的工具函数，包含数字，字符串，数组和对象等等操作。
@@ -905,6 +881,28 @@ class Tool {
     removeHTML (str = ''){
         return str.replace(/<[\/\!]*[^<>]*>/ig, '')
     }
+
+    /**
+     * @description 生成随机字符串
+     *
+     * @param {number} [length=8] 指定位数
+     * @param {string} [chars='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'] 指定字符
+     * @return {*} 
+     * @memberof Tool
+     * @example
+     * uuid()  // E10fvazi   (如果都不传，默认生成8位)
+     * 
+     * uuid(4, "abcd")  // bccc
+     */
+    uuid(length = 8, chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
+        let result = ''
+        for (var i = length; i > 0; --i){
+            result += chars[Math.floor(Math.random() * chars.length)]
+        }
+            
+        return result
+    }
+    
 
 
 
