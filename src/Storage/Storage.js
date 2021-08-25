@@ -81,6 +81,8 @@ class Storage{
         }, expire)
     }
 
+    
+
 
     // sessionStorage
 

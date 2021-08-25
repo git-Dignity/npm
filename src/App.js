@@ -8,6 +8,7 @@ import {Browser} from './Browser/Browser'
 import {DateOperation} from './Date/Date'
 import {Storage} from './Storage/Storage'
 import {File} from './File'
+import {Animation} from './Animation'
 
 // 测试
 import initArrayTool from './test/JsLib/ArrayTool'
@@ -642,5 +643,6 @@ export  {
     Browser, 
     DateOperation, 
     Storage,
-    File
+    File,
+    Animation
 }
