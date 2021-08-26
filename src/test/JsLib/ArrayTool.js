@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-08-19 12:47:51
+ * @LastEditTime: 2021-08-26 13:17:29
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \npm\src\test\JsLib\ArrayTool.js
+ */
 
 
 import { ArrayTool} from '../../JsLib'
@@ -37,9 +45,46 @@ export default   () =>{
 
     console.log(arrayTool.uniqueArray([undefined, null, null, 1, 1, [111, 22], [111, 22]])); // 要实现一下
 
+    // console.log(arrayTool.booleanAll([4, 2, 3], x => x > 1));   // true
+    // console.log(arrayTool.booleanAll([4, 2, 3], x => x > 2));   // false
 
-    console.log(arrayTool.cutNumber(1.545454658648));   // 1.55
-    console.log(arrayTool.cutNumber(1.545454658648, 4));   // 1.5455
+    // console.log(arrayTool.allEqual([1, 1]));  // true
+    // console.log(arrayTool.allEqual([1, 2, 3, 4, 5, 6]));  // false
+    
+    // console.log(arrayTool.approximatelyEqual(Math.PI / 2.0, 1.5708, 0.001));    // false
+    // console.log(arrayTool.approximatelyEqual(Math.PI / 2.0, 2.5708, 0.002));    // true
+
+    // console.log(arrayTool.xxx());
+
+    // console.log(arrayTool.xxx());
+
+    // console.log(arrayTool.xxx());
+
+    // console.log(arrayTool.xxx());
+
+    // console.log(arrayTool.xxx());
+
+    // console.log(arrayTool.xxx());
+
+    // console.log(arrayTool.xxx());
+
+    // console.log(arrayTool.xxx());
+
+    // console.log(arrayTool.xxx());
+
+    // console.log(arrayTool.xxx());
+
+    // console.log(arrayTool.xxx());
+
+    // console.log(arrayTool.xxx());
+
+    // console.log(arrayTool.xxx());
+
+    // console.log(arrayTool.xxx());
+
+    // console.log(arrayTool.xxx());
+
+    // console.log(arrayTool.xxx());
 
 
 

@@ -113,7 +113,7 @@ class ArrayTool{
      * @return {Object/Array}  目标数组Copy
      * @memberof ArrayTool
      * @example
-     *  const person={
+     * const person={
      *    name:'xiaoming',
      *    child:{
      *       name:'Jack',
@@ -144,7 +144,7 @@ class ArrayTool{
      * @return {Array} 
      * @memberof ArrayTool
      * @example
-     *  uniqueArray([undefined, null, null, 1, 1])  // [undefined, null, 1]
+     * uniqueArray([undefined, null, null, 1, 1])  // [undefined, null, 1]
      */
     uniqueArray(arr){
         if(!Array.isArray(arr)){
@@ -158,19 +158,67 @@ class ArrayTool{
     }
 
     /**
-     * @description 保留到小数点以后n位
+     * @description 布尔全等判断
+     * @description 判断arr数组中，满足fn，如果全部都满足即为true；如果有一个不满足条件即为false
      *
-     * @param {Number} number 目标数字
-     * @param {number} [no=2] 保留到小数点以后no位
-     * @return {Number} 
+     * @param {Array} arr
+     * @param {Function} [fn=Boolean]
+     * @return {Boolean} 
      * @memberof ArrayTool
+     * @example
+     * booleanAll([4, 2, 3], x => x > 1);   // true
+     * booleanAll([4, 2, 3], x => x > 2);   // false
      */
-    cutNumber(number, no = 2) {
-        if (typeof number != 'number') {
-            number = Number(number)
-        }
-        return Number(number.toFixed(no))
+    booleanAll(arr, fn = Boolean) {
+       return arr.every(fn)
     }
+
+    /**
+     * @description 检查数组各项相等
+     *
+     * @param {Array} arr
+     * @return {Boolean} 
+     * @memberof ArrayTool
+     * @example
+     * allEqual([1, 1, 1]);   // true
+     * allEqual([1, 2, 3, 4, 5, 6]);   // false
+     */
+    allEqual(arr){
+        return arr.every(val => val === arr[0])
+    }
+
+    /**
+     * @description 判断两个数字约等于
+     *
+     * @param {Number} v1
+     * @param {Number} v2
+     * @param {number} [epsilon=0.001] 范围
+     * @return {Boolean} 
+     * @memberof ArrayTool
+     * @example
+     * approximatelyEqual(Math.PI / 2.0, 1.5708, 0.001);   // true
+     * approximatelyEqual(Math.PI / 2.0, 2.5708, 0.002);   // false
+     */
+    approximatelyEqual(v1, v2, epsilon = 0.001){
+        return Math.abs(v1 - v2) < epsilon
+    } 
+
+
+
+
+
+
+
+
+
+
+
+
+    // https://juejin.cn/post/6844903966526930951  第7点
+
+
+
+    
     
     
 

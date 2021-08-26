@@ -9,11 +9,15 @@ import {DateOperation} from './Date/Date'
 import {Storage} from './Storage/Storage'
 import {File} from './File'
 import {Animation} from './Animation'
+import { Dom } from './Dom'
+import {NumberVal} from './NumberVal'
 
 // 测试
 import initArrayTool from './test/JsLib/ArrayTool'
 import initTool from './test/JsLib/Tool'
 import initFile from './test/File/File'
+import initDom from './test/Dom/Dom'
+import initNumberVal from './test/NumberVal/NumberVal'
 
 // 算法
 import {Algorithm} from './Algorithm/index'
@@ -630,6 +634,8 @@ import { myAxios } from './HandWrit/myAxios/myAxios'
         this.initAlgorithm()
         this.initHandleWrite()
         initFile()
+        initDom(false)
+        initNumberVal(true)
 
     }
 }
@@ -644,5 +650,7 @@ export  {
     DateOperation, 
     Storage,
     File,
-    Animation
+    Animation,
+    Dom,
+    NumberVal
 }

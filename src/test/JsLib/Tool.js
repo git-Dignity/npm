@@ -1,7 +1,7 @@
 /*
  * @Author: zemin zheng
  * @Date: 2021-08-24 13:16:31
- * @LastEditTime: 2021-08-24 13:19:43
+ * @LastEditTime: 2021-08-26 12:56:52
  * @LastEditors: Please set LastEditors
  * @Description: 工具测试
  * @FilePath: \npm\src\test\JsLib\Tool.js
@@ -130,8 +130,13 @@ export default () => {
 
   // console.log(tool.outOfNum(100,99))  // 99+
   // console.log(tool.getOSType())
-//   console.log(tool.uuid()); // kDLbXhxE
-//   console.log(tool.uuid(4, "abcd"));    // bccc
+  // console.log(tool.uuid()); // kDLbXhxE
+  // console.log(tool.uuid(4, "abcd"));    // bccc
+
+  // console.log(tool.uuid(4, "abcd"));
+  
+  // console.log(tool.cutNumber(1.545454658648));   // 1.55
+  // console.log(tool.cutNumber(1.545454658648, 4));   // 1.5455
 
   console.log("工具类 end")
 }

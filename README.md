@@ -44,5 +44,6 @@ http://zhengzemin.cn:9052
 让你减少加班的15条高效JS技巧：https://mp.weixin.qq.com/s/LUDMKxUXDA1PluYtX9vmbA
 对应 Tool、Date、Browser
 
+JavaScript 工具函数大全（新）：https://juejin.cn/post/6844903966526930951  第7点
 
 

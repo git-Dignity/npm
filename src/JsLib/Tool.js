@@ -902,6 +902,24 @@ class Tool {
             
         return result
     }
+
+    /**
+     * @description 保留到小数点以后n位
+     *
+     * @param {Number} number 目标数字
+     * @param {number} [no=2] 保留到小数点以后no位
+     * @return {Number} 
+     * @memberof Tool
+     * @example
+     * cutNumber(1.545454658648);   // 1.55
+     * cutNumber(1.545454658648, 4);   // 1.5455
+     */
+     cutNumber(number, no = 2) {
+        if (typeof number != 'number') {
+            number = Number(number)
+        }
+        return Number(number.toFixed(no))
+    }
     
 
 
