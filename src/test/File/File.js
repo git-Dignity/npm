@@ -1,7 +1,7 @@
 /*
  * @Author:zemin zheng
  * @Date: 2021-08-24 12:55:01
- * @LastEditTime: 2021-08-24 14:44:06
+ * @LastEditTime: 2021-08-27 10:58:39
  * @LastEditors: Please set LastEditors
  * @Description: 文件测试
  * @FilePath: \npm\src\test\File\File.js
@@ -10,9 +10,13 @@
 
 import { File} from '../../File'
 
-export default   () =>{
+export default   (isLog) =>{
+    if(!isLog) {
+        return 
+    }
+    
     let file = new File()
-    console.log('文件类 start^_^_^_^_^_^_^_^_^_^');
+    file.start()
     // console.log(file.getExt("dfbjbJKds .png"));   // png
 
     // let req={
@@ -26,6 +30,5 @@ export default   () =>{
    
 
 
-    console.log('文件类 end^_^_^_^_^_^_^_^_^_^');
-
+    file.end()
 }

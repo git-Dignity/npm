@@ -1,7 +1,7 @@
 /*
  * @Author: zemin zheng
  * @Date: 2021-08-24 13:16:31
- * @LastEditTime: 2021-08-26 12:56:52
+ * @LastEditTime: 2021-08-27 10:59:30
  * @LastEditors: Please set LastEditors
  * @Description: 工具测试
  * @FilePath: \npm\src\test\JsLib\Tool.js
@@ -9,9 +9,13 @@
 
 import { Tool } from "../../JsLib"
 
-export default () => {
+export default (isLog) => {
+  if (!isLog) {
+    return
+  }
+
   let tool = new Tool()
-  console.log("工具类 start")
+  tool.start()
 
   // tool.hide(document.querySelectorAll('p'));
   // console.log(tool.hasClass(document.getElementById('aaa'), 'a')) // true
@@ -134,9 +138,9 @@ export default () => {
   // console.log(tool.uuid(4, "abcd"));    // bccc
 
   // console.log(tool.uuid(4, "abcd"));
-  
+
   // console.log(tool.cutNumber(1.545454658648));   // 1.55
   // console.log(tool.cutNumber(1.545454658648, 4));   // 1.5455
 
-  console.log("工具类 end")
+  tool.end()
 }

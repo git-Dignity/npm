@@ -7,6 +7,24 @@ class File {
   constructor() {}
 
   /**
+   * @description 打印开始点
+   *
+   * @memberof File
+   */
+   start() {
+    console.log("文件类File start^_^_^_^_^_^_^_^_^_^")
+  }
+
+  /**
+   * @description 打印结束点
+   *
+   * @memberof File
+   */
+  end() {
+    console.log("文件类File end^_^_^_^_^_^_^_^_^_^")
+  }
+
+  /**
    * @description 获取文件后缀名
    *
    * @param {String} filename 文件名字
