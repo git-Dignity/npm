@@ -29,7 +29,7 @@ class ArrayTool {
    * @param {*} item 要查询的元素
    * @param {Array} data
    * @return {Number} 元素第一次出现的下标
-   * @memberof Tool
+   * @memberof ArrayTool
    * @example
    * inArray(2,[1,2,3,4])  // 1
    */
@@ -46,7 +46,7 @@ class ArrayTool {
    * @description 数组乱序
    * @param {Array} arr
    * @return {Array}
-   * @memberof Tool
+   * @memberof ArrayTool
    * @example
    * arrScrambling([1,5,9])  // [5,1,9]
    */
@@ -67,11 +67,11 @@ class ArrayTool {
   }
 
   /**
-   * @description 数组交集
+   * @description 数组交集（方法一）
    * @param {Array} arr1
    * @param {Array} arr2
    * @return {Array}
-   * @memberof Tool
+   * @memberof ArrayTool
    * @example
    * similarity([1,2,3],[5,2])  // [2]
    */
@@ -80,11 +80,49 @@ class ArrayTool {
   }
 
   /**
+   * @description has() 方法返回一个布尔值来指示对应的值value是否存在Set对象中。
+   * @description 数组交集（方法二）
+   * @param {Array} arr1
+   * @param {Array} arr2
+   * @return {Array}
+   * @memberof ArrayTool
+   * @example
+   * intersection([1,2,3],[5,2])  // [2]
+   */
+  intersection(arr1, arr2){
+    const s = new Set(arr2)
+    return arr1.filter(a1 => s.has(a1))
+  }
+
+  /**
+   * @description 对两个数组的每个元素执行了函数之后，返回两个数组中存在的元素列表。
+   * @description 返回arr1和arr2满足fn函数后的交集（arr1）
+   * @description 两数组都符合条件的交集
+   *
+   * @param {Array} arr1
+   * @param {Array} arr2
+   * @param {Function} fn
+   * @return {Array} 
+   * @memberof ArrayTool
+   * @example
+   * intersectionBy([2.1,2.5, 1.2], [2.3, 3.4], Math.floor)  // [2.1, 2.5]
+   */
+  intersectionBy(arr1, arr2, fn){
+    const s = new Set(arr2.map(fn))
+    return arr1.filter(a1 => s.has(fn(a1)))
+  }
+
+
+
+
+
+
+  /**
    * @description 数组中某元素出现的次数  ([1,2,2,3],2)
    * @param {Array} arr
    * @param {Number/String} value
    * @return {Number}
-   * @memberof Tool
+   * @memberof ArrayTool
    * @example
    * countOccurrences([1,2,2,3],2)  // 2
    * countOccurrences([1, 1, 2, 1, '1', '1', 2, 3], "1"); // 2
@@ -104,7 +142,7 @@ class ArrayTool {
    * @param {number} [size=1] 要分成几个为一组的数据
    * @param {Array} [cacheList=[]] 返回出去的结果
    * @return {*}
-   * @memberof Tool
+   * @memberof ArrayTool
    * @example
    * listChunk([1, 2, 3, 4, 5, 6, 7, 8, 9])  // [[1], [2], [3], [4], [5], [6], [7], [8], [9]]
    * listChunk([1, 2, 3, 4, 5, 6, 7, 8, 9], 3)  // [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
@@ -352,10 +390,104 @@ class ArrayTool {
       ...arr.map((v) => (Array.isArray(v) ? this.deepFlatten(v) : v))
     )
   }
+
+   /**
+   * @description depth写999，也不会循环很多次，因为只要判断不是数组，他就不会继续递归下去
+   * @description 指定深度扁平化数组
+   *
+   * @param {Array} arr 目标数组
+   * @param {number} [depth=1] 指定深度
+   * @return {Array} 
+   * @memberof ArrayTool
+   * @example
+   * flatten([1, [2], 3, 4]); // [1, 2, 3, 4]
+   * flatten([1, [2, [3, [4, 5], 6], 7], 8], 2); //  [1, 2, 3, [4, 5], 6, 7, 8]
+   * flatten([1, [2, [3, [4, 5], 6], 7], 8], 3); //  [1, 2, 3, 4, 5, 6, 7, 8]
+   */
+    flatten(arr, depth = 1){
+      return arr.reduce((a, v) => {
+        return a.concat(depth>1 && Array.isArray(v) ? this.flatten(v, depth - 1) : v)
+      }, [])
+    }
+
+  /**
+   * @description has() 方法返回一个布尔值来指示对应的值value是否存在Set对象中。
+   * @description 寻找差异（查找两个数组之间的差异，并返回第一个数组独有的）
+   *
+   * @param {Array} arr1
+   * @param {Array} arr2
+   * @return {Array} 
+   * @memberof ArrayTool
+   * @example
+   * difference([1, 2, 3], [1, 5, 4])  // [2, 3]
+   */
+  difference(arr1, arr2){
+    const s = new Set(arr2)
+    return arr1.filter(a1 => !s.has(a1))
+  }
+
+  /**
+   * @description has() 方法返回一个布尔值来指示对应的值value是否存在Set对象中。
+   * @description 先执行再寻找差异（将给定函数应用于两个列表的每个元素之后，此方法返回两个数组之间的差异）
+   *
+   * @param {Array} arr1
+   * @param {Array} arr2
+   * @param {Function} fn 给定函数
+   * @return {Array} 
+   * @memberof ArrayTool
+   * @example
+   * differenceBy([2.1, 1.2], [2.3, 3.4], Math.floor)  // [1.2]
+   * differenceBy([{ x: 2 }, { x: 1 }], [{ x: 1 }], v => v.x)  // [ { x: 2 } ]
+   */
+  differenceBy(arr1, arr2, fn){
+    const s = new Set(arr2.map(fn))
+    return arr1.filter(a1 => !s.has(fn(a1)))
+  }
+
+  /**
+   * @description 从数组顶部开始删除元素，直到传递的函数返回为true
+   * @description 删除不符合条件的值
+   *
+   * @param {Array} arr
+   * @param {Function} func
+   * @return {Array} 
+   * @memberof ArrayTool
+   * @example
+   * dropWhile([1, 2,3, 4], n => n >= 3)  // [3, 4]
+   * 
+   * 只要第一个返回true就不判断后面的了
+   * dropWhile([1, 3,2,1, 4], n => n >= 3) // [3, 2, 1, 4]  
+   */
+  dropWhile(arr, func){
+    while(arr.length > 0 && !func(arr[0])) {
+      arr = arr.slice(1)
+    }
+   
+    return arr
+  }
+
+  /**
+   * @description 返回数组中某值的所有索引（如果此值中未包含该值，则返回一个空数组）
+   *
+   * @param {Array} arr 目标数组
+   * @param {String} val  某值
+   * @return {Array} 
+   * @memberof ArrayTool
+   * @example
+   * indexOfAll([1, 2, 3, 1, 2, 3], 1)  // [0,3]
+   * indexOfAll([1, 2, 3], 4)  // []
+   */
+  indexOfAll(arr, val){
+    return arr.reduce((acc, el, i) =>{
+      return el === val ? [...acc, i] : acc
+    }, [])
+  }
+
+ 
 }
 
 export default ArrayTool
 
 // 8个工程必备的JavaScript代码片段（建议添加到项目中）：https://juejin.cn/post/6999391770672889893
 
-// https://juejin.cn/post/6844903966526930951  第13点
+// https://juejin.cn/post/6844903966526930951  第21点

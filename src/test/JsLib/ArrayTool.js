@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-19 12:47:51
- * @LastEditTime: 2021-08-27 19:08:45
+ * @LastEditTime: 2021-08-30 14:35:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \npm\src\test\JsLib\ArrayTool.js
@@ -21,6 +21,10 @@ export default (isLog) => {
   // console.log(arrayTool.arrScrambling([1,5,9]));  // [5, 9, 1]
 
   // console.log(arrayTool.similarity([1,2,3],[5,2]))  // [2]
+  // console.log(arrayTool.intersection([1,2,3],[5,2]))  // [2]
+
+  // console.log(arrayTool.intersectionBy([2.1,2.5, 1.2], [2.3, 3.4], Math.floor))  // [2.1, 2.5]
+
 
   // console.log(arrayTool.countOccurrences([1,2,2,3],2)) // 2
   // console.log(arrayTool.countOccurrences([1, 1, 2, 1, '1', '1', 2, 3], "1")); // 2
@@ -45,7 +49,7 @@ export default (isLog) => {
   // console.log(person.child.eat);      // fn()
   // console.log(personCopy.child.eat); // []  确实两个对象值引用不相同了
 
-  console.log(arrayTool.uniqueArray([undefined, null, null, 1, 1])) // [undefined, null, 1]
+  // console.log(arrayTool.uniqueArray([undefined, null, null, 1, 1])) // [undefined, null, 1]
 
   // console.log(arrayTool.uniqueMultiDimensionalArray([undefined, null, null, 1, 1, [111, 22], [111, 22]])); // 要实现一下
 
@@ -98,6 +102,42 @@ export default (isLog) => {
 
   // console.log(arrayTool.deepFlatten([1, [2], [[3], 4], 5]));  // [1, 2, 3, 4, 5]
 
+  // console.log(arrayTool.difference([1, 2, 3], [1, 2, 4]));  // [3]
+  // console.log(arrayTool.difference([1, 2, 3], [1, 5, 4]));  // [2, 3]
+
+  // console.log(arrayTool.differenceBy([2.1, 1.2], [2.3, 3.4], Math.floor));  // [1.2]
+  // console.log(arrayTool.differenceBy([{ x: 2 }, { x: 1 }], [{ x: 1 }], v => v.x));  // [ { x: 2 } ]
+
+  // console.log(arrayTool.dropWhile([1, 2,3, 4], n => n >= 3)); // [3, 4]
+  // console.log(arrayTool.dropWhile([1, 3,2,1, 4], n => n >= 3)); // [3, 2, 1, 4]
+
+  // console.log(arrayTool.flatten([1, [2], 3, 4])); // [1, 2, 3, 4]
+  // console.log(arrayTool.flatten([1, [2, [3, [4, 5], 6], 7], 8], 2)); //  [1, 2, 3, [4, 5], 6, 7, 8]
+  // console.log(arrayTool.flatten([1, [2, [3, [4, 5], 6], 7], 8], 3)); //  [1, 2, 3, 4, 5, 6, 7, 8]
+
+  // console.log(arrayTool.indexOfAll([1, 2, 3, 1, 2, 3], 1)); // [0,3]
+  // console.log(arrayTool.indexOfAll([1, 2, 3], 4)); // []
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
   // console.log(arrayTool.xxx());
 
   // console.log(arrayTool.xxx());
@@ -121,6 +161,39 @@ export default (isLog) => {
   // console.log(arrayTool.xxx());
 
   // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+
+  // console.log(arrayTool.xxx());
+  
 
   arrayTool.end()
 }
