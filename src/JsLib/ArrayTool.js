@@ -483,6 +483,24 @@ class ArrayTool {
     }, [])
   }
 
+  /**
+   * @description 返回指定长度的升序/降序数组
+   *
+   * @param {Array} arr 目标数组
+   * @param {number} [n=1]
+   * @param {string} [sort="asc"] asc：升序；desc：降序
+   * @return {Array} 
+   * @memberof ArrayTool
+   * @example
+   * minN([1, 2, 3])   // [1]
+   * minN([1, 2, 3], 2) // [1, 2]
+   * minN([1, 2, 4, 3], 3, 'asc') // [1, 2, 3]
+   * minN([1, 2, 4, 3], 3, 'desc')  // [4, 3, 2]
+   */
+  minN(arr, n = 1, sort="asc"){
+    return [...arr].sort((a, b) => sort==="desc" ? b - a : a -b).slice(0,n)
+  }
+
  
 }
 

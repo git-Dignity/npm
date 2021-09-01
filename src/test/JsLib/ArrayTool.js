@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-19 12:47:51
- * @LastEditTime: 2021-08-30 14:35:01
+ * @LastEditTime: 2021-09-01 12:52:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \npm\src\test\JsLib\ArrayTool.js
@@ -118,7 +118,11 @@ export default (isLog) => {
   // console.log(arrayTool.indexOfAll([1, 2, 3, 1, 2, 3], 1)); // [0,3]
   // console.log(arrayTool.indexOfAll([1, 2, 3], 4)); // []
 
-  // console.log(arrayTool.xxx());
+  // 不传，默认是升序
+  console.log(arrayTool.minN([1, 2, 3])); // [1]
+  console.log(arrayTool.minN([1, 2, 3], 2));  // [1, 2]
+  console.log(arrayTool.minN([1, 2, 4, 3], 3, 'asc'));  // [1, 2, 3]
+  console.log(arrayTool.minN([1, 2, 4, 3], 3, 'desc'));  // [4, 3, 2]
 
   // console.log(arrayTool.xxx());
 
