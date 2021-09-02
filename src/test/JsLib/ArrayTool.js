@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-19 12:47:51
- * @LastEditTime: 2021-09-01 12:52:36
+ * @LastEditTime: 2021-09-02 15:11:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \npm\src\test\JsLib\ArrayTool.js
@@ -119,20 +119,34 @@ export default (isLog) => {
   // console.log(arrayTool.indexOfAll([1, 2, 3], 4)); // []
 
   // 不传，默认是升序
-  console.log(arrayTool.minN([1, 2, 3])); // [1]
-  console.log(arrayTool.minN([1, 2, 3], 2));  // [1, 2]
-  console.log(arrayTool.minN([1, 2, 4, 3], 3, 'asc'));  // [1, 2, 3]
-  console.log(arrayTool.minN([1, 2, 4, 3], 3, 'desc'));  // [4, 3, 2]
+  // console.log(arrayTool.minN([1, 2, 3])); // [1]
+  // console.log(arrayTool.minN([1, 2, 3], 2));  // [1, 2]
+  // console.log(arrayTool.minN([1, 2, 4, 3], 3, 'asc'));  // [1, 2, 3]
+  // console.log(arrayTool.minN([1, 2, 4, 3], 3, 'desc'));  // [4, 3, 2]
 
-  // console.log(arrayTool.xxx());
+  // console.log([1, 2, 3, 4, 5, 6].filter(arrayTool.negate((n => n % 2 === 0))));  // [ 1, 3, 5 ]
 
-  // console.log(arrayTool.xxx());
+  // console.log(arrayTool.randomIntArrayInRange(10,20,10)); // [11, 12, 10, 15, 18, 12, 15, 16, 13, 15]
+  // console.log(arrayTool.randomIntArrayInRange(10,10,10)); // [10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
 
-  // console.log(arrayTool.xxx());
+  // console.log(arrayTool.sample([1,5,8,9,10]));  // 10
+  // console.log(arrayTool.sample([1,5,8,9,10]));  // 5
+  // console.log(arrayTool.sample([1,5,8,9,10]));  // 1
 
-  // console.log(arrayTool.xxx());
+  // console.log(arrayTool.sampleSize([1, 2, 3,4], 2));  // [4, 3]
+  // console.log(arrayTool.sampleSize([1, 2, 3,4], 2));  // [1, 3]
+  // console.log(arrayTool.sampleSize([1, 2, 3,4], 2));  // [1, 4]
 
-  // console.log(arrayTool.xxx());
+  const comments = [
+    { id: 1, parent_id: null },
+    { id: 2, parent_id: 1 },
+    { id: 3, parent_id: 1 },
+    { id: 4, parent_id: 2 },
+    { id: 5, parent_id: 4 }
+  ];
+
+  console.log(arrayTool.nest(comments));   // [{ id: 1, parent_id: null, children: [...] }]
+
 
   // console.log(arrayTool.xxx());
 

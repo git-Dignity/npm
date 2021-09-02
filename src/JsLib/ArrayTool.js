@@ -89,9 +89,9 @@ class ArrayTool {
    * @example
    * intersection([1,2,3],[5,2])  // [2]
    */
-  intersection(arr1, arr2){
+  intersection(arr1, arr2) {
     const s = new Set(arr2)
-    return arr1.filter(a1 => s.has(a1))
+    return arr1.filter((a1) => s.has(a1))
   }
 
   /**
@@ -102,20 +102,15 @@ class ArrayTool {
    * @param {Array} arr1
    * @param {Array} arr2
    * @param {Function} fn
-   * @return {Array} 
+   * @return {Array}
    * @memberof ArrayTool
    * @example
    * intersectionBy([2.1,2.5, 1.2], [2.3, 3.4], Math.floor)  // [2.1, 2.5]
    */
-  intersectionBy(arr1, arr2, fn){
+  intersectionBy(arr1, arr2, fn) {
     const s = new Set(arr2.map(fn))
-    return arr1.filter(a1 => s.has(fn(a1)))
+    return arr1.filter((a1) => s.has(fn(a1)))
   }
-
-
-
-
-
 
   /**
    * @description 数组中某元素出现的次数  ([1,2,2,3],2)
@@ -273,7 +268,7 @@ class ArrayTool {
       res.push(item.sort((a, b) => a.localeCompare(b)).toString())
     })
     // console.log(res); // ["你的,它,我", "你的,它,我", "二,三,一", "二,三,一", "你d,它,a", "你d,它,a", "one,three,two", "one,three,two"]
-    
+
     // return Array.from(new Set(res)).map(item => item.split(','))
     return [...new Set(res)].map((item) => item.split(",")) // 上下等价
   }
@@ -391,24 +386,26 @@ class ArrayTool {
     )
   }
 
-   /**
+  /**
    * @description depth写999，也不会循环很多次，因为只要判断不是数组，他就不会继续递归下去
    * @description 指定深度扁平化数组
    *
    * @param {Array} arr 目标数组
    * @param {number} [depth=1] 指定深度
-   * @return {Array} 
+   * @return {Array}
    * @memberof ArrayTool
    * @example
    * flatten([1, [2], 3, 4]); // [1, 2, 3, 4]
    * flatten([1, [2, [3, [4, 5], 6], 7], 8], 2); //  [1, 2, 3, [4, 5], 6, 7, 8]
    * flatten([1, [2, [3, [4, 5], 6], 7], 8], 3); //  [1, 2, 3, 4, 5, 6, 7, 8]
    */
-    flatten(arr, depth = 1){
-      return arr.reduce((a, v) => {
-        return a.concat(depth>1 && Array.isArray(v) ? this.flatten(v, depth - 1) : v)
-      }, [])
-    }
+  flatten(arr, depth = 1) {
+    return arr.reduce((a, v) => {
+      return a.concat(
+        depth > 1 && Array.isArray(v) ? this.flatten(v, depth - 1) : v
+      )
+    }, [])
+  }
 
   /**
    * @description has() 方法返回一个布尔值来指示对应的值value是否存在Set对象中。
@@ -416,14 +413,14 @@ class ArrayTool {
    *
    * @param {Array} arr1
    * @param {Array} arr2
-   * @return {Array} 
+   * @return {Array}
    * @memberof ArrayTool
    * @example
    * difference([1, 2, 3], [1, 5, 4])  // [2, 3]
    */
-  difference(arr1, arr2){
+  difference(arr1, arr2) {
     const s = new Set(arr2)
-    return arr1.filter(a1 => !s.has(a1))
+    return arr1.filter((a1) => !s.has(a1))
   }
 
   /**
@@ -433,15 +430,15 @@ class ArrayTool {
    * @param {Array} arr1
    * @param {Array} arr2
    * @param {Function} fn 给定函数
-   * @return {Array} 
+   * @return {Array}
    * @memberof ArrayTool
    * @example
    * differenceBy([2.1, 1.2], [2.3, 3.4], Math.floor)  // [1.2]
    * differenceBy([{ x: 2 }, { x: 1 }], [{ x: 1 }], v => v.x)  // [ { x: 2 } ]
    */
-  differenceBy(arr1, arr2, fn){
+  differenceBy(arr1, arr2, fn) {
     const s = new Set(arr2.map(fn))
-    return arr1.filter(a1 => !s.has(fn(a1)))
+    return arr1.filter((a1) => !s.has(fn(a1)))
   }
 
   /**
@@ -450,19 +447,19 @@ class ArrayTool {
    *
    * @param {Array} arr
    * @param {Function} func
-   * @return {Array} 
+   * @return {Array}
    * @memberof ArrayTool
    * @example
    * dropWhile([1, 2,3, 4], n => n >= 3)  // [3, 4]
-   * 
+   *
    * 只要第一个返回true就不判断后面的了
-   * dropWhile([1, 3,2,1, 4], n => n >= 3) // [3, 2, 1, 4]  
+   * dropWhile([1, 3,2,1, 4], n => n >= 3) // [3, 2, 1, 4]
    */
-  dropWhile(arr, func){
-    while(arr.length > 0 && !func(arr[0])) {
+  dropWhile(arr, func) {
+    while (arr.length > 0 && !func(arr[0])) {
       arr = arr.slice(1)
     }
-   
+
     return arr
   }
 
@@ -471,14 +468,14 @@ class ArrayTool {
    *
    * @param {Array} arr 目标数组
    * @param {String} val  某值
-   * @return {Array} 
+   * @return {Array}
    * @memberof ArrayTool
    * @example
    * indexOfAll([1, 2, 3, 1, 2, 3], 1)  // [0,3]
    * indexOfAll([1, 2, 3], 4)  // []
    */
-  indexOfAll(arr, val){
-    return arr.reduce((acc, el, i) =>{
+  indexOfAll(arr, val) {
+    return arr.reduce((acc, el, i) => {
       return el === val ? [...acc, i] : acc
     }, [])
   }
@@ -489,7 +486,7 @@ class ArrayTool {
    * @param {Array} arr 目标数组
    * @param {number} [n=1]
    * @param {string} [sort="asc"] asc：升序；desc：降序
-   * @return {Array} 
+   * @return {Array}
    * @memberof ArrayTool
    * @example
    * minN([1, 2, 3])   // [1]
@@ -497,15 +494,140 @@ class ArrayTool {
    * minN([1, 2, 4, 3], 3, 'asc') // [1, 2, 3]
    * minN([1, 2, 4, 3], 3, 'desc')  // [4, 3, 2]
    */
-  minN(arr, n = 1, sort="asc"){
-    return [...arr].sort((a, b) => sort==="desc" ? b - a : a -b).slice(0,n)
+  minN(arr, n = 1, sort = "asc") {
+    return [...arr]
+      .sort((a, b) => (sort === "desc" ? b - a : a - b))
+      .slice(0, n)
   }
 
- 
+  /**
+   * @description 根据条件反向筛选
+   *
+   * @param {Function} func
+   * @return {Array}
+   * @memberof ArrayTool
+   * @example
+   * [1, 2, 3, 4, 5, 6].filter(arrayTool.negate((n => n % 2 === 0)));  // [ 1, 3, 5 ]
+   */
+  negate(func) {
+    return (...args) => !func(...args)
+  }
+
+  /**
+   * @description 后面加min，整体值就肯定比min最小值要大，自然不小于最小值
+   * @description Math.random() * (max - min + 1))  最大值减去最小值 + 1去乘Math.random()随机数0-1的数，那么就是两个差值的随机数；再去加最小值，算起来肯定不会超出最大值
+   * @description 生成两数之间指定长度的随机数组
+   *
+   * @param {number} min 最小值
+   * @param {number} max 最大值
+   * @param {number} [n=1]  返回数组的长度
+   * @return {Array}
+   * @memberof ArrayTool
+   * @example
+   * arrayTool.randomIntArrayInRange(10,20,10); // [11, 12, 10, 15, 18, 12, 15, 16, 13, 15]
+   * arrayTool.randomIntArrayInRange(10,10,10); // [10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
+   */
+  randomIntArrayInRange(min, max, n = 1) {
+    return Array.from(
+      { length: n },
+      () => Math.floor(Math.random() * (max - min + 1)) + min
+    )
+  }
+
+  /**
+   * @description Math.random() * arr.length  肯定在数组长度的范围内
+   * @description 在指定数组中获取随机数
+   *
+   * @param {Array} arr 目标数组
+   * @return {Array}
+   * @memberof ArrayTool
+   * @example
+   * sample([1,5,8,9,10]);  // 10
+   * sample([1,5,8,9,10]);  // 5
+   * sample([1,5,8,9,10]);  // 1
+   */
+  sample(arr) {
+    return arr[Math.floor(Math.random() * arr.length)]
+  }
+
+  /**
+   * @description 此代码段可用于从数组中获取指定长度的随机数，直至穷尽数组。 使用Fisher-Yates算法对数组中的元素进行随机选择。
+   * @description 费雪耶兹（Fisher–Yates） 也被称作高纳德（ Knuth）随机置乱算法(https://blog.csdn.net/lhkaikai/article/details/25627161)
+   * @description 原理：比如：arr = [1,2,3,4,5,6,7,8]
+   * @description 第一轮：从1到8中随机选择一个数，得到6，则交换当前数组中第8和第6个数，则：[1,2,3,4,5,8,7]  // ,6
+   * @description 第二论：从1到7中随机选择一个数，得到2，则交换当前数组中第7和第2个数，则：[1,7,3,4,5,8]  // ,2,6
+   * @description 下一个随机数从1到6中摇出，刚好是6，这意味着只需把当前线性表中的第6个数留在原位置，接着进行下一步；以此类推，直到整个排列完成。
+   * @description 第三论：从1到6中随机选择一个数，得到6，则交换当前数组中第6和第6个数，则：[1,7,3,4,5]  // ,8,2,6
+   * @description 第四论：从1到5中随机选择一个数，得到1，则交换当前数组中第5和第1个数，则：[5,7,3,4]  // ,1,8,2,6
+   * @description 第五论：从1到4中随机选择一个数，得到3，则交换当前数组中第4和第3个数，则：[5,7,4]  // ,3,1,8,2,6
+   * @description 第六论：从1到3中随机选择一个数，得到3，则交换当前数组中第3和第3个数，则：[5,7]  // ,4,3,1,8,2,6
+   * @description 第七论：从1到2中随机选择一个数，得到1，则交换当前数组中第2和第1个数，则：[7]  // ,5,4,3,1,8,2,6
+   * @description 截至目前，所有需要的置乱已经完成，所以最终的结果是：7 5 4 3 1 8 2 6
+   * @description 在指定数组中获取指定长度的随机数（“洗牌” 数组）
+   *
+   * @param {Array} [...arr]
+   * @param {number} [n=1]
+   * @return {Array}
+   * @memberof ArrayTool
+   * @example
+   * sampleSize([1, 2, 3,4], 2);  // [4, 3]
+   * sampleSize([1, 2, 3,4], 2);  // [1, 3]
+   * sampleSize([1, 2, 3,4], 2);  // [1, 4]
+   */
+  sampleSize([...arr], n = 1) {
+    let m = arr.length
+    while (m) {
+      const i = Math.floor(Math.random() * m--) // 随机选择一个数，逐渐递减
+
+      ;[arr[m], arr[i]] = [arr[i], arr[m]] // 交换
+    }
+    return arr.slice(0, n)
+  }
+
+  /**
+   * @description 根据parent_id生成树结构（阿里一面真题）
+   *
+   * @param {Array} items 目标数组
+   * @param {*} [id=null] 根据特定字段作为id
+   * @param {string} [link="parent_id"] 父id
+   * @return {Array}
+   * @memberof ArrayTool
+   * @example
+   * const comments = [
+   * { id: 1, parent_id: null },
+   * { id: 2, parent_id: 1 },
+   * { id: 3, parent_id: 1 },
+   * { id: 4, parent_id: 2 },
+   * { id: 5, parent_id: 4 }
+   * ];
+   *
+   * nest(comments) // [{ id: 1, parent_id: null, children: [
+   *    {
+   *      id: 2,
+   *      parent_id: 1,
+   *      children: [
+   *         { 
+   *           id:2, 
+   *           parent_id: 1, 
+   *           children: [{id: 4, parent_id: 2, children: [
+   *                {id: 5, parent_id: 4, children: [{id: 5, parent_id: 4, children: [] }]}
+   *             ]
+   *           }]
+   *         }
+   *      ] 
+   *    },
+   *    { id: 2, parent_id: 1, children: [] }
+   * ]}]
+   */
+  nest(items, id = null, link = "parent_id") {
+    return items
+      .filter((item) => item[link] === id)
+      .map((itemM) => ({ ...itemM, children: this.nest(items, itemM.id) }))
+  }
 }
 
 export default ArrayTool
 
 // 8个工程必备的JavaScript代码片段（建议添加到项目中）：https://juejin.cn/post/6999391770672889893
 
-// https://juejin.cn/post/6844903966526930951  第21点
+// https://juejin.cn/post/6844903966526930951  第二部分：函数 第一点
