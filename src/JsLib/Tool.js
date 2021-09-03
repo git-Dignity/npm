@@ -960,6 +960,171 @@ class Tool {
     return Number(number.toFixed(no))
   }
 
+  /**
+   * @description 计算函数执行时间
+   *
+   * @param {Function} callback 执行函数
+   * @return {*}
+   * @memberof Tool
+   * @example
+   * const getPow =  () => Math.pow(2, 10);
+   * timeTaken(getPow);   // timeTaken: 0.010009765625 ms   // 1024
+   */
+  timeTaken(callback) {
+    console.time("timeTaken")
+    const r = callback()
+    console.timeEnd("timeTaken")
+    return r
+  }
+
+  /**
+   * @description 创建一个发布/订阅（发布-订阅）事件集线，有emit，on和off方法。
+   * @description 1. 使用Object.create(null)创建一个空的hub对象
+   * @description 2. emit，根据event参数解析处理程序数组，然后.forEach()通过传入数据作为参数来运行每个处理程序。
+   * @description 3. on，为事件创建一个数组（若不存在则为空数组），然后.push()将处理程序添加到该数组。
+   * @description 4. off，用.findIndex()在事件数组中查找处理程序的索引，并使用.splice()删除。
+   * @description 发布/订阅模式
+   *
+   * @return {*}
+   * @memberof Tool
+   * @example
+   * const handler = (data) => console.log(data)
+   * const hub = tool.createEventHub()
+   * let increment = 0
+   *
+   * // 订阅，监听不同事件
+   * hub.on("message", handler)
+   * hub.on("message", () => console.log("Message event fired"))
+   * hub.on("increment", () => console.log(increment++))
+   *
+   * // 发布：发出事件以调用所有订阅给它们的处理程序，并将数据作为参数传递给它们
+   * hub.emit("message", "hello world") // 打印 'hello world' 和 'Message event fired'
+   * hub.emit("message", { hello: "world" }) // 打印 对象 和 'Message event fired'
+   * hub.emit("increment") // increment = 1
+   *
+   * // 停止订阅
+   * hub.off("message", handler) // 把handler函数给删除掉
+   * hub.emit("message", { hello: "world" }) // Message event fired
+   * // 为什么只打印一个，那是因为上面已经停止订阅了handler，自然不会打印出{ hello: "world" }；
+   * // message有两个订阅者，所以Message event fired还在，打印。
+   */
+  createEventHub() {
+    return {
+      hub: Object.create(null),
+      emit(event, data) {
+        console.log(this.hub)
+        ;(this.hub[event] || []).forEach((handler) => handler(data))
+      },
+      on(event, handler) {
+        if (!this.hub[event]) this.hub[event] = []
+        this.hub[event].push(handler)
+      },
+      off(event, handler) {
+        const i = (this.hub[event] || []).findIndex((h) => h === handler)
+        if (i > -1) this.hub[event].splice(i, 1)
+        if (this.hub[event].length === 0) delete this.hub[event]
+      },
+    }
+  }
+
+  /**
+   * @description 只调用一次的函数
+   *
+   * @param {Function} fn 目标函数
+   * @return {*}
+   * @memberof Tool
+   * @example
+   * const startApp = function(event) {
+   *   console.log(this, event); // document.body, MouseEvent
+   * };
+   *
+   * document.body.addEventListener('click', tool.once(startApp)); // 只执行一次startApp
+   */
+  once(fn) {
+    let called = false
+    return function () {
+      if (!called) {
+        called = true
+        fn.apply(this, arguments)
+      }
+    }
+  }
+
+  /**
+   * @description 使用递归。
+   * @description 利用Object.keys(obj)联合Array.prototype.reduce()，以每片叶子节点转换为扁平的路径节点
+   * @description 如果键的值是一个对象，则函数使用调用适当的自身prefix以创建路径Object.assign()。
+   * @description 否则，它将适当的前缀键值对添加到累加器对象。
+   * @description prefix除非您希望每个键都有一个前缀，否则应始终省略第二个参数。
+   * @description 以键的路径扁平化对象
+   *
+   * @param {Object} obj 目标对象
+   * @param {string} [prefix=""] 扁平的路径节点（前缀）  主要是给递归用的
+   * @return {Object}
+   * @memberof Tool
+   * @example
+   * flattenObject({ a: { b: { c: 1 } }, d: 1 })  // {a.b.c: 1, d: 1}
+   *
+   * flattenObject({
+   *   a: { b: { c: 1, c1: 2 }, b1: 5, b2: { bbb: 55 } },
+   *   d: 1,
+   * })  // {a.b.c: 1, a.b.c1: 2, a.b1: 5, a.b2.bbb: 55, d: 1}
+   */
+  flattenObject(obj, prefix = "") {
+    return Object.keys(obj).reduce((acc, k) => {
+      const pre = prefix.length ? prefix + "." : ""
+
+      if (typeof obj[k] === "object") {
+        Object.assign(acc, this.flattenObject(obj[k], pre + k))
+      } else {
+        acc[pre + k] = obj[k]
+      }
+
+      return acc
+    }, {})
+  }
+
+  /**
+   * @description 思路：将这种'a.b.c'转为{"a":{"b":{"c":1}}}，再借助JSON.parse将字符串转成JSON对象
+   * @description 那么如何转成{"a":{"b":{"c":1}}}
+   * @description 1. 用split用点切割成数组，map帮每一个前面加{"x":，最后一个不加，就变成{"a":{"b":{"c":
+   * @description 2. 再拼上他的值；{"a":{"b":{"c":1
+   * @description 3. 那是不是缺少三个右花括号，用repeat方法复制三个花括号，即：{"a":{"b":{"c":1}}}
+   * @description 4. 有字符串JSON了，用JSON.parse转成对象
+   * 
+   * @description 用途：在做Tree组件或复杂表单时取值非常舒服。
+   * @description 与上面的flattenObject方法相反，展开对象。
+   * @description 以键的路径展开对象
+   *
+   * @param {Object} obj
+   * @return {Object} 
+   * @memberof Tool
+   * @example
+   * unflattenObject({ 'a.b.c': 1, d: 1 });  // { a: { b: { c: 1 } }, d: 1 }
+   */
+  unflattenObject(obj) {
+    return Object.keys(obj).reduce((acc, k) => {
+      if (k.indexOf(".") !== -1) {
+        const keys = k.split(".")
+        
+        Object.assign(
+          acc,
+          JSON.parse(
+            "{" +
+              keys
+                .map((v, i) => (i !== keys.length - 1 ? `"${v}":{` : `"${v}":`))
+                .join("") +
+              obj[k] +
+              "}".repeat(keys.length)
+          )
+        )
+      } else {
+        acc[k] = obj[k]
+      }
+      return acc
+    }, {})
+  }
+
   init() {}
 }
 

@@ -11,6 +11,7 @@ import {File} from './File'
 import {Animation} from './Animation'
 import { Dom } from './Dom'
 import {NumberVal} from './NumberVal'
+import {Internet} from './Internet'
 
 // 工具类测试
 import initArrayTool from './test/JsLib/ArrayTool'
@@ -18,6 +19,7 @@ import initTool from './test/JsLib/Tool'
 import initFile from './test/File/File'
 import initDom from './test/Dom/Dom'
 import initNumberVal from './test/NumberVal/NumberVal'
+import initInternet from './test/Internet/Internet'
 
 // 算法
 import {Algorithm} from './Algorithm/index'
@@ -495,8 +497,8 @@ import { myAxios } from './HandWrit/myAxios/myAxios'
         // this.initList();
         // this.initProgressBar()
         // this.initPopover()
-        initTool(false);
-        initArrayTool(true)
+        initTool(true);
+        initArrayTool(false)
         this.initCheck();
         this.initBrowser()
         this.initDate()
@@ -508,6 +510,7 @@ import { myAxios } from './HandWrit/myAxios/myAxios'
         initFile(false)
         initDom(false)
         initNumberVal(false)
+        initInternet(false)
 
     }
 }
@@ -524,5 +527,6 @@ export  {
     File,
     Animation,
     Dom,
-    NumberVal
+    NumberVal,
+    Internet
 }

@@ -1,7 +1,7 @@
 /*
  * @Author: zemin zheng
  * @Date: 2021-08-24 13:16:31
- * @LastEditTime: 2021-08-27 10:59:30
+ * @LastEditTime: 2021-09-03 15:42:53
  * @LastEditors: Please set LastEditors
  * @Description: 工具测试
  * @FilePath: \npm\src\test\JsLib\Tool.js
@@ -141,6 +141,126 @@ export default (isLog) => {
 
   // console.log(tool.cutNumber(1.545454658648));   // 1.55
   // console.log(tool.cutNumber(1.545454658648, 4));   // 1.5455
+
+  // const getPow =  () =>Math.pow(2, 10);
+  // console.log(tool.timeTaken(getPow));  // timeTaken: 0.010009765625 ms   // 1024
+
+  // const handler = (data) => console.log(data)
+  // const hub = tool.createEventHub()
+  // let increment = 0
+
+  // // 订阅，监听不同事件
+  // hub.on("message", handler)
+  // hub.on("message", () => console.log("Message event fired"))
+  // hub.on("increment", () => console.log(increment++))
+
+  // // 发布：发出事件以调用所有订阅给它们的处理程序，并将数据作为参数传递给它们
+  // hub.emit("message", "hello world") // 打印 'hello world' 和 'Message event fired'
+  // hub.emit("message", { hello: "world" }) // 打印 对象 和 'Message event fired'
+  // hub.emit("increment") // increment = 1
+
+  // // 停止订阅
+  // hub.off("message", handler) // 把handler函数给删除掉
+  // hub.emit("message", { hello: "world" }) // Message event fired
+  // 为什么只打印一个，那是因为上面已经停止订阅了handler，自然不会打印出{ hello: "world" }；
+  // message有两个订阅者，所以Message event fired还在，打印。
+
+  // const startApp = function(event) {
+  //   console.log(this, event); // document.body, MouseEvent
+  // };
+  // document.body.addEventListener('click', tool.once(startApp)); // 只执行一次startApp
+
+  // console.log(tool.flattenObject({ a: { b: { c: 1 } }, d: 1 })) // {a.b.c: 1, d: 1}
+  // console.log(
+  //   tool.flattenObject({
+  //     a: { b: { c: 1, c1: 2 }, b1: 5, b2: { bbb: 55 } },
+  //     d: 1,
+  //   })
+  // ) // {a.b.c: 1, a.b.c1: 2, a.b1: 5, a.b2.bbb: 55, d: 1}
+
+  console.log(tool.unflattenObject({ 'a.b.c': 1, d: 1 }));  // { a: { b: { c: 1 } }, d: 1 }
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
+
+  // console.log(tool.xxx());
 
   tool.end()
 }
