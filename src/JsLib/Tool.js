@@ -1106,7 +1106,7 @@ class Tool {
     return Object.keys(obj).reduce((acc, k) => {
       if (k.indexOf(".") !== -1) {
         const keys = k.split(".")
-        
+
         Object.assign(
           acc,
           JSON.parse(
@@ -1129,3 +1129,6 @@ class Tool {
 }
 
 export default Tool
+
+
+// 3. 第三部分：字符串：https://juejin.cn/post/6844903966526930951#heading-32
