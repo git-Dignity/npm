@@ -21,11 +21,11 @@ export default (isLog) => {
   // console.log(strTool.capitalize('azeZE'))   // AzeZE
   // console.log(strTool.capitalize('Azeze', 1))   // azeze
 
-  console.log(strTool.capitalizeEveryWord("hsd sd"))   // Hsd Sd
+  // console.log(strTool.capitalizeEveryWord("hsd sd"))   // Hsd Sd
 
-  // console.log(strTool.xxx())   // 1
+  // console.log(strTool.splitLines('This\nis a\nmultiline\nstring.\n'))   // ["This", "is a", "multiline", "string.", ""]
 
-  // console.log(strTool.xxx())   // 1
+  console.log(strTool.stripHTMLTags('<p><em>lorem</em> <strong>ipsum</strong></p>'))   // 'lorem ipsum'
 
   // console.log(strTool.xxx())   // 1
 

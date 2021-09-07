@@ -1,12 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2021-08-19 12:47:51
- * @LastEditTime: 2021-09-02 15:11:59
+ * @LastEditTime: 2021-09-07 14:52:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \npm\src\test\JsLib\ArrayTool.js
  */
-
+ 
 import { ArrayTool } from "../../JsLib"
 
 export default (isLog) => {
@@ -137,18 +137,19 @@ export default (isLog) => {
   // console.log(arrayTool.sampleSize([1, 2, 3,4], 2));  // [1, 3]
   // console.log(arrayTool.sampleSize([1, 2, 3,4], 2));  // [1, 4]
 
-  const comments = [
-    { id: 1, parent_id: null },
-    { id: 2, parent_id: 1 },
-    { id: 3, parent_id: 1 },
-    { id: 4, parent_id: 2 },
-    { id: 5, parent_id: 4 }
-  ];
+  // const comments = [
+  //   { id: 1, parent_id: null },
+  //   { id: 2, parent_id: 1 },
+  //   { id: 3, parent_id: 1 },
+  //   { id: 4, parent_id: 2 },
+  //   { id: 5, parent_id: 4 }
+  // ];
 
-  console.log(arrayTool.nest(comments));   // [{ id: 1, parent_id: null, children: [...] }]
+  // console.log(arrayTool.nest(comments));   // [{ id: 1, parent_id: null, children: [...] }]
 
 
-  // console.log(arrayTool.xxx());
+  // console.log(arrayTool.equals({ a: [2, { e: 3 }], b: [4], c: 'foo' }, { a: [2, { e: 3 }], b: [4], c: 'foo' }));  // true
+  // console.log(arrayTool.equals([{ a: [2, { e: 3 }], b: [4], c: 'foo' }], [{ a: [2, { e: 3 }], b: [4], c: 'foo' }]));  // true
 
   // console.log(arrayTool.xxx());
 

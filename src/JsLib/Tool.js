@@ -481,126 +481,6 @@ class Tool {
   }
 
   /**
-   * @description 生成指定范围随机数
-   * @param {number } min
-   * @param {number} max
-   * @return {Number}
-   * @memberof Tool
-   * @example
-   * RandomNum(0,10)  // 5
-   */
-  RandomNum(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min
-  }
-
-  /**
-   * @description 加法函数（精度丢失问题）
-   * @param {Number} arg1
-   * @param {Number} arg2
-   * @return {Number}
-   * @memberof Tool
-   * @example
-   * add(0.1,0.2)  // 0.3
-   */
-  add(arg1, arg2) {
-    // 还有解决方式：把小数放到位整数（乘倍数），再缩小回原来倍数（除倍数）
-    // 0.1 + 0.2  ->  (0.1*10 + 0.2*10) / 10 == 0.3   // true
-
-    let r1, r2, m
-    try {
-      r1 = arg1.toString().split(".")[1].length
-    } catch (e) {
-      r1 = 0
-    }
-    try {
-      r2 = arg2.toString().split(".")[1].length
-    } catch (e) {
-      r2 = 0
-    }
-    m = Math.pow(10, Math.max(r1, r2))
-    return (arg1 * m + arg2 * m) / m
-  }
-
-  /**
-   * @description 减法函数（精度丢失问题）
-   * @param {Number} arg1
-   * @param {Number} arg2
-   * @return {Number}
-   * @memberof Tool
-   * @example
-   * sub(0.2,0.1)  // 0.1
-   */
-  sub(arg1, arg2) {
-    let r1, r2, m, n
-    try {
-      r1 = arg1.toString().split(".")[1].length
-    } catch (e) {
-      r1 = 0
-    }
-    try {
-      r2 = arg2.toString().split(".")[1].length
-    } catch (e) {
-      r2 = 0
-    }
-    m = Math.pow(10, Math.max(r1, r2))
-    n = r1 >= r2 ? r1 : r2
-    return Number(((arg1 * m - arg2 * m) / m).toFixed(n))
-  }
-
-  /**
-   * @description 除法函数（精度丢失问题）
-   *
-   * @param {Number} num1
-   * @param {Number} num2
-   * @return {Number}
-   * @memberof Tool
-   * @example
-   * division(0.2,0.1)  // 2
-   */
-  division(num1, num2) {
-    let t1, t2, r1, r2
-    try {
-      t1 = num1.toString().split(".")[1].length
-    } catch (e) {
-      t1 = 0
-    }
-    try {
-      t2 = num2.toString().split(".")[1].length
-    } catch (e) {
-      t2 = 0
-    }
-    r1 = Number(num1.toString().replace(".", ""))
-    r2 = Number(num2.toString().replace(".", ""))
-    return (r1 / r2) * Math.pow(10, t2 - t1)
-  }
-
-  /**
-   * @description 乘法函数（精度丢失问题）
-   *
-   * @param {Number} num1
-   * @param {Number} num2
-   * @return {Number}
-   * @memberof Tool
-   * @example
-   * mcl(0.2,0.1)  // 0.02
-   */
-  mcl(num1, num2) {
-    let m = 0,
-      s1 = num1.toString(),
-      s2 = num2.toString()
-    try {
-      m += s1.split(".")[1].length
-    } catch (e) {}
-    try {
-      m += s2.split(".")[1].length
-    } catch (e) {}
-    return (
-      (Number(s1.replace(".", "")) * Number(s2.replace(".", ""))) /
-      Math.pow(10, m)
-    )
-  }
-
-  /**
    * @description 递归优化（尾递归）
    *
    * @param {Function} f 函数
@@ -654,28 +534,6 @@ class Tool {
         active = false
         return value
       }
-    }
-  }
-
-  /**
-   * @description 生成随机整数（支持一个参数或者两个参数）
-   *
-   * @param {Number} min 最小值
-   * @param {Number} max 最大值
-   * @return {Number}
-   * @memberof Tool
-   * @example
-   * randomNumInteger(10) // 5
-   * randomNumInteger(10,20)  // 15
-   */
-  randomNumInteger(min, max) {
-    switch (arguments.length) {
-      case 1:
-        return parseInt(Math.random() * min + 1, 10)
-      case 2:
-        return parseInt(Math.random() * (max - min + 1) + min, 10)
-      default:
-        return 0
     }
   }
 
@@ -1091,13 +949,13 @@ class Tool {
    * @description 2. 再拼上他的值；{"a":{"b":{"c":1
    * @description 3. 那是不是缺少三个右花括号，用repeat方法复制三个花括号，即：{"a":{"b":{"c":1}}}
    * @description 4. 有字符串JSON了，用JSON.parse转成对象
-   * 
+   *
    * @description 用途：在做Tree组件或复杂表单时取值非常舒服。
    * @description 与上面的flattenObject方法相反，展开对象。
    * @description 以键的路径展开对象
    *
    * @param {Object} obj
-   * @return {Object} 
+   * @return {Object}
    * @memberof Tool
    * @example
    * unflattenObject({ 'a.b.c': 1, d: 1 });  // { a: { b: { c: 1 } }, d: 1 }
@@ -1125,10 +983,64 @@ class Tool {
     }, {})
   }
 
-  init() {}
+  /**
+   * @description 迭代属性并执行回调
+   *
+   * @param {Object} obj 目标对象
+   * @param {Function} fn 执行函数
+   * @return {*}
+   * @memberof Tool
+   * @example
+   * forOwn({ foo: 'bar', a: 1 }, v => console.log(v));  // bar 1
+   */
+  forOwn(obj, fn) {
+    return Object.keys(obj).forEach((key) => fn(obj[key], key, obj))
+  }
+
+  /**
+   * @description 检查值是否为特定类型
+   *
+   * @param {*} type 特定类型
+   * @param {*} val 值
+   * @return {Boolean} 
+   * @memberof Tool
+   * @example
+   * is(Array, [1])); // true
+   * is(ArrayBuffer, new ArrayBuffer())); // true
+   * is(Map, new Map())); // true
+   * is(RegExp, /./g)); // true
+   * is(Set, new Set())); // true
+   * is(WeakMap, new WeakMap())); // true
+   * is(WeakSet, new WeakSet())); // true
+   * is(String, '')); // true
+   * is(String, new String(''))); // true
+   * is(Number, 1)); // true
+   * is(Number, new Number(1))); // true
+   * is(Boolean, true)); // true
+   * is(Boolean, new Boolean(true))); // true
+   */
+  is(type, val) {
+    return ![, null].includes(val) && val.constructor === type
+  }
+
+
+
 }
 
 export default Tool
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // 3. 第三部分：字符串：https://juejin.cn/post/6844903966526930951#heading-32

@@ -1,7 +1,7 @@
 /*
  * @Author: zemin zheng
  * @Date: 2021-08-24 13:16:31
- * @LastEditTime: 2021-09-03 15:42:53
+ * @LastEditTime: 2021-09-07 15:05:55
  * @LastEditors: Please set LastEditors
  * @Description: 工具测试
  * @FilePath: \npm\src\test\JsLib\Tool.js
@@ -100,14 +100,13 @@ export default (isLog) => {
   // window.addEventListener("mousemove",tool.throttle(printHeight,1000,2));
 
   // console.log(tool.type([""]))  //array
-  // console.log(tool.RandomNum(0,10))
+  
   // console.log(tool.arrScrambling([1,5,9]))
   // console.log(tool.similarity([1,2,3],[5,2]))  // 2
   // console.log(tool.countOccurrences([1,2,2,3],2)) // 2
-  // console.log(tool.add(0.1,0.2))  // 0.3
-  // console.log(tool.sub(0.2,0.1))  // 0.1
-  // console.log(tool.division(0.2,0.1))  // 2
-  // console.log(tool.mcl(0.2,0.1))   // 0.02
+  
+  
+  
   // 尾递归
   var sumTco = tool.tco(function (x, y) {
     if (y > 0) {
@@ -119,8 +118,7 @@ export default (isLog) => {
   })
   //   console.log(sumTco(1, 5));   //6    实际上现在sum函数就是accumulator函数   else那得到的
 
-  // console.log(tool.randomNumInteger(10))
-  // console.log(tool.randomNumInteger(10,20))
+
   // console.log(tool.trim(" dg   g145415  44 ",1)) // dgg14541544
   // console.log(tool.turnCase("asFG",1))  // ASFG
   // console.log(tool.hexColor())
@@ -178,11 +176,23 @@ export default (isLog) => {
   //   })
   // ) // {a.b.c: 1, a.b.c1: 2, a.b1: 5, a.b2.bbb: 55, d: 1}
 
-  console.log(tool.unflattenObject({ 'a.b.c': 1, d: 1 }));  // { a: { b: { c: 1 } }, d: 1 }
+  // console.log(tool.unflattenObject({ 'a.b.c': 1, d: 1 }));  // { a: { b: { c: 1 } }, d: 1 }
 
-  // console.log(tool.xxx());
+  // console.log(tool.forOwn({ foo: 'bar', a: 1 }, v => console.log(v)));  // bar 1
 
-  // console.log(tool.xxx());
+  // console.log(tool.is(Array, [1])); // true
+  // console.log(tool.is(ArrayBuffer, new ArrayBuffer())); // true
+  // console.log(tool.is(Map, new Map())); // true
+  // console.log(tool.is(RegExp, /./g)); // true
+  // console.log(tool.is(Set, new Set())); // true
+  // console.log(tool.is(WeakMap, new WeakMap())); // true
+  // console.log(tool.is(WeakSet, new WeakSet())); // true
+  // console.log(tool.is(String, '')); // true
+  // console.log(tool.is(String, new String(''))); // true
+  // console.log(tool.is(Number, 1)); // true
+  // console.log(tool.is(Number, new Number(1))); // true
+  // console.log(tool.is(Boolean, true)); // true
+  // console.log(tool.is(Boolean, new Boolean(true))); // true
 
   // console.log(tool.xxx());
 

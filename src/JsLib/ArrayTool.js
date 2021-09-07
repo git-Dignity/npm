@@ -606,15 +606,15 @@ class ArrayTool {
    *      id: 2,
    *      parent_id: 1,
    *      children: [
-   *         { 
-   *           id:2, 
-   *           parent_id: 1, 
+   *         {
+   *           id:2,
+   *           parent_id: 1,
    *           children: [{id: 4, parent_id: 2, children: [
    *                {id: 5, parent_id: 4, children: [{id: 5, parent_id: 4, children: [] }]}
    *             ]
    *           }]
    *         }
-   *      ] 
+   *      ]
    *    },
    *    { id: 2, parent_id: 1, children: [] }
    * ]}]
@@ -624,10 +624,45 @@ class ArrayTool {
       .filter((item) => item[link] === id)
       .map((itemM) => ({ ...itemM, children: this.nest(items, itemM.id) }))
   }
+
+  /**
+   * @description 思路：去判断他们可能会相等的情况（数字、日期、非对象）、再去判断不相等的情况（原型、对象长度不一致直接返回false）
+   * @description 如果以上都满足，那就是对象数组类型了，通过every函数让对象里面的属性去做递归（只要有一个为false，那结果就为false）
+   * 
+   * @description 在两个变量之间进行深度比较以确定它们是否全等。
+   * @description 此代码段精简的核心在于Array.prototype.every()的使用。
+   * 
+   * @description 全等判断
+   *
+   * @param {*} a 目标变量a
+   * @param {*} b 目标变量b
+   * @return {Boolean} 
+   * @memberof ArrayTool
+   * @example
+   * equals({ a: [2, { e: 3 }], b: [4], c: 'foo' }, { a: [2, { e: 3 }], b: [4], c: 'foo' });  // true
+   */
+  equals(a, b) {
+    if (a === b) {
+      return true
+    }
+    if (a instanceof Date && b instanceof Date) {
+      return a.getTime() === b.getTime()
+    }
+
+    if (!a || !b || (typeof a !== "object" && typeof b !== "object")) {
+      return a === b
+    }
+
+    if (a.prototype !== b.prototype) {
+      return false
+    }
+    let keys = Object.keys(a)
+    if (keys.length !== Object.keys(b).length) {
+      return false
+    }
+
+    return keys.every((k) => this.equals(a[k], b[k]))
+  }
 }
 
 export default ArrayTool
-
-// 8个工程必备的JavaScript代码片段（建议添加到项目中）：https://juejin.cn/post/6999391770672889893
-
-// https://juejin.cn/post/6844903966526930951  第二部分：函数 第一点

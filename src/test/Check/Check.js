@@ -1,7 +1,7 @@
 /*
  * @Author: zemin zheng
  * @Date: 2021-09-06 15:03:32
- * @LastEditTime: 2021-09-06 15:59:41
+ * @LastEditTime: 2021-09-07 10:15:45
  * @LastEditors: Please set LastEditors
  * @Description: 检查类测试
  * @FilePath: \npm\src\test\Check\Check.js
@@ -82,9 +82,9 @@ export default (isLog) => {
 
   //   console.log(check.isLowercase("sdf"))
 
-  console.log(check.luhnCheck("79927398713")) // false
-  console.log(check.luhnCheck("4485275742308327")) // true
-  console.log(check.luhnCheck("6011329933655299")) // false
+  // console.log(check.luhnCheck("79927398713")) // false
+  // console.log(check.luhnCheck("4485275742308327")) // true
+  // console.log(check.luhnCheck("6011329933655299")) // false
 
   //   console.log(check.xxx())
 

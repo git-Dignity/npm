@@ -2,15 +2,14 @@
 // import 'bootstrap/dist/js/bootstrap.min.js'
 
 // 工具类
-import {Tool, ArrayTool, StrTool} from './JsLib'
+import {Tool, ArrayTool, StrTool, NumberVal} from './JsLib'
 import {Check} from './Check'
 import {Browser} from './Browser/Browser'
-import {DateOperation} from './Date/Date'
+import {DateOperation} from './Date'
 import {Storage} from './Storage/Storage'
 import {File} from './File'
 import {Animation} from './Animation'
 import { Dom } from './Dom'
-import {NumberVal} from './NumberVal'
 import {Internet} from './Internet'
 
 // 工具类测试
@@ -19,9 +18,11 @@ import initStrTool from './test/JsLib/StrTool'
 import initTool from './test/JsLib/Tool'
 import initFile from './test/File/File'
 import initDom from './test/Dom/Dom'
-import initNumberVal from './test/NumberVal/NumberVal'
+import initNumberVal from './test/JsLib/NumberVal'
 import initInternet from './test/Internet/Internet'
 import initCheck from './test/Check/Check'
+import initDateOperation from './test/Date/DateOperation'
+import initBrowser from './test/Browser/Browser'
 
 // 算法
 import {Algorithm} from './Algorithm/index'
@@ -68,17 +69,6 @@ import { myAxios } from './HandWrit/myAxios/myAxios'
         // browser.smoothScroll()
         // browser.httpsRedirect()
         // console.log(browser.openWindow("https://juejin.im/post/5e6cf42bf265da57397e3694","haha",700,1000))
-    }
-
-    initDate(){
-        let date = new DateOperation()
-        // console.log(date.get_current_timestamp())
-        // console.log(date.get_appoint_timestamp("2019/10/24 08:00:00"))
-        // console.log(date.get_appoint_timestamp("2019-10-24 08:00:00"))
-        // console.log(date.nowInDateBetwen("2019-01-01","2019-02-02","2019-01-02"))
-        console.log(date.dataPattern("12-25-1995"))   // // Mon Dec 25 1995 00:00:00 GMT+0800 (中国标准时间)
-
-
     }
 
     intiStorage(){
@@ -465,9 +455,9 @@ import { myAxios } from './HandWrit/myAxios/myAxios'
         initTool(false);
         initArrayTool(false)
         initStrTool(false)
-        initCheck(true)
-        this.initBrowser()
-        this.initDate()
+        initCheck(false)
+        initBrowser(true)
+        initDateOperation(false)
         this.intiStorage()
         this.initDesignModel()
 

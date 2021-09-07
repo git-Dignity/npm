@@ -99,12 +99,12 @@ class StrTool {
 
   /**
    * @description [first, ...rest]：解耦字符串，可以把每个字符给输出出来，这样就可以拿到第一个字符
-   * 
+   *
    * @description 首字母大写
    *
    * @param {String} [first, ...rest] 目标字符串
-   * @param {Number} [type=1]   1：小写；不传：大写 
-   * @return {String} 
+   * @param {Number} [type=1]   1：小写；不传：大写
+   * @return {String}
    * @memberof StrTool
    * @example
    * capitalize('azeze')   // Azeze
@@ -123,19 +123,63 @@ class StrTool {
    * @description 正则：\bnice\b
    * @description 分析：第一个 \b 前面一个字符是空格，后面一个字符是 'n'，不全是 \w，所以可以匹配出 'n' 是一个单词的开头。
    * @description 第二个 \b 前面一个字符是 'e'，后面一个字符是空格，不全是 \w，可以匹配出 'e' 是一个单词的结尾。所以，合在一起，就能匹配出以 'n' 开头以 'e' 结尾的单词，这里就能匹配出 "nice" 这个单词。
-   * 
+   *
    * @description 每个单词首字母大写
    *
    * @param {String} str 目标字符串
-   * @return {String} 
+   * @return {String}
    * @memberof StrTool
    * @example
    * capitalizeEveryWord("hsd sd")   // Hsd Sd
    */
-  capitalizeEveryWord (str){
-    return str.replace(/\b[a-z]/g, char => char.toUpperCase()); // char拿到的是 h和s
+  capitalizeEveryWord(str) {
+    return str.replace(/\b[a-z]/g, (char) => char.toUpperCase()) // char拿到的是 h和s
+  }
+
+  /**
+   * @description \r：匹配一个回车符
+   * @description ?：匹配前面的子表达式零次或一次，或指明一个非贪婪限定符。要匹配 ? 字符，请使用 \?
+   * @description 使用String.prototype.split()和正则表达式匹配换行符并创建一个数组
+   * 
+   * @description 将多行字符串拆分为行数组
+   *
+   * @param {String} str 目标数组
+   * @return {Array} 
+   * @memberof StrTool
+   * @example
+   * splitLines('This\nis a\nmultiline\nstring.\n')   // ["This", "is a", "multiline", "string.", ""]
+   */
+  splitLines(str) {
+    return str.split(/\r?\n/)
+  }
+
+  /**
+   * @description 使用正则表达式从字符串中删除HTML / XML 标记。
+   * @description html标签都是<xxx> 正则匹配就<[^>]：开头是<字符
+   * 
+   * @description 删除字符串中的HTMl标签
+   *
+   * @param {String} str
+   * @return {String} 
+   * @memberof StrTool
+   * @example 
+   * stripHTMLTags('<p><em>lorem</em> <strong>ipsum</strong></p>')   // 'lorem ipsum'
+   */
+  stripHTMLTags(str){
+    return str.replace(/<[^>]*>/g, '');
   }
 
 }
 
 export default StrTool
+
+
+
+
+
+
+
+
+
+
+// https://juejin.cn/post/6844903966526930951#heading-40：字符串第六点splitLines
