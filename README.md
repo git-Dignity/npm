@@ -1,4 +1,3 @@
-
 # [npm工具类](https://www.npmjs.com/package/javascript-tool-class)
 
 与大家分享自己所涉及到的npm知识，将常用方法封装成工具类
@@ -45,7 +44,7 @@ http://zhengzemin.cn:9052
 （已读）让你减少加班的15条高效JS技巧：https://mp.weixin.qq.com/s/LUDMKxUXDA1PluYtX9vmbA
 对应 Tool、Date、Browser
 
-（在啃）JavaScript 工具函数大全（新）：https://juejin.cn/post/6844903966526930951  第7点
+（已读）JavaScript 工具函数大全（新）：https://juejin.cn/post/6844903966526930951  第7点
 
 （未读）林三心花了3小时实现了这30个JS原生方法，我看看谁比我短（JS方法底层实现）：https://juejin.cn/post/7002248038529892383?utm_source=gold_browser_extension
 

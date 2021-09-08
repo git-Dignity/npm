@@ -17,6 +17,10 @@ export default (isLog) => {
 
   // console.log(strTool.byteSize3('2333哈哈'))   // 8
 
+  // console.log(strTool.typeSize('2333哈哈'))   // 10
+  // console.log(strTool.typeSize([1, 2, 3, 4, 5]))   // 5
+  // console.log(strTool.typeSize({ one: 1, two: 2, three: 3 }))   // 3
+
   // console.log(strTool.capitalize('azeze'))   // Azeze
   // console.log(strTool.capitalize('azeZE'))   // AzeZE
   // console.log(strTool.capitalize('Azeze', 1))   // azeze
@@ -25,7 +29,7 @@ export default (isLog) => {
 
   // console.log(strTool.splitLines('This\nis a\nmultiline\nstring.\n'))   // ["This", "is a", "multiline", "string.", ""]
 
-  console.log(strTool.stripHTMLTags('<p><em>lorem</em> <strong>ipsum</strong></p>'))   // 'lorem ipsum'
+  // console.log(strTool.stripHTMLTags('<p><em>lorem</em> <strong>ipsum</strong></p>'))   // 'lorem ipsum'
 
   // console.log(strTool.xxx())   // 1
 

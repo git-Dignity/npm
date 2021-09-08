@@ -98,6 +98,29 @@ class StrTool {
   }
 
   /**
+   * @description 思路：利用Blob对象，默认编码是UTF-8（中文：3；英文：1）
+   * 
+   * @description 获取不同类型变量的字节长度
+   *
+   * @param {*} val 值/引用
+   * @return {Number} 
+   * @memberof StrTool
+   * @example
+   * typeSize('2333哈哈')   // 10
+   * typeSize([1, 2, 3, 4, 5])   // 5
+   * typeSize({ one: 1, two: 2, three: 3 })   // 3
+   */
+  typeSize(val) {
+    return Array.isArray(val)
+      ? val.length
+      : val && typeof val === "object"
+      ? val.size || val.length || Object.keys(val).length
+      : typeof val === "string"
+      ? new Blob([val]).size
+      : 0
+  }
+
+  /**
    * @description [first, ...rest]：解耦字符串，可以把每个字符给输出出来，这样就可以拿到第一个字符
    *
    * @description 首字母大写
@@ -140,11 +163,11 @@ class StrTool {
    * @description \r：匹配一个回车符
    * @description ?：匹配前面的子表达式零次或一次，或指明一个非贪婪限定符。要匹配 ? 字符，请使用 \?
    * @description 使用String.prototype.split()和正则表达式匹配换行符并创建一个数组
-   * 
+   *
    * @description 将多行字符串拆分为行数组
    *
    * @param {String} str 目标数组
-   * @return {Array} 
+   * @return {Array}
    * @memberof StrTool
    * @example
    * splitLines('This\nis a\nmultiline\nstring.\n')   // ["This", "is a", "multiline", "string.", ""]
@@ -156,30 +179,20 @@ class StrTool {
   /**
    * @description 使用正则表达式从字符串中删除HTML / XML 标记。
    * @description html标签都是<xxx> 正则匹配就<[^>]：开头是<字符
-   * 
+   *
    * @description 删除字符串中的HTMl标签
    *
    * @param {String} str
-   * @return {String} 
+   * @return {String}
    * @memberof StrTool
-   * @example 
+   * @example
    * stripHTMLTags('<p><em>lorem</em> <strong>ipsum</strong></p>')   // 'lorem ipsum'
    */
-  stripHTMLTags(str){
-    return str.replace(/<[^>]*>/g, '');
+  stripHTMLTags(str) {
+    return str.replace(/<[^>]*>/g, "")
   }
-
 }
 
 export default StrTool
-
-
-
-
-
-
-
-
-
 
 // https://juejin.cn/post/6844903966526930951#heading-40：字符串第六点splitLines

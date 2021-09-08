@@ -149,6 +149,8 @@ class Browser {
   }
 
   /**
+   * @description pageXOffset(pageYOffset)为第一选择，没有则用scrollLeft(scrollTop)
+   * 
    * @description 返回当前滚动条位置
    *
    * @param {*} [el=window]
@@ -186,16 +188,19 @@ class Browser {
   }
 
   /**
-   * @description 滚动到页面的最下/最上
+   * @description 滚动到指定元素区域的最下/最上
    *
+   * @param {HTMLElement} [element=document.documentElement] 指定元素 
    * @param {Boolean} isEnd 方向  传true向上平滑，不传就是向下（默认）
    * @memberof Browser
    * @example
-   * smoothScroll()
+   * smoothScroll()  // 滚动到底部，默认是document.documentElement
+   * smoothScroll('#aaa')   // 滚动到id为aaa
    */
-  smoothScroll(isEnd = false) {
+  smoothScroll(element, isEnd = false) {
     isEnd = isEnd == true ? "start" : "end"
-    document.documentElement.scrollIntoView({
+    element = element ? document.querySelector(element) : document.documentElement
+    element.scrollIntoView({
       behavior: "smooth", //平滑
       block: isEnd, //end向下滑动  start向上滑动
       inline: "nearest",
@@ -293,10 +298,10 @@ class Browser {
   /**
    * @description 网页可见区域高：document.body.clientHeight
    * @description scrollHeight返回元素的完整的高度
-   * 
+   *
    * @description 检查页面底部是否可见
    *
-   * @return {Boolean} 
+   * @return {Boolean}
    * @memberof Browser
    * @example
    * bottomVisible();   // false（如果把页面缩放到10%，就为true；页面底部可见）
@@ -308,6 +313,36 @@ class Browser {
         document.documentElement.clientHeight)
     )
   }
+
+  /**
+   * @description 有助于避免在服务器（节点）上运行前端模块时出错
+   *
+   * @description 检查是否为浏览器环境
+   *
+   * @return {Boolean}
+   * @memberof Browser
+   * @example
+   * isBrowser(); // true
+   */
+  isBrowser() {
+    return ![typeof window, typeof document].includes("undefined")
+  }
+
+  /**
+   * @description 检查当前标签页是否活动
+   *
+   * @return {*} 
+   * @memberof Browser
+   * @example
+   * isBrowserTabFocused(); // true
+   */
+  isBrowserTabFocused() {
+    return !document.hidden
+  }
+
+
 }
 
 export { Browser }
+
+// 第六部分：2. Create Directory：检查创建目录：https://juejin.cn/post/6844903966526930951#heading-47

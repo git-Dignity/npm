@@ -1,7 +1,7 @@
 /*
  * @Author: zemin zheng
  * @Date: 2021-08-24 13:16:31
- * @LastEditTime: 2021-09-07 15:05:55
+ * @LastEditTime: 2021-09-08 15:07:15
  * @LastEditors: Please set LastEditors
  * @Description: 工具测试
  * @FilePath: \npm\src\test\JsLib\Tool.js
@@ -17,7 +17,7 @@ export default (isLog) => {
   let tool = new Tool()
   tool.start()
 
-  // tool.hide(document.querySelectorAll('p'));
+  
   // console.log(tool.hasClass(document.getElementById('aaa'), 'a')) // true
   // tool.toggleClass(document.querySelector('p#b'), 'a')
   // console.log(tool.getScrollPosition());   // // {x: 0, y: 200}
@@ -194,9 +194,11 @@ export default (isLog) => {
   // console.log(tool.is(Boolean, true)); // true
   // console.log(tool.is(Boolean, new Boolean(true))); // true
 
-  // console.log(tool.xxx());
+  // console.log(tool.getType(new Set([1, 2, 3])));  // set
+  // console.log(tool.getType([1, 2, 3])); // array
+  // console.log(tool.getType(function (){})); // function
 
-  // console.log(tool.xxx());
+  // console.log(tool.escapeHTML('<a href="#">Me & you</a>')); // &lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;
 
   // console.log(tool.xxx());
 

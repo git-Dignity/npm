@@ -27,18 +27,6 @@ class Tool {
   }
 
   /**
-   * @description 如何隐藏所有指定的元素
-   * @param {HTMLElement} el
-   * @return { * }
-   * @memberof Tool
-   * @example
-   * hide(document.querySelectorAll('p'))
-   */
-  hide(el) {
-    Array.from(el).forEach((e) => (e.style.display = "none"))
-  }
-
-  /**
    * @description 如何检查元素是否具有指定的类？
    * @param {HTMLElement} el
    * @param {String} className
@@ -1002,7 +990,7 @@ class Tool {
    *
    * @param {*} type 特定类型
    * @param {*} val 值
-   * @return {Boolean} 
+   * @return {Boolean}
    * @memberof Tool
    * @example
    * is(Array, [1])); // true
@@ -1023,24 +1011,52 @@ class Tool {
     return ![, null].includes(val) && val.constructor === type
   }
 
+  /**
+   * @description constructor不能判断undefined、null，其他都可以判断
+   * @description 返回值或变量的类型名
+   *
+   * @param {*} v 值或变量
+   * @return {String}  类型名
+   * @memberof Tool
+   * @example
+   * getType(new Set([1, 2, 3])); // set
+   * getType([1, 2, 3]); // array
+   * getType(function (){}); // function
+   */
+  getType(v) {
+    return v === undefined
+      ? "undefined"
+      : v === null
+      ? "null"
+      : v.constructor.name.toLowerCase()
+  }
 
-
+  /**
+   * @description 防XSS攻击
+   * 
+   * @description 转义HTML
+   *
+   * @param {String} str HTML字符串
+   * @return {String} 转义HTML字符串
+   * @memberof Tool
+   * @example
+   * escapeHTML('<a href="#">Me & you</a>'); // &lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;
+   */
+  escapeHTML(str) {
+    return str.replace(
+      /[&<>'"]/g,
+      (tag) =>
+        ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          "'": "&#39;",
+          '"': "&quot;",
+        }[tag] || tag)
+    )
+  }
 }
 
 export default Tool
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // 3. 第三部分：字符串：https://juejin.cn/post/6844903966526930951#heading-32

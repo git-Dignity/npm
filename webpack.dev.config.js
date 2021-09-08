@@ -1,3 +1,4 @@
+
 var webpack = require('webpack')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -55,5 +56,8 @@ module.exports = {
                 target:'http://127.0.0.1:8888'
             }
         }
+    },
+    node:{
+        fs: 'empty'
     }
 }
