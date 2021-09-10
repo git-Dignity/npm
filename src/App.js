@@ -452,10 +452,11 @@ import { myAxios } from './HandWrit/myAxios/myAxios'
         // this.initList();
         // this.initProgressBar()
         // this.initPopover()
+        initFile(true)
         initDom(false)
-        initTool(true);
+        initTool(false);
         initArrayTool(false)
-        initStrTool(true)
+        initStrTool(false)
         initCheck(false)
         initBrowser(false)
         initDateOperation(false)
@@ -464,7 +465,7 @@ import { myAxios } from './HandWrit/myAxios/myAxios'
 
         this.initAlgorithm()
         this.initHandleWrite()
-        initFile(false)
+        
         
         initNumberVal(false)
         initInternet(false)
