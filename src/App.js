@@ -2,7 +2,7 @@
 // import 'bootstrap/dist/js/bootstrap.min.js'
 
 // 工具类
-import {Tool, ArrayTool, StrTool, NumberVal} from './JsLib'
+import {Tool, ArrayTool, StrTool, NumberVal, ObjectTool} from './JsLib'
 import {Check} from './Check'
 import {Browser} from './Browser/Browser'
 import {DateOperation} from './Date'
@@ -19,6 +19,7 @@ import initTool from './test/JsLib/Tool'
 import initFile from './test/File/File'
 import initDom from './test/Dom/Dom'
 import initNumberVal from './test/JsLib/NumberVal'
+import initObjectTool from './test/JsLib/ObjectTool'
 import initInternet from './test/Internet/Internet'
 import initCheck from './test/Check/Check'
 import initDateOperation from './test/Date/DateOperation'
@@ -452,9 +453,10 @@ import { myAxios } from './HandWrit/myAxios/myAxios'
         // this.initList();
         // this.initProgressBar()
         // this.initPopover()
-        initFile(true)
+        initObjectTool(true)
+        initFile(false)
         initDom(false)
-        initTool(false);
+        initTool(true);
         initArrayTool(false)
         initStrTool(false)
         initCheck(false)
@@ -487,5 +489,6 @@ export  {
     Animation,
     Dom,
     NumberVal,
+    ObjectTool,
     Internet
 }

@@ -354,8 +354,12 @@ class Tool {
   }
 
   /**
+   * @description 在一定时间间隔内，多次调用一个方法，只会执行一次
+   * @description 这个方法的实现是从Lodash库中copy的
+   * 
    * @description 函数防抖
-   * @param {Function} func
+   * 
+   * @param {Function} func 函数
    * @param {Number} wait 延迟执行毫秒数
    * @param {Boolean} immediate = false true：表立即执行；false：表非立即执行
    * @return {*}
@@ -368,8 +372,11 @@ class Tool {
    * window.addEventListener('resize', debounce(printWidth, 900,true), false)
    */
   debounce(func, wait, immediate = false) {
+    // 一：
     // 非立即执行版的意思是触发事件后函数不会立即执行，而是在 n 秒后执行，如果在 n 秒内又触发了事件，则会重新计算函数执行时间。
     // 非立即执行版解说：第一开始进来，timeout为null，不用清空，走else等待一秒执行函数，在这期间，又执行这个函数，timeout不为空，清除一下定时器，又继续来等待一秒
+
+    // 二：
     // 立即执行版的意思是触发事件后函数会立即执行，然后 n 秒内不触发事件才能继续执行函数的效果。
     // 立即执行版解说：timeout为null，callNow为true，执行函数,无触发定时器；
     // 一秒内，又调用这个函数，清空定时器（因为timeout为true），callNow为false，不执行函数；timeout为true，开启定时器，等待一秒无人访问就将timeout设null

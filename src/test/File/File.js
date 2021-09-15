@@ -28,6 +28,10 @@ export default (isLog) => {
 
   //   file.download("http://zhengzemin.cn/static/123.docx", "玛卡玛卡")
 
+  // file.downloadFile('1.txt','lalalallalalla')  // 下载1.txt
+  // file.downloadFile('1.json',JSON.stringify({name:'hahahha'})) // 下载1.json
+
+
   // GET
   // file.downExceil({
   //   url: `http://10.44.20.234/appsvc/v1/export/exportFloodCapacityByBasincd/excel?dateTime=2021091008&basincd=HA`,

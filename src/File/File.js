@@ -74,7 +74,7 @@ class File {
   /**
    * @description 其实设置download设置名字是无效的，因为同域下才有效，跨域download设置无效的
    *
-   * @description 下载一个excel文档
+   * @description 下载一个excel文档（链接）
    *
    * @param {String} link 链接
    * @param {String} name 文件名
@@ -96,10 +96,38 @@ class File {
   }
 
   /**
+   * @description 场景：我想下载一些DOM内容，我想下载一个JSON文件
+   * 
+   * @description 在浏览器中自定义下载一些内容
+   *
+   * @param {String} name 文件名
+   * @param {String} content 文件内容
+   * @memberof File
+   * @example
+   * downloadFile('1.txt','lalalallalalla')  // 下载1.txt
+   * downloadFile('1.json',JSON.stringify({name:'hahahha'})) // 下载1.json
+   */
+  downloadFile(name, content) {
+    if (typeof name == "undefined") {
+      throw new Error("The first parameter name is a must")
+    }
+    if (typeof content == "undefined") {
+      throw new Error("The second parameter content is a must")
+    }
+    if (!(content instanceof Blob)) {
+      content = new Blob([content])
+    }
+    const link = URL.createObjectURL(content)
+    this.download(link, name)
+  }
+
+  /**
    * @description 以blob流的形式下载，后端返回二进制的
    * @description 名字让后端加在响应头上content-disposition，前端获取
-   * 
-   * @description 下载文件exceil
+   * @description 图片、pdf等文件，浏览器会默认执行预览，不能调用download方法进行下载，需要先把图片、pdf等文件转成blob，再调用download方法进行下载，转换的方式是使用axios请求对应的链接
+   * @description 会有同源策略的限制，需要配置转发
+   *
+   * @description 下载文件exceil（链接）
    *
    * @param {Object} option 对象参数
    * option: {
@@ -111,21 +139,21 @@ class File {
    * @memberof File
    * @example
    * GET
-   * 
+   *
    * file.downExceil({
    *   url: `http://10.44.20.234/appsvc/v1/export/exportFloodCapacityByBasincd/excel?dateTime=2021091008&basincd=HA`,
    *   name: "还是要后端支持一下",
    * })
-   * 
+   *
    * POST
-   * 
+   *
    * let query = {
    *   type: "2",
    *   basincd: "HB",
    * }
-   * 
+   *
    * let url = `http://10.44.20.234/wcs/rrasreservoir/reservoirExport/excel/exportWaterListByTimeSlot`
-   * 
+   *
    * file.downExceil({
    *   url,
    *   method: "post",
@@ -134,12 +162,7 @@ class File {
    * })
    */
   downExceil(option) {
-    const {
-      url,
-      query,
-      name,
-      method = "get"
-    } = option
+    const { url, query, name, method = "get" } = option
     if (method == "get") {
       var xhr = new XMLHttpRequest() //定义http请求对象
       xhr.open("get", url, true)
@@ -153,8 +176,10 @@ class File {
           var blob = this.response
           let contentDisposition = xhr.getResponseHeader("content-disposition")
           let temp = contentDisposition
-            ? decodeURI(escape(contentDisposition.split(";")[1].split("filename=")[1]))
-            : name + '.xlsx'
+            ? decodeURI(
+                escape(contentDisposition.split(";")[1].split("filename=")[1])
+              )
+            : name + ".xlsx"
 
           var reader = new FileReader()
           reader.readAsDataURL(blob) // 转换为base64，可以直接放入a标签href
