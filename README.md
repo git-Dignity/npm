@@ -44,13 +44,15 @@ http://zhengzemin.cn:9052
 （已读）让你减少加班的15条高效JS技巧：https://mp.weixin.qq.com/s/LUDMKxUXDA1PluYtX9vmbA
 对应 Tool、Date、Browser
 
-（已读）JavaScript 工具函数大全（新）：https://juejin.cn/post/6844903966526930951  第7点
+（已读）JavaScript 工具函数大全（新）：https://juejin.cn/post/6844903966526930951  
 
 （未读）林三心花了3小时实现了这30个JS原生方法，我看看谁比我短（JS方法底层实现）：https://juejin.cn/post/7002248038529892383?utm_source=gold_browser_extension
 
-（在啃1）16个工程必备的JavaScript代码片段：https://juejin.cn/post/7000919400249294862?utm_source=gold_browser_extension
+（已读）16个工程必备的JavaScript代码片段：https://juejin.cn/post/7000919400249294862?utm_source=gold_browser_extension
 
-（未读）8个工程必备的JavaScript代码片段（建议添加到项目中）：https://juejin.cn/post/6999391770672889893
+（已读）8个工程必备的JavaScript代码片段（建议添加到项目中）：https://juejin.cn/post/6999391770672889893
 
+（在啃mPromise）src\test\HandWrit\JSHand.js
 
+JS中的bind的实现以及使用：https://www.cnblogs.com/heshan1992/p/6667596.html（src\HandWrit\JSHand.js）
 

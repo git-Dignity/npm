@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-07 15:44:28
- * @LastEditTime: 2021-09-08 14:52:02
+ * @LastEditTime: 2021-09-15 15:16:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \npm\src\test\Browser\Browser.js
@@ -41,6 +41,8 @@ export default (isLog) => {
   // browser.httpsRedirect()
 
   // browser.openWindow("https://juejin.im/post/5e6cf42bf265da57397e3694","haha",700,1000)
+
+  // browser.copyToClipboard('xxs')
 
   // console.log(browser.bottomVisible());   // false
 

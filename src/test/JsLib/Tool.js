@@ -1,7 +1,7 @@
 /*
  * @Author: zemin zheng
  * @Date: 2021-08-24 13:16:31
- * @LastEditTime: 2021-09-15 12:39:38
+ * @LastEditTime: 2021-09-15 14:53:12
  * @LastEditors: Please set LastEditors
  * @Description: 工具测试
  * @FilePath: \npm\src\test\JsLib\Tool.js
@@ -64,7 +64,7 @@ export default (isLog) => {
   //     "body": "bar bar bar"
   //   }
 
-  // tool.copyToClipboard('哈哈，我被你的tool.copyToClipboard复制出来了')
+  
 
   // tool.getDom("#app")
 

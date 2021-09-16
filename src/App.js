@@ -1,494 +1,426 @@
-// import $ from 'jquery'
-// import 'bootstrap/dist/js/bootstrap.min.js'
-
 // 工具类
-import {Tool, ArrayTool, StrTool, NumberVal, ObjectTool} from './JsLib'
-import {Check} from './Check'
-import {Browser} from './Browser/Browser'
-import {DateOperation} from './Date'
-import {Storage} from './Storage/Storage'
-import {File} from './File'
-import {Animation} from './Animation'
-import { Dom } from './Dom'
-import {Internet} from './Internet'
+import { Tool, ArrayTool, StrTool, NumberVal, ObjectTool } from "./JsLib"
+import { Check } from "./Check"
+import { Browser } from "./Browser/Browser"
+import { DateOperation } from "./Date"
+import { Storage } from "./Storage/Storage"
+import { File } from "./File"
+import { Animation } from "./Animation"
+import { Dom } from "./Dom"
+import { Internet } from "./Internet"
 
 // 工具类测试
-import initArrayTool from './test/JsLib/ArrayTool'
-import initStrTool from './test/JsLib/StrTool'
-import initTool from './test/JsLib/Tool'
-import initFile from './test/File/File'
-import initDom from './test/Dom/Dom'
-import initNumberVal from './test/JsLib/NumberVal'
-import initObjectTool from './test/JsLib/ObjectTool'
-import initInternet from './test/Internet/Internet'
-import initCheck from './test/Check/Check'
-import initDateOperation from './test/Date/DateOperation'
-import initBrowser from './test/Browser/Browser'
+import initArrayTool from "./test/JsLib/ArrayTool"
+import initStrTool from "./test/JsLib/StrTool"
+import initTool from "./test/JsLib/Tool"
+import initFile from "./test/File/File"
+import initDom from "./test/Dom/Dom"
+import initNumberVal from "./test/JsLib/NumberVal"
+import initObjectTool from "./test/JsLib/ObjectTool"
+import initInternet from "./test/Internet/Internet"
+import initCheck from "./test/Check/Check"
+import initDateOperation from "./test/Date/DateOperation"
+import initBrowser from "./test/Browser/Browser"
+import initStorage from "./test/Storage/Storage"
 
 // 算法
-import {Algorithm} from './Algorithm/index'
+import { Algorithm } from "./Algorithm/index"
 
- 
 //设计模式
-import {Creator, _ } from './DesignModel/工厂模式'
-import SingleObject from './DesignModel/单例模式'
-import Adapter from './DesignModel/适配器模式'
-import {Circle, Decorator} from './DesignModel/装饰器模式'
-import { ProxyImg, agent} from './DesignModel/代理模式'
-import bindEvent from './DesignModel/外观模式'
-import {Subject, Observers} from './DesignModel/观察者模式'
-import { Container, each} from './DesignModel/迭代器模式'
-import { State, Context, fsm, fsm_promise, MyPromise} from './DesignModel/状态模式'
-import updateText from './DesignModel/js/状态管理update'
-import Action from './DesignModel/职责链模式'
-import {Receiver, Command, Invoker} from './DesignModel/命令模式'
-import { CareTaker, Editor } from './DesignModel/备忘录模式'
-
+import { Creator, _ } from "./DesignModel/工厂模式"
+import SingleObject from "./DesignModel/单例模式"
+import Adapter from "./DesignModel/适配器模式"
+import { Circle, Decorator } from "./DesignModel/装饰器模式"
+import { ProxyImg, agent } from "./DesignModel/代理模式"
+import bindEvent from "./DesignModel/外观模式"
+import { Subject, Observers } from "./DesignModel/观察者模式"
+import { Container, each } from "./DesignModel/迭代器模式"
+import {
+  State,
+  Context,
+  fsm,
+  fsm_promise,
+  MyPromise,
+} from "./DesignModel/状态模式"
+import updateText from "./DesignModel/js/状态管理update"
+import Action from "./DesignModel/职责链模式"
+import { Receiver, Command, Invoker } from "./DesignModel/命令模式"
+import { CareTaker, Editor } from "./DesignModel/备忘录模式"
 
 // 手写系列
-import { objectFactory, HandleWritePromise } from './HandWrit/index'
-import { myAxios } from './HandWrit/myAxios/myAxios'
+import { objectFactory, HandleWritePromise } from "./HandWrit/index"
+import { myAxios } from "./HandWrit/myAxios/myAxios"
+import {JSHand} from './HandWrit'
+
+// 工具类测试
+import initJSHand from "./test/HandWrit/JSHand"
+
+class App {
+  constructor(id) {
+    // this.$el = $('#'+id)
+  }
 
 
- class App{
-    constructor(id){
-        // this.$el = $('#'+id)
+  // 工厂模式
+  initCreator() {
+    let creator = new Creator()
+    let product = creator.createProduct("zhangsan")
+    product.getName()
+
+    _("lisi").getName() //这种写法就和jq有点像了  $('div')
+  }
+
+  // 单例模式
+  initSingleObject() {
+    let aaa = SingleObject
+    let bbb = SingleObject
+
+    console.log(aaa)
+    console.log(aaa == bbb) //true   因为两者都是一个实例，引用地址一样
+  }
+
+  // 适配器模式
+  initAdapter() {
+    let adapter = new Adapter()
+    console.log(adapter.request())
+  }
+
+  //装饰器模式
+  initDecorator() {
+    let circle = new Circle()
+    let decorator = new Decorator(circle)
+    decorator.draw()
+  }
+
+  //代理模式
+  initProxyImg() {
+    let proxyImg = new ProxyImg("img.png")
+    proxyImg.display()
+
+    console.log("下面是演示es6的proxy拦截器----------------")
+
+    //明星
+    console.log(agent.name) //明星的
+    console.log(agent.age) //明星的
+    console.log(agent.phone) //经纪人，明星不可能给你电话
+    console.log(agent.pirce) //经纪人给的
+
+    agent.customPrice = 150000
+    console.log(agent.customPrice)
+
+    agent.customPrice = 9000
+    console.log(agent.customPrice) // //报错，因为上面需要大于10w
+  }
+
+  //观察者模式
+  initObservers() {
+    let subject = new Subject()
+    let observers = new Observers("o1", subject)
+    let observers2 = new Observers("o2", subject)
+    let observers3 = new Observers("o3", subject)
+    subject.setState(1)
+    //每次setState，都会触发所有观察者
+  }
+
+  //迭代器模式
+  initContainer() {
+    let arr = [1, 2, 3, 4]
+
+    let constainer = new Container(arr)
+    let iterator = constainer.getIterator()
+    while (iterator.hasNex()) {
+      console.log(iterator.next())
     }
 
- 
+    let m = new Map()
+    m.set("a", 100)
+    m.set("b", 200)
+    each(m)
+  }
 
-    initBrowser(){
-        let browser = new Browser()
-        // console.log(browser.currentURL())
-        // console.log(browser.getClientHeight()) // 852
-        // console.log(browser.getPageViewWidth())  // 274
-        // console.log(browser.getPageWidth())   // 274
-        // console.log(browser.getViewportOffset())  // {w: 291, h: 852}
-        // console.log(browser.getPageScrollTop())
-        // console.log(browser.getPageScrollLeft())
-        // console.log(browser.getScrollPosition())  // {x: 0, y: 775}
-        // browser.smoothScroll()
-        // browser.httpsRedirect()
-        // console.log(browser.openWindow("https://juejin.im/post/5e6cf42bf265da57397e3694","haha",700,1000))
-    }
+  //状态模式
+  initState() {
+    let context = new Context()
 
-    intiStorage(){
-        let storage = new Storage();
-        var asas = {
-            fn:function asas(){},
-            zhengze:new RegExp("ab+c", "i"),
-            yinwen:{
-                sd:"dsfasdd"
-            }
+    let green = new State("geren")
+    let red = new State("red")
+    let yellow = new State("yellow")
+
+    //绿灯亮了
+    green.handle(context)
+    console.log(context.getState()) //打印状态
+
+    //红灯亮了
+    red.handle(context)
+    console.log(context.getState()) //打印状态
+
+    //初始化文案
+    updateText("btn")
+
+    $("#btn").click(function () {
+      if (fsm.is("收藏")) {
+        fsm.doStore()
+      } else {
+        fsm.deleteStore()
+      }
+    })
+
+    //promise
+    function loadImg(src) {
+      //这里传一个函数，需要马上执行，所以这个函数写在constructor上
+      const promise = new MyPromise(function (resolve, reject) {
+        let img = document.createElement("img")
+        img.onload = function () {
+          resolve(img)
         }
-
-        // storage.localStorageSet("id",asas)  // 目前对象值如果是函数 、RegExp等特殊对象存贮会被忽略
-        // console.log(storage.localStorageGet("id"))
-        // storage.localStorageRemove("id")
-        // console.log(storage.localStorageGet("id"))
-
-        //验证存贮某一段时间失效
-        // storage.localStorageSetExpire("id",asas,1000)
-        // console.log(storage.localStorageGet("id"))
-        // setTimeout(function(){
-        //     console.log(storage.localStorageGet("id"))
-        // },2000)
-
-        // storage.cookieSet ("id","admin",10000)
-        // console.log(storage.cookieGet("id"))
-        // storage.cookieRemove("id")
-        // console.log(storage.cookieGet("id"))
-
-    }
-
-    // 工厂模式
-    initCreator(){
-        let creator = new Creator()
-        let product =  creator.createProduct("zhangsan")
-        product.getName()
-
-
-        _("lisi").getName() //这种写法就和jq有点像了  $('div')
-    }
-
-    // 单例模式
-    initSingleObject(){
-        let aaa = SingleObject;
-        let bbb = SingleObject;
-
-        console.log(aaa)
-        console.log(aaa == bbb) //true   因为两者都是一个实例，引用地址一样
-    }
-
-    // 适配器模式
-    initAdapter(){
-        let adapter = new Adapter()
-        console.log(adapter.request())
-    }
-
-    //装饰器模式
-    initDecorator(){
-        let circle = new Circle()
-        let decorator = new Decorator(circle)
-        decorator.draw();
-    }
-
-    //代理模式
-    initProxyImg(){
-        let proxyImg = new ProxyImg("img.png");
-        proxyImg.display();
-
-        console.log('下面是演示es6的proxy拦截器----------------')
-
-        //明星
-        console.log(agent.name) //明星的
-        console.log(agent.age)//明星的
-        console.log(agent.phone)    //经纪人，明星不可能给你电话
-        console.log(agent.pirce)  //经纪人给的
-
-        agent.customPrice = 150000
-        console.log(agent.customPrice)
-
-        agent.customPrice = 9000
-        console.log(agent.customPrice) // //报错，因为上面需要大于10w
-    }
-
-    //观察者模式
-    initObservers(){
-        let subject = new Subject();
-        let observers = new Observers('o1',subject);
-        let observers2 = new Observers('o2',subject);
-        let observers3 = new Observers('o3',subject);
-        subject.setState(1)
-        //每次setState，都会触发所有观察者
-    }
-
-    //迭代器模式
-    initContainer(){
-        let arr = [1,2,3,4]
-       
-        let constainer = new Container(arr)
-        let iterator = constainer.getIterator()
-        while(iterator.hasNex()){
-            console.log(iterator.next())
+        img.onerror = function () {
+          reject()
         }
+        img.src = src
+      })
 
-        let m = new Map()
-        m.set('a',100)
-        m.set('b',200)
-        each(m)
+      return promise
     }
 
-     
+    let src =
+      "https://dss0.baidu.com/73x1bjeh1BF3odCf/it/u=4003888963,1806138384&fm=85&s=9102FE5E6413E3CE9E3E1911030010DE"
+    let result = loadImg(src) //返回一个promise对象
 
-    //状态模式
-    initState(){
-        
-        let context = new Context();
+    //then的函数在resolve下才执行，第二个是在reject下执行的
+    result.then(
+      function () {
+        console.log("ok1")
+      },
+      function () {
+        console.log("fail1")
+      }
+    )
 
-        let green = new State("geren")
-        let red = new State("red")
-        let yellow = new State("yellow")
+    result.then(
+      function () {
+        console.log("ok2")
+      },
+      function () {
+        console.log("fail2")
+      }
+    )
+  }
 
-        //绿灯亮了
-        green.handle(context)
-        console.log(context.getState()) //打印状态
+  //职责链模式
+  initAction() {
+    let a = new Action("组长")
+    let b = new Action("敏哥")
+    let c = new Action("博士")
+    a.setNextAction(b)
+    b.setNextAction(c)
+    a.handle()
+    // a里面有b，b有c
+    // 通过nextAction将这些串起来
+    // handle这样子写，是为了实现a1 a2 a3这样链操作
+  }
 
-        //红灯亮了
-        red.handle(context)
-        console.log(context.getState()) //打印状态
+  // 命令模式
+  initInvoker() {
+    let receiver = new Receiver()
+    let command = new Command(receiver)
+    let invoker = new Invoker(command)
+    invoker.invoke()
+    // 开始
+    // 执行命令
+    // 执行
+  }
 
+  //备忘录模式
+  initEditor() {
+    let editor = new Editor()
+    let careTaker = new CareTaker()
 
-       //初始化文案
-       updateText('btn')
-      
-        $('#btn').click(function(){
-            if(fsm.is('收藏')){
-                fsm.doStore()
-            }else{
-                fsm.deleteStore()
-            }
-        })
+    editor.setContent("111")
+    editor.setContent("222")
+    careTaker.add(editor.saveContentToMenento()) //将当前内容备份
+    editor.setContent("333")
+    careTaker.add(editor.saveContentToMenento())
+    editor.setContent("444")
 
+    console.log(editor.getContent())
+    editor.getContentFromMemento(careTaker.get(1))
+    console.log(editor.getContent())
+    editor.getContentFromMemento(careTaker.get(0))
+    console.log(editor.getContent())
+  }
 
+  // 外观模式
+  initBindEvent() {
+    // bindEven(elem, 'click', '#div',fn)
+    // bindEven(elem, 'click', fn)
+  }
 
-        //promise
-        function loadImg(src){
-            //这里传一个函数，需要马上执行，所以这个函数写在constructor上
-            const promise = new MyPromise(function(resolve,reject){
-                let img  = document.createElement('img')
-                img.onload = function(){
-                    resolve(img)
-                }
-                img.onerror = function(){
-                    reject()
-                }
-                img.src = src;
-            })
-        
-            return promise
-        }
-        
-        
-        let src = "https://dss0.baidu.com/73x1bjeh1BF3odCf/it/u=4003888963,1806138384&fm=85&s=9102FE5E6413E3CE9E3E1911030010DE"
-        let result = loadImg(src)   //返回一个promise对象
-        
-        //then的函数在resolve下才执行，第二个是在reject下执行的
-        result.then(function(){
-            console.log('ok1')
-        },function(){
-            console.log('fail1')
-        })
-        
-        result.then(function(){
-            console.log('ok2')
-        },function(){
-            console.log('fail2')
-        })
+  initDesignModel() {
+    // this.initCreator();
+    // this.initSingleObject()
+    // this.initAdapter()
+    // this.initDecorator()
+    // this.initProxyImg()
+    // this.initBindEvent()
+    // this.initObservers()
+    // this.initContainer()
+    this.initState()
+    // this.initAction()
+    // this.initInvoker()
+    // this.initEditor()
+  }
 
-        
+  initAlgorithm() {
+    let algorithm = new Algorithm()
+    // console.log(algorithm.combinationNewStr(['a', 's', 'd', '1', '2', '3', '5', '6', 'h2', '9', '12', '13', '14', '15', 'f', 'g']));
+    // a;s;d;1-3;5-6;h2;9;12-15;f;g
+  }
+
+  initHandleWrite() {
+    console.log("手写系列 start-_--_--_--_--_--_--_-")
+
+    // new的例子
+    // function Person(name, age) {
+    //     this.name = name;
+    //     this.age = age;
+    //     this.sex = 'male';
+    // }
+    // Person.prototype.isHandsome = true;
+    // Person.prototype.sayName = function () {
+    //     console.log(`Hello , my name is ${this.name}`);
+    // }
+
+    // let handsomeBoy = objectFactory(Person, 'Nealyang', 25);
+    // console.log(handsomeBoy.name) // Nealyang
+    // console.log(handsomeBoy.isHandsome) // true
+    // handsomeBoy.sayName(); // Hello , my name is Nealyang
+
+    // call，apply例子
+    var value = 2
+
+    var obj11 = {
+      value: 1,
     }
 
-    //职责链模式
-    initAction(){
-        let a  = new Action("组长")
-        let b  = new Action("敏哥")
-        let c  = new Action("博士")
-        a.setNextAction(b)
-        b.setNextAction(c)
-        a.handle()
-        // a里面有b，b有c
-        // 通过nextAction将这些串起来
-        // handle这样子写，是为了实现a1 a2 a3这样链操作
+    function bar(name, age) {
+      console.log(name)
+      return {
+        value: this.value,
+        name: name,
+        age: age,
+      }
     }
 
-    // 命令模式
-    initInvoker(){
-        let receiver = new Receiver()
-        let command = new Command(receiver)
-        let invoker = new Invoker(command)
-        invoker.invoke()
-        // 开始
-        // 执行命令
-        // 执行
-    }
+    // bar.call(null); // 2
 
-    //备忘录模式
-    initEditor(){
-        let editor = new Editor()
-        let careTaker = new CareTaker();
+    // console.log(bar.myCall(obj11, 'kevin', 18));  // {value: 1, name: {…}, age: "kevin"}
+    // console.log(bar.myApply(obj11, ['kevin', 18]));  // {value: 1, name: {…}, age: "kevin"}
 
-        editor.setContent("111")
-        editor.setContent("222")
-        careTaker.add(editor.saveContentToMenento())    //将当前内容备份
-        editor.setContent('333')
-        careTaker.add(editor.saveContentToMenento())  
-        editor.setContent('444')
+    // var obj45 = { name : 'Tom' };
+    // function fun(){
+    //     console.log(this.name);
+    // }
+    // fun.myBind(obj45)();
 
-        console.log(editor.getContent())
-        editor.getContentFromMemento(careTaker.get(1))
-        console.log(editor.getContent())
-        editor.getContentFromMemento(careTaker.get(0))
-        console.log(editor.getContent())
-    }
+    //promise的例子
+    // let p = new HandleWritePromise((resolve, reject)=>{
+    //     console.log('hello');
+    //     resolve(5);
+    // });
+    // p.then((res)=>{
+    //     console.log(res);
+    // })
+    // p.then(()=>{
+    //     console.log('jj');
+    // })
 
-   
+    // console.log("手写系列 end-_--_--_--_--_-")
 
-    // 外观模式
-    initBindEvent(){
-        // bindEven(elem, 'click', '#div',fn)
-        // bindEven(elem, 'click', fn)
-    }
+    /**
+     * 手写ajax测试
+     * axios(config)这种形式调用axios
+     * axios.get()这种形式调用axios
+     * 添加拦截器
+     */
+    // axios(config)这种形式调用axios
+    // myAxios({
+    //     method: 'get',
+    //     url: 'https://zhengzemin.cn/dist/static/fonts/element-icons.535877f.woff'
+    // }).then(res =>{
+    //     console.log('getAxios 成功响应',res)
+    // }).catch(err =>{
+    //     console.log(err)
+    // })
 
-    initDesignModel(){
-        // this.initCreator();
-        // this.initSingleObject()
-        // this.initAdapter()
-        // this.initDecorator()
-        // this.initProxyImg()
-        // this.initBindEvent()
-        // this.initObservers()
-        // this.initContainer()
-        this.initState()
-        // this.initAction()
-        // this.initInvoker()
-        // this.initEditor()
-    }
+    //  添加请求拦截器
+    // myAxios.interceptors.request.use(function (config) {
+    //     // 在发送请求之前做些什么
+    //     config.method = "get";
+    //     console.log("被我请求拦截器拦截了，哈哈:",config);
+    //     return config;
+    // }, function (error) {
+    //     // 对请求错误做些什么
+    //     return Promise.reject(error);
+    // });
 
+    // // 添加响应拦截器
+    // myAxios.interceptors.response.use(function (response) {
+    //     // 对响应数据做点什么
+    //     console.log("被我响应拦截拦截了，哈哈 ");
+    //     response = {message:"响应数据被我替换了，啊哈哈哈"}
+    //     return response;
+    // }, function (error) {
+    //     // 对响应错误做点什么
+    //     console.log("错了吗");
+    //     return Promise.reject(error);
+    // });
 
-    initAlgorithm(){
-        let algorithm = new Algorithm()
-        // console.log(algorithm.combinationNewStr(['a', 's', 'd', '1', '2', '3', '5', '6', 'h2', '9', '12', '13', '14', '15', 'f', 'g']));
-        // a;s;d;1-3;5-6;h2;9;12-15;f;g
+    // // axios.get()这种形式调用axios
+    // myAxios.get('https://zhengzemin.cn/dist/static/fonts/element-icons.535877f.woff').then(res =>{
+    //     console.log(res)
+    // })
+  }
 
-        
-    }
+  init() {
+    // this.initShoppingCart();
+    // this.initList();
+    // this.initProgressBar()
+    // this.initPopover()
+    initJSHand(true)
 
+    initStorage(false)
+    initObjectTool(false)
+    initFile(false)
+    initDom(false)
+    initTool(false)
+    initArrayTool(false)
+    initStrTool(false)
+    initCheck(false)
+    initBrowser(false)
+    initDateOperation(false)
+    this.initDesignModel()
 
-    initHandleWrite() {
-        console.log("手写系列 start-_--_--_--_--_--_--_-")
+    this.initAlgorithm()
+    this.initHandleWrite()
 
-        // new的例子
-        // function Person(name, age) {
-        //     this.name = name;
-        //     this.age = age;
-        //     this.sex = 'male';
-        // }
-        // Person.prototype.isHandsome = true;
-        // Person.prototype.sayName = function () {
-        //     console.log(`Hello , my name is ${this.name}`);
-        // }
-
-        // let handsomeBoy = objectFactory(Person, 'Nealyang', 25);
-        // console.log(handsomeBoy.name) // Nealyang
-        // console.log(handsomeBoy.isHandsome) // true
-        // handsomeBoy.sayName(); // Hello , my name is Nealyang
-
-
-        // call，apply例子
-        var value = 2;
-
-        var obj11 = {
-            value: 1
-        }
-
-        function bar(name, age) {
-           
-            console.log(name);
-            return {
-                value: this.value,
-                name: name,
-                age: age
-            }
-        }
-
-        // bar.call(null); // 2
-
-        // console.log(bar.myCall(obj11, 'kevin', 18));  // {value: 1, name: {…}, age: "kevin"}
-        // console.log(bar.myApply(obj11, ['kevin', 18]));  // {value: 1, name: {…}, age: "kevin"}
-      
-   
-        // var obj45 = { name : 'Tom' };
-        // function fun(){
-        //     console.log(this.name);
-        // }
-        // fun.myBind(obj45)(); 
-        
-
-
-        //promise的例子
-        // let p = new HandleWritePromise((resolve, reject)=>{
-        //     console.log('hello');
-        //     resolve(5);
-        // });
-        // p.then((res)=>{
-        //     console.log(res);
-        // })
-        // p.then(()=>{
-        //     console.log('jj');
-        // })
-
-
-
-
-
-
-        // console.log("手写系列 end-_--_--_--_--_-")
-
-      
-
-        /**
-         * 手写ajax测试
-         * axios(config)这种形式调用axios
-         * axios.get()这种形式调用axios
-         * 添加拦截器
-         */
-        // axios(config)这种形式调用axios
-        // myAxios({
-        //     method: 'get',
-        //     url: 'https://zhengzemin.cn/dist/static/fonts/element-icons.535877f.woff'
-        // }).then(res =>{
-        //     console.log('getAxios 成功响应',res)
-        // }).catch(err =>{
-        //     console.log(err)
-        // })
-
-
-        //  添加请求拦截器
-        // myAxios.interceptors.request.use(function (config) {
-        //     // 在发送请求之前做些什么
-        //     config.method = "get";
-        //     console.log("被我请求拦截器拦截了，哈哈:",config);
-        //     return config;
-        // }, function (error) {
-        //     // 对请求错误做些什么
-        //     return Promise.reject(error);
-        // });
-
-        // // 添加响应拦截器
-        // myAxios.interceptors.response.use(function (response) {
-        //     // 对响应数据做点什么
-        //     console.log("被我响应拦截拦截了，哈哈 ");
-        //     response = {message:"响应数据被我替换了，啊哈哈哈"}
-        //     return response;
-        // }, function (error) {
-        //     // 对响应错误做点什么
-        //     console.log("错了吗");
-        //     return Promise.reject(error);
-        // });
-
-
-
-        // // axios.get()这种形式调用axios
-        // myAxios.get('https://zhengzemin.cn/dist/static/fonts/element-icons.535877f.woff').then(res =>{
-        //     console.log(res)
-        // })
-
-    }
-
-    
-
-    init(){
-        // this.initShoppingCart();
-        // this.initList();
-        // this.initProgressBar()
-        // this.initPopover()
-        initObjectTool(true)
-        initFile(false)
-        initDom(false)
-        initTool(true);
-        initArrayTool(false)
-        initStrTool(false)
-        initCheck(false)
-        initBrowser(false)
-        initDateOperation(false)
-        this.intiStorage()
-        this.initDesignModel()
-
-        this.initAlgorithm()
-        this.initHandleWrite()
-        
-        
-        initNumberVal(false)
-        initInternet(false)
-
-    }
+    initNumberVal(false)
+    initInternet(false)
+  }
 }
 
-
-export  {
-    App,
-    Tool, 
-    ArrayTool,
-    StrTool,
-    Check, 
-    Browser, 
-    DateOperation, 
-    Storage,
-    File,
-    Animation,
-    Dom,
-    NumberVal,
-    ObjectTool,
-    Internet
+export {
+  App,
+  Tool,
+  ArrayTool,
+  StrTool,
+  Check,
+  Browser,
+  DateOperation,
+  Storage,
+  File,
+  Animation,
+  Dom,
+  NumberVal,
+  ObjectTool,
+  Internet,
 }
