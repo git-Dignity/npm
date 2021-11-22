@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-09-15 16:40:43
+ * @LastEditTime: 2021-11-22 17:15:43
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \npm\src\test\HandWrit\JSHand.js
+ */
 import { JSHand } from "../../HandWrit"
 
 export default (isLog) => {

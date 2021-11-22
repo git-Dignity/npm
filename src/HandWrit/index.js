@@ -7,7 +7,9 @@
  * @FilePath: \npm\src\HandWrit\index.js
  */
 import JSHand  from "./JSHand";
+import ArrayHand from './ArrayHand'
 
 export {
-    JSHand
+    JSHand,
+    ArrayHand
 }
