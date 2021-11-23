@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-15 16:40:43
- * @LastEditTime: 2021-11-23 16:31:56
+ * @LastEditTime: 2021-11-23 23:15:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \npm\src\test\HandWrit\JSHand.js
@@ -115,10 +115,28 @@ export default (isLog) => {
   }
   //reduce end
 
-  
   // findIndex
   const findIndexArr = players.zm_findIndex((item) => item.name === "詹姆斯")
   // console.log(findIndexArr) // 1
   const findIndexArr1 = players.zm_findIndex((item) => item.name === "安东尼")
   // console.log(findIndexArr1) // -1
+
+  // find
+  const findArr = players.zm_find((item) => item.name === "科比")
+  // console.log(findArr) // { name: '科比', num: 24 }
+  const findArr1 = players.zm_find((item) => item.name === "安东尼")
+  // console.log(findArr1) // undefined
+
+  const fillArr = players.zm_fill("吖泽", 1, 3)
+  // console.log(fillArr); // {name: '科比', num: 24},"吖泽","吖泽", {name: '威少', num: 0},{name: '杜兰特', num: 35}
+
+
+
+  // console.log([1, 2, 3].zm_includes(2)) // true
+  // console.log([1, 2, 3, NaN].zm_includes(NaN)) // true
+  // console.log([1, 2, 3].zm_includes(1,0)) // true
+  // console.log([1, 2, 3].zm_includes(1,2)) // false
+  console.log([1, 2, 3].zm_includes(1,-2)) // false
+
+  arrayHand.end()
 }

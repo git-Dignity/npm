@@ -206,31 +206,31 @@ Array.prototype.zm_some = function (callback) {
  * @memberof ArrayHand
  * @example
  * const playersTmp = [{ name: '科比', num: 24 }, { name: '詹姆斯', num: 23 },{ name: '保罗', num: 0 },{ name: '保罗', num: 0 }]
- * 
+ *
  * example1：数组项求和，第二个参数已传
  * const sum = playersTmp.zm_reduce((pre, next) => {
  *   return pre + next.num
  * },0)
  * console.log(sum) // 50
- * 
+ *
  * example2：数组项求和，第二个参数未传
  * const sum2 = playersTmp.zm_reduce((pre, next) => {
  *   return pre + next.num
  * })
  * console.log(sum2) // 50
- * 
+ *
  * example3：数组项求和，第二个参数已传，从10开始累加
  * const sum3 = playersTmp.zm_reduce((pre, next) => {
  *   return pre + next.num
  * },10)
  * console.log(sum3) // 60
- * 
+ *
  * example4：求数组项最大值，第二个参数已传
  * const sum4 = [11,2,5,70].zm_reduce((pre, next) => {
  *   return Math.max(pre,next)
  * },0)
  * console.log(sum4) // 70
- * 
+ *
  * 还可以传数组哦！！！
  * example5：一维数组去重，第二个参数已传
  * const newArr = [1,1,5,6,8,8,10].zm_reduce(function (prev, cur) {
@@ -238,7 +238,7 @@ Array.prototype.zm_some = function (callback) {
  *   return prev
  * }, [])
  * console.log(newArr) // [1, 5, 6, 8, 10]
- * 
+ *
  * example6：二维数组去重，第二个参数已传
  * const newArr1 = playersTmp.zm_reduce(function (prev, cur) {
  *   !prev.includes(cur) && prev.push(cur)
@@ -249,7 +249,7 @@ Array.prototype.zm_some = function (callback) {
  * 判断cur对象是否存在于prev数组中
  * function isContains(prev, cur) {
  *   if (!prev) { return false }
- * 
+ *
  *   判断cur、item是否完全相等
  *   return prev.some((item) => arrayTool.equals(cur, item))
  * }
@@ -277,7 +277,6 @@ Array.prototype.zm_reduce = function (callback, initValue) {
   return pre
 }
 
-
 /**
  * @description filter、findIndex的区别？
  * @description filter过滤条件为true的数组；而findIndex是查找项的索引
@@ -304,13 +303,119 @@ Array.prototype.zm_reduce = function (callback, initValue) {
  * console.log(findIndexArr1) // -1
  */
 Array.prototype.zm_findIndex = function (callback) {
-    for (let i = 0; i < this.length; i++) {
-        if (callback(this[i], i, this)) {
-            return i
+  for (let i = 0; i < this.length; i++) {
+    if (callback(this[i], i, this)) {
+      return i
+    }
+  }
+  return -1
+}
+
+
+/**
+ * @description findIndex、find的区别？
+ * @description findIndex查找的是项的索引；而find查找的是项
+ * @description 一个返回数值；一个返回数组
+ *
+ * @description 实现思路：
+ * @description 1. 接收传进函数
+ * @description 2. 对this进行for循环，this谁调用我，我就指向谁。this就是调用的数组
+ * @description 3. 拿到数组每一项，传给callback函数进行查找，过滤为false，继续走；
+ * @description 4. 一旦发现一个为true，直接返回值；
+ * @description 5. callback的三个参数（item：遍历项, index：遍历项的索引, arr：数组本身）
+ *
+ * @description 手写find
+ *
+ * @param {Function} callback 回调函数
+ * @return {*}
+ * @memberof ArrayHand
+ * @example
+ * const players = [{ name: '科比', num: 24 }, { name: '詹姆斯', num: 23 },{ name: '保罗', num: 3 }]
+ * const findArr = players.zm_find((item) => item.name === "科比")
+ * console.log(findArr) // { name: '科比', num: 24 }
+ *
+ * const findArr1 = players.zm_find((item) => item.name === "安东尼")
+ * console.log(findArr1) // undefined
+ */
+Array.prototype.zm_find = function (callback) {
+  for (let i = 0; i < this.length; i++) {
+      if (callback(this[i], i, this)) {
+          return this[i]
+      }
+  }
+  return undefined
+}
+
+
+
+/**
+ * @description fill？
+ * @description 填充数组
+ * @description fill('阿泽', 1, 3)，就是数组的第二项、第三项替换成'阿泽'
+ *
+ * @description 实现思路：
+ * @description 1. 接收要替换的值value；start开始填充索引，默认0；end：结束填充索引，默认length
+ * @description 2. 根据start、end对this进行for循环替换，this谁调用我，我就指向谁。this就是调用的数组
+ * @description 3. 替换结束后，返回数组；
+ * @description 4. callback的三个参数（value：填充的值, start：开始填充索引，默认0, end：结束填充索引，默认length）
+ *
+ * @description 手写find
+ *
+ * @param {Function} callback 回调函数
+ * @return {*}
+ * @memberof ArrayHand
+ * @example
+ * const players = [{ name: '科比', num: 24 }, { name: '詹姆斯', num: 23 },{ name: '保罗', num: 3 }]
+ * const fillArr = players.zm_fill('吖泽', 1, 3)
+ * console.log(fillArr); // {name: '科比', num: 24},"吖泽","吖泽", {name: '威少', num: 0},{name: '杜兰特', num: 35}
+ */
+Array.prototype.zm_fill = function (value, start = 0, end) {
+  end = end || this.length
+  for (let i = start; i < end; i++) {
+      this[i] = value
+  }
+  return this
+}
+
+
+/**
+ * @description filter、includes的区别？
+ * @description filter过滤条件为true的数组；而includes是查找项是否包含在数组内
+ * @description 一个返回数组；一个返回布尔
+ * 
+ * @description includes用处：查找元素，查到返回true，反之返回false，可查找NaN
+ *
+ * @description 实现思路：
+ * @description 1. 接收要查找的项value；start从哪个索引开始搜索，若为负值，则按升序从array.length+fromIndex的索引开始搜索。默认为0（选传）
+ * @description 2. 根据start对this进行for循环，this谁调用我，我就指向谁。this就是调用的数组
+ * @description 3. 搜索值和数组某项相等
+ * @description 4. 因需判断NaN，所以要满足数组的每一项 且 传入的value，都要是NaN
+ *
+ * @description 手写includes
+ *
+ * @param {Function} callback 回调函数
+ * @return {*}
+ * @memberof ArrayHand
+ * @example
+ * const players = [{ name: '科比', num: 24 }, { name: '詹姆斯', num: 23 },{ name: '保罗', num: 3 }]
+ * const fillArr = players.zm_fill('吖泽', 1, 3)
+ * console.log(fillArr); // {name: '科比', num: 24},"吖泽","吖泽", {name: '威少', num: 0},{name: '杜兰特', num: 35}
+ */
+Array.prototype.zm_includes = function (value, start = 0) {
+    if (start < 0) start = this.length + start
+    const isNaN = Number.isNaN(value)
+
+    for (let i = start; i < this.length; i++) {
+        if (this[i] === value || (Number.isNaN(this[i]) && isNaN && Number.isNaN(this[i]) === isNaN)) {
+            return true
         }
     }
-    return -1
+    return false
 }
+
+
+
+
 
 
 
