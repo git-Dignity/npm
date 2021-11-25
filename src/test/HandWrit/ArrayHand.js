@@ -1,9 +1,9 @@
 /*
- * @Author: your name
+ * @Author: zemin zheng
  * @Date: 2021-09-15 16:40:43
- * @LastEditTime: 2021-11-25 16:27:07
+ * @LastEditTime: 2021-11-25 17:22:51
  * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
+ * @Description: 手写系列 -- 数组篇 测试文件
  * @FilePath: \npm\src\test\HandWrit\JSHand.js
  */
 import { ArrayHand } from "../../HandWrit"
