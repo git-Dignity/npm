@@ -311,7 +311,6 @@ Array.prototype.zm_findIndex = function (callback) {
   return -1
 }
 
-
 /**
  * @description findIndex、find的区别？
  * @description findIndex查找的是项的索引；而find查找的是项
@@ -339,14 +338,12 @@ Array.prototype.zm_findIndex = function (callback) {
  */
 Array.prototype.zm_find = function (callback) {
   for (let i = 0; i < this.length; i++) {
-      if (callback(this[i], i, this)) {
-          return this[i]
-      }
+    if (callback(this[i], i, this)) {
+      return this[i]
+    }
   }
   return undefined
 }
-
-
 
 /**
  * @description fill？
@@ -372,17 +369,16 @@ Array.prototype.zm_find = function (callback) {
 Array.prototype.zm_fill = function (value, start = 0, end) {
   end = end || this.length
   for (let i = start; i < end; i++) {
-      this[i] = value
+    this[i] = value
   }
   return this
 }
-
 
 /**
  * @description filter、includes的区别？
  * @description filter过滤条件为true的数组；而includes是查找项是否包含在数组内
  * @description 一个返回数组；一个返回布尔
- * 
+ *
  * @description includes用处：查找元素，查到返回true，反之返回false，可查找NaN
  *
  * @description 实现思路：
@@ -397,27 +393,86 @@ Array.prototype.zm_fill = function (value, start = 0, end) {
  * @return {*}
  * @memberof ArrayHand
  * @example
- * const players = [{ name: '科比', num: 24 }, { name: '詹姆斯', num: 23 },{ name: '保罗', num: 3 }]
- * const fillArr = players.zm_fill('吖泽', 1, 3)
- * console.log(fillArr); // {name: '科比', num: 24},"吖泽","吖泽", {name: '威少', num: 0},{name: '杜兰特', num: 35}
+ * console.log([1, 2, 3].zm_includes(2)) // true
+ * console.log([1, 2, 3, NaN].zm_includes(NaN)) // true
+ * console.log([1, 2, 3].zm_includes(1,0)) // true
+ * console.log([1, 2, 3].zm_includes(1,2)) // false
+ * console.log([1, 2, 3].zm_includes(1,-2)) // false
+ * 最后一个输出找不到，因为为负值，则按升序从array.length+fromIndex的索引开始搜索。默认为0；
+ * 其实我觉得应该返回true才对，但includes是这种逻辑也没办法
  */
 Array.prototype.zm_includes = function (value, start = 0) {
-    if (start < 0) start = this.length + start
-    const isNaN = Number.isNaN(value)
+  if (start < 0) start = this.length + start
+  const isNaN = Number.isNaN(value)
 
-    for (let i = start; i < this.length; i++) {
-        if (this[i] === value || (Number.isNaN(this[i]) && isNaN && Number.isNaN(this[i]) === isNaN)) {
-            return true
-        }
+  for (let i = start; i < this.length; i++) {
+    if (
+      this[i] === value ||
+      (Number.isNaN(this[i]) && isNaN && Number.isNaN(this[i]) === isNaN)
+    ) {
+      return true
     }
-    return false
+  }
+  return false
 }
 
 
+/**
+ * @description fill、join的区别？
+ * @description fill根据第二、第三参数填充数组数组；而join将数组用分隔符拼成字符串，分隔符默认为,
+ * @description 一个返回数组；一个返回字符串
+ *
+ * @description 实现思路：
+ * @description 1. 接收分隔符s，默认是逗号，用来将数组拼成字符串
+ * @description 2. 对this进行for循环，this谁调用我，我就指向谁。this就是调用的数组
+ * @description 3. 定义变量str来接收for循环出来的值的拼接
+ * @description 4. for循环结束后，返回str
+ *
+ * @description 手写join
+ *
+ * @param {Function} callback 回调函数
+ * @return {*}
+ * @memberof ArrayHand
+ * @example
+ * console.log([1, 2, 3].sx_join()) // 1,2,3
+ * console.log([1, 2, 3].sx_join("*")) // 1*2*3
+ */
+Array.prototype.zm_join = function (s = ",") {
+  let str = ""
+  for (let i = 0; i < this.length; i++) {
+    str = i === 0 ? `${str}${this[i]}` : `${str}${s}${this[i]}`
+  }
+  return str
+}
 
 
-
-
+/**
+ * @description join、flat的区别？
+ * @description join将数组用分隔符拼成字符串，分隔符默认为逗号；而flat是将数组数组扁平化成一维数组
+ * @description 一个数组 -> 字符串；一个多维数组 -> 一维数组
+ *
+ * @description 实现思路：
+ * @description 1. 对this进行wile循环，this谁调用我，我就指向谁。this就是调用的数组
+ * @description 2. 利用some来判断每一项是不是为数组，如果是数组继续循环下去
+ * @description 3. 经过some出来的每一项item，都是数组，再利用concat合并展开运算符出来的arr每一个值赋给arr
+ * @description 4. arr每次while之后，都会保留上一份数据，如果这份数据还有数组，继续while，重复步骤3
+ * @description 5. 直到arr不是二维数组，while循环结束后，返回arr
+ *
+ * @description 手写flat
+ *
+ * @param {Function} callback 回调函数
+ * @return {*}
+ * @memberof ArrayHand
+ * @example
+ * console.log([1, [2, 3, [4, 5]], [8, 9]].zm_flat())  // [1, 2, 3, 4, 5, 8, 9]
+ */
+Array.prototype.zm_flat = function () {
+  let arr = this
+  while (arr.some(item => Array.isArray(item))) {
+      arr = [].concat(...arr)
+  }
+  return arr
+}
 
 
 

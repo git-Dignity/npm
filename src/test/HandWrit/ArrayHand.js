@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-15 16:40:43
- * @LastEditTime: 2021-11-23 23:15:45
+ * @LastEditTime: 2021-11-25 16:27:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \npm\src\test\HandWrit\JSHand.js
@@ -130,13 +130,22 @@ export default (isLog) => {
   const fillArr = players.zm_fill("吖泽", 1, 3)
   // console.log(fillArr); // {name: '科比', num: 24},"吖泽","吖泽", {name: '威少', num: 0},{name: '杜兰特', num: 35}
 
-
-
+  // includes
   // console.log([1, 2, 3].zm_includes(2)) // true
   // console.log([1, 2, 3, NaN].zm_includes(NaN)) // true
   // console.log([1, 2, 3].zm_includes(1,0)) // true
   // console.log([1, 2, 3].zm_includes(1,2)) // false
-  console.log([1, 2, 3].zm_includes(1,-2)) // false
+  // console.log([1, 2, 3].zm_includes(1,-2)) // false
+  // 最后一个输出找不到，因为为负值，则按升序从array.length+fromIndex的索引开始搜索。默认为0；
+  // 其实我觉得应该返回true才对，但includes这种逻辑也没办法
+
+  // join
+  // console.log([1, 2, 3].sx_join()) // 1,2,3
+  // console.log([1, 2, 3].sx_join("*")) // 1*2*3
+
+  // flat
+  // console.log([1, [2, 3, [4, 5]], [8, 9]].zm_flat())  // [1, 2, 3, 4, 5, 8, 9]
+  
 
   arrayHand.end()
 }

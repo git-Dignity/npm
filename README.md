@@ -1,5 +1,4 @@
 
-
 # [npm工具类](https://www.npmjs.com/package/javascript-tool-class)
 
 与大家分享自己所涉及到的npm知识，将常用方法封装成工具类
@@ -59,3 +58,5 @@ http://zhengzemin.cn:9052
 JS中的bind的实现以及使用：https://www.cnblogs.com/heshan1992/p/6667596.html（src\HandWrit\JSHand.js）
 
 13 个 JS 数组精简技巧，一起来看看：https://juejin.cn/post/6844903981827751943?utm_source=gold_browser_extension#heading-9
+
+56个JavaScript 实用工具函数助你提升开发效率！：https://juejin.cn/post/7019090370814279693?utm_source=gold_browser_extension
