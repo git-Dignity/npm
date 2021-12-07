@@ -55,8 +55,22 @@ export default (isLog) => {
 
   // console.log(bar.myCall1(obj11, "kevin", 18)) // {value: 1, name: {…}, age: "kevin"}
 
+  const myObj = {
+    name: "阿泽",
+    testFn(age) {
+      console.log(`${this.name}${age}岁了`)
+    },
+  }
+  const myObj2 = {
+    name: "Dignity_",
+  }
+
+  // myObj.testFn.myCall2(myObj2, 22) // Dignity_22岁了
+
   // apply例子
   // console.log(bar.myApply(obj11, ['kevin', 18]));  // {value: 1, name: {…}, age: "kevin"}
+
+  // myObj.testFn.myApply2(myObj2, [22]) // Dignity_22岁了
 
   // bind例子
   // var obj45 = { name: "Tom" }

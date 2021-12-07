@@ -388,9 +388,9 @@ class App {
     // this.initList();
     // this.initProgressBar()
     // this.initPopover()
-    // initJSHand(true)  // 还没有写完
+    initJSHand(true)  // 还没有写完
     initArrayHand(false)
-    initObjectHand(true)
+    initObjectHand(false)
 
     initStorage(false)
     initObjectTool(false)

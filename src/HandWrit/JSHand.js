@@ -173,6 +173,50 @@ Function.prototype.myCall1 = function (context) {
 }
 
 /**
+ * @description 第一个参数context为undefined或null的时候，那么会转变为window
+ * @description 改变this的指向，这时的this指向context
+ * @description 第二个参数：传进调用方法的n个参数（多个）
+ * @description ⭐写的比较方便，那是因为借助es6的...扩展运算符执行，es5只能借助eval来执行函数
+ *
+ * @description 核心：改变this的指向，改成context去调用传入的方法（调用的同时，也给对象添加了该方法，自然可以调用）；
+ * @description 参数接收到就利用es6的...开展运算符传参
+ *
+ * @description 思路：
+ * @description 1. 首先context为可选参数，如果不传的话默认上下文是window
+ * @description 2. 接下来给content创建一个fn属性（用Symbol设置唯一性），并将值设置为需要调用的函数
+ * @description 3. 因为call可以传入多个参数作为调用函数的参数，所以使用es6的...扩展运算符传入执行
+ *
+ * @description 手写call（ES6写法）
+ *
+ * @param {*} context 多位参数 -- this指向对象
+ * @param {*} args n个参数
+ * @return {Object}
+ * @memberof JSHand
+ * @example
+ * const myObj = {
+ *   name: "阿泽",
+ *   testFn(age) {
+ *     console.log(`${this.name}${age}岁了`)
+ *   }
+ * }
+ *
+ * const myObj2 = { name: "Dignity_", }
+ * myObj.testFn.myCall2(myObj2, 22) // Dignity_22岁了
+ */
+Function.prototype.myCall2 = function (context, ...args) {
+  context = context || window
+
+  // Symbol是唯一的，防止重名key
+  const fn = Symbol()
+  // console.log(this)
+  // console.log(fn)
+  context[fn] = this
+  // console.log(context)
+  // 执行，返回执行值
+  return context[fn](...args)
+}
+
+/**
  * @description apply和call实现类似，不同的就是参数的处理
  *
  * @description 手写apply（ES5写法）
@@ -260,6 +304,55 @@ Function.prototype.myApply1 = function (context) {
 
 
 /**
+ * @description apply和call实现类似，不同的就是参数的处理
+ * @description apply传入的是数组，call传入多个参数，逗号分隔
+ *
+ * @description 第一个参数context为undefined或null的时候，那么会转变为window
+ * @description 改变this的指向，这时的this指向context
+ * @description 第二个参数：传进调用方法的n个参数（多个）
+ * @description ⭐写的比较方便，那是因为借助es6的...扩展运算符执行，es5只能借助eval来执行函数
+ * 
+ * @description 核心：改变this的指向，改成context去调用传入的方法（调用的同时，也给对象添加了该方法，自然可以调用）；
+ * @description 参数接收到就利用es6的...扩展运算符传参
+ *
+ * @description ⭐和上面的myCall2写法一模一样，接收参数不一样而已；
+ * @description 因为用的是扩展运算符，所以参数你传数组或者n个参数，对于我处理都是一样，一个个取出来；
+ * @description 只不过call需要用扩展运算符接收，而apply传入是数组，直接arr变量正常接收即可
+ *
+ * @description 思路：
+ * @description 1. 首先context为可选参数，如果不传的话默认上下文是window
+ * @description 2. 接下来给content创建一个fn属性（用Symbol设置唯一性），并将值设置为需要调用的函数
+ * @description 3. 因为call可以传入多个参数作为调用函数的参数，所以使用es6的...扩展运算符传入执行
+ *
+ * @description 手写apply（ES6写法）
+ *
+ * @param {*} context this指向
+ * @param {Array} arr 参数数组
+ * @return {Object}
+ * @memberof JSHand
+ * @example
+ * const myObj = {
+ *   name: "阿泽",
+ *   testFn(age) {
+ *     console.log(`${this.name}${age}岁了`)
+ *   }
+ * }
+ *
+ * const myObj2 = { name: "Dignity_", }
+ * myObj.testFn.myApply2(myObj2, [22]) // Dignity_22岁了
+ */
+Function.prototype.myApply2 = function (context, arr) {
+  context = context || window
+
+  // Symbol是唯一的，防止重名key
+  const fn = Symbol()
+  context[fn] = this
+
+  // 执行，返回执行值
+  return context[fn](...arr)
+}
+
+/**
  * @description 我们一步一步来演进bind的最终版
  * @description 首先我们可以通过给目标函数指定作用域来简单实现bind()方法
  *
@@ -273,18 +366,15 @@ Function.prototype.myApply1 = function (context) {
  * function fun(){
  *   console.log(this.name);
  * }
- * 
+ *
  * fun.mybind1(obj45, 1, 2)();  // Tom
  */
- Function.prototype.mybind1 = function(context){
-  const self = this;  //保存this，即调用bind方法的目标函数
-  return function(){
-      return self.apply(context,arguments);
-  };
-};
-
-
-
+Function.prototype.mybind1 = function (context) {
+  const self = this //保存this，即调用bind方法的目标函数
+  return function () {
+    return self.apply(context, arguments)
+  }
+}
 
 /**
  * @description 我们一步一步来演进bind的最终版
@@ -301,7 +391,7 @@ Function.prototype.myApply1 = function (context) {
  * function fun(){
  *   console.log(this.name);
  * }
- * 
+ *
  * fun.mybind2(obj45, 1, 2)();  // Tom
  */
 Function.prototype.mybind2 = function (context) {
@@ -310,13 +400,12 @@ Function.prototype.mybind2 = function (context) {
   console.log(args) // [1, 2]
   return function () {
     var innerArgs = Array.prototype.slice.call(arguments)
-    console.log(innerArgs)  // []
+    console.log(innerArgs) // []
     var finalArgs = args.concat(innerArgs)
-    console.log(finalArgs)  // [1, 2]
+    console.log(finalArgs) // [1, 2]
     return self.apply(context, finalArgs)
   }
 }
-
 
 /**
  * @description 我们一步一步来演进bind的最终版
@@ -334,7 +423,7 @@ Function.prototype.mybind2 = function (context) {
  * function fun(){
  *   console.log(this.name);
  * }
- * 
+ *
  * fun.mybind3(obj45, 1, 2)();  // Tom
  */
 Function.prototype.mybind3 = function (context) {
@@ -352,8 +441,6 @@ Function.prototype.mybind3 = function (context) {
   return bound
 }
 
-
-
 /**
  * @description 我们一步一步来演进bind的最终版
  * @description bind() 函数会创建一个新函数（称为绑定函数）
@@ -369,7 +456,7 @@ Function.prototype.mybind3 = function (context) {
  * function fun(){
  *   console.log(this.name);
  * }
- * 
+ *
  * fun.myBind(obj45, 1, 2)();  // Tom
  */
 Function.prototype.myBind = function (oThis) {
@@ -380,7 +467,7 @@ Function.prototype.myBind = function (oThis) {
       "Function.prototype.bind - what is trying to be bound is not callable"
     )
   }
-  
+
   var aArgs = Array.prototype.slice.call(arguments, 1),
     fToBind = this, // this在这里指向的是目标函数
     fNOP = function () {},
@@ -400,9 +487,5 @@ Function.prototype.myBind = function (oThis) {
   //返回fBond的引用，由外部按需调用
   return fBound
 }
-
-
-
-
 
 export default JSHand
