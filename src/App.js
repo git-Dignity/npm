@@ -56,6 +56,7 @@ import {JSHand} from './HandWrit'
 import initJSHand from "./test/HandWrit/JSHand"
 import initArrayHand from "./test/HandWrit/ArrayHand"
 import initObjectHand from "./test/HandWrit/ObjectHand"
+import initStringHand from './test/HandWrit/StringHand'
 
 class App {
   constructor(id) {
@@ -388,9 +389,10 @@ class App {
     // this.initList();
     // this.initProgressBar()
     // this.initPopover()
-    initJSHand(true)  // 还没有写完
+    initJSHand(false)  // 还没有写完
     initArrayHand(false)
     initObjectHand(false)
+    initStringHand(true)
 
     initStorage(false)
     initObjectTool(false)

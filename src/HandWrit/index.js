@@ -9,9 +9,11 @@
 import JSHand  from "./JSHand";
 import ArrayHand from './ArrayHand'
 import ObjectHand from './ObjectHand'
+import StringHand from './StringHand'
 
 export {
     JSHand,
     ArrayHand,
-    ObjectHand
+    ObjectHand,
+    StringHand
 }

@@ -127,6 +127,7 @@ export default (isLog) => {
   const findArr1 = players.zm_find((item) => item.name === "安东尼")
   // console.log(findArr1) // undefined
 
+  // fill
   const fillArr = players.zm_fill("吖泽", 1, 3)
   // console.log(fillArr); // {name: '科比', num: 24},"吖泽","吖泽", {name: '威少', num: 0},{name: '杜兰特', num: 35}
 
