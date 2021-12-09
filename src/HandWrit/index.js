@@ -10,10 +10,12 @@ import JSHand  from "./JSHand";
 import ArrayHand from './ArrayHand'
 import ObjectHand from './ObjectHand'
 import StringHand from './StringHand'
+import PromiseHand from './PromiseHand'
 
 export {
     JSHand,
     ArrayHand,
     ObjectHand,
-    StringHand
+    StringHand,
+    PromiseHand
 }

@@ -25,49 +25,6 @@ class StringHand {
     console.log("手写系列 -- 字符串篇底层方法 end^_^_^_^_^_^_^_^_^_^")
   }
 
-  /**
-   * @description A instanceOf B，判断A是否经过B的原型链
-   *
-   * @description 思路：
-   * @description 1. 接收传进father、child变量
-   * @description 2. 取出第一个参数father，获取其prototype显式原型属性，作为目标样本（参考对象）
-   * @description 3. 继续取第二个参数child，获取其__proto__隐式原型属性
-   * @description 4. 使用 while，判断父的prototype和子的__proto__是否相等
-   * @description 5. 若相等，则直接返回true
-   * @description 6. 若不相等，则再取子的__proto__隐式原型属性，继续循环
-   * @description 7. 直到父的prototype和子的__proto__相等才跳出循环，否则一直while循环下去
-   * @description 8. 返回布尔值
-   *
-   * @description instanceOf手写
-   *
-   * @return {Boolean}
-   * @memberof StringHand
-   * @example
-   * function Person(name) {
-   *   this.name = name
-   * }
-   * const person = new Person("阿泽")
-   *
-   * console.log(StringHand.instanceOf(Person, person)) // true
-   * console.log(StringHand.instanceOf(Person, {})) // false
-   * console.log(StringHand.instanceOf(Person, null)) // false
-   */
-  instanceOf(father, child) {
-    if (!father || !child) {
-      return false
-    }
-    const fp = father.prototype
-    var cp = child.__proto__
-
-    while (cp) {
-      if (cp === fp) {
-        return true
-      }
-      cp = cp.__proto__
-    }
-
-    return false
-  }
 }
 
 /**

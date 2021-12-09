@@ -52,11 +52,12 @@ import { objectFactory, HandleWritePromise } from "./HandWrit/index"
 import { myAxios } from "./HandWrit/myAxios/myAxios"
 import {JSHand} from './HandWrit'
 
-// 工具类测试
+// 手写系列测试
 import initJSHand from "./test/HandWrit/JSHand"
 import initArrayHand from "./test/HandWrit/ArrayHand"
 import initObjectHand from "./test/HandWrit/ObjectHand"
 import initStringHand from './test/HandWrit/StringHand'
+import initPromiseHand from './test/HandWrit/PromiseHand'
 
 class App {
   constructor(id) {
@@ -151,11 +152,11 @@ class App {
 
     //绿灯亮了
     green.handle(context)
-    console.log(context.getState()) //打印状态
+    // console.log(context.getState()) //打印状态
 
     //红灯亮了
     red.handle(context)
-    console.log(context.getState()) //打印状态
+    // console.log(context.getState()) //打印状态
 
     //初始化文案
     updateText("btn")
@@ -192,19 +193,19 @@ class App {
     //then的函数在resolve下才执行，第二个是在reject下执行的
     result.then(
       function () {
-        console.log("ok1")
+        // console.log("ok1")
       },
       function () {
-        console.log("fail1")
+        // console.log("fail1")
       }
     )
 
     result.then(
       function () {
-        console.log("ok2")
+        // console.log("ok2")
       },
       function () {
-        console.log("fail2")
+        // console.log("fail2")
       }
     )
   }
@@ -280,7 +281,7 @@ class App {
   }
 
   initHandleWrite() {
-    console.log("手写系列 start-_--_--_--_--_--_--_-")
+    // console.log("手写系列 start-_--_--_--_--_--_--_-")
 
     // new的例子
     // function Person(name, age) {
@@ -392,7 +393,8 @@ class App {
     initJSHand(false)  // 还没有写完
     initArrayHand(false)
     initObjectHand(false)
-    initStringHand(true)
+    initStringHand(false)
+    initPromiseHand(true)
 
     initStorage(false)
     initObjectTool(false)
