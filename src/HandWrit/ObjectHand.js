@@ -225,4 +225,53 @@ Object.prototype.zm_is = function (x, y) {
   return x !== x && y !== y
 }
 
+
+
+/**
+ * @description join、assign的区别？
+ * @description join将数组用分隔符拼成字符串，分隔符默认为逗号；而assign接收多个对象，并将多个对象合成一个对象
+ * @description 一个数组 -> 字符串；一个返回对象
+ * 
+ * @description 特别提醒
+ * @description assign接收多个对象，并将多个对象合成一个对象
+ * @description 这些对象如果有重名属性，以后来的对象属性值为准
+ * @description assign返回一个对象，这个对象 === 第一个对象
+ *
+ * @description 实现思路：
+ * @description 1. 接收传进目标对象target、需要合并的n个对象args
+ * @description 2. 对args数组进行for of循环（遍历的是value）
+ * @description 3. 拿到数组每一项，即每一个对象，继续对对象再一次for in循环（便历出来的是属性）；
+ * @description 4. 拿到对象每一个属性和值，赋给目标对象target
+ * @description 5. 循环结束，返回目标对象target
+ *
+ * @description 手写assign
+ *
+ * @param {Object} target 目标对象
+ * @param {Object} args n个对象
+ * @return {Object}
+ * @memberof ObjectHand
+ * @example
+ * const testa = { name: "阿泽" }
+ * const testb = { name: "Dignity_", age: 22 }
+ * const testc = { age: 18, gender: "男" }
+ * 
+ * const testd = Object.zm_assign(testa, testb, testc)
+ * console.log(testd) // { name: 'Dignity_', age: 18, gender: '男' }
+ * console.log(testa === testd) // true
+ */
+ Object.prototype.zm_assign = function (target, ...args) {
+  if (target === null || target === undefined) {
+      throw new TypeError('Cannot convert undefined or null to object')
+  }
+  target = Object(target)
+
+  for (let nextObj of args) {
+    console.log(nextObj);
+      for (let key in nextObj) {
+          nextObj.hasOwnProperty(key) && (target[key] = nextObj[key])
+      }
+  }
+  return target
+}
+
 export default ObjectHand

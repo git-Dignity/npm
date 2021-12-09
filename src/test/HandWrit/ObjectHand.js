@@ -62,5 +62,14 @@ export default (isLog) => {
   // console.log(Object.zm_is(+0, -0)) // false  如果用===他们是相等的，is内部处理了
   // console.log(Object.zm_is(NaN, NaN)) // true  如果用===他们是不相等的，is内部处理了
 
+  // assign
+  const testa = { name: "阿泽" }
+  const testb = { name: "Dignity_", age: 22 }
+  const testc = { age: 18, gender: "男" }
+
+  const testd = Object.zm_assign(testa, testb, testc)
+  // console.log(testd) // { name: 'Dignity_', age: 18, gender: '男' }
+  // console.log(testa === testd) // true
+
   objectHand.end()
 }

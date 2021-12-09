@@ -416,7 +416,6 @@ Array.prototype.zm_includes = function (value, start = 0) {
   return false
 }
 
-
 /**
  * @description fill、join的区别？
  * @description fill根据第二、第三参数填充数组数组；而join将数组用分隔符拼成字符串，分隔符默认为,
@@ -434,8 +433,8 @@ Array.prototype.zm_includes = function (value, start = 0) {
  * @return {*}
  * @memberof ArrayHand
  * @example
- * console.log([1, 2, 3].sx_join()) // 1,2,3
- * console.log([1, 2, 3].sx_join("*")) // 1*2*3
+ * console.log([1, 2, 3].zm_join()) // 1,2,3
+ * console.log([1, 2, 3].zm_join("*")) // 1*2*3
  */
 Array.prototype.zm_join = function (s = ",") {
   let str = ""
@@ -444,7 +443,6 @@ Array.prototype.zm_join = function (s = ",") {
   }
   return str
 }
-
 
 /**
  * @description join、flat的区别？
@@ -468,11 +466,74 @@ Array.prototype.zm_join = function (s = ",") {
  */
 Array.prototype.zm_flat = function () {
   let arr = this
-  while (arr.some(item => Array.isArray(item))) {
-      arr = [].concat(...arr)
+  while (arr.some((item) => Array.isArray(item))) {
+    arr = [].concat(...arr)
   }
   return arr
 }
+
+// 移除数组的第三个元素，并在数组第三个位置添加新元素:
+
+// var fruits = ["Banana", "Orange", "Apple", "Mango"];
+// fruits.splice(2,1,"Lemon","Kiwi");
+
+// Banana,Orange,Lemon,Kiwi,Mango
+
+// 截取长度和替换长度的比较，不同情况
+// splice() 方法会改变原始数组。
+// start：规定从何处添加/删除元素。
+// length：删除多少元素
+Array.prototype.zm_splice = function (start, length, ...values) {
+  // 1 4
+  if (length === 0) return []
+  // 添加的索引 + 要删除/添加的 > 数组长度
+  // 数组长度肯定比删除索引 + 删除的长度 大啊，如果不是的话，就是超出，那就取数组长度 - 删除索引
+  length = start + length > this.length - 1 ? this.length - start : length // 超出
+  console.log(length) // 3
+
+  const res = [],
+    tempArr = [...this]
+
+  // 添加数组项
+  // 左右两边都加start，那其实就循环数组，只不过从start开始循环
+  for (let i = start; i < start + values.length; i++) {
+    this[i] = values[i - start] // 从0开始
+  }
+  console.log(this)
+
+  // console.log(this, tempArr);
+
+  this.length = start + values.length
+  // console.log(this.length);
+  // console.log(values.length, length);
+  // 超出
+  if (values.length < length) {
+    const cha = length - values.length
+    console.log(cha)
+    // 因为要删除的项还没有删掉，我们设为undefined，然后让其数组长度减少，项也就没了
+    for (let i = start + values.length; i < tempArr.length; i++) {
+      this[i] = tempArr[i + cha]
+    }
+    this.length = this.length - cha
+  }
+  // 正常情况
+  if (values.length > length) {
+    for (let i = start + length; i < tempArr.length; i++) {
+      // console.log(i, tempArr[i]);
+      this.push(tempArr[i])
+    }
+  }
+  // 为了打印删除的项
+  for (let i = start; i < start + length; i++) {
+    res.push(tempArr[i])
+  }
+  return res
+}
+
+
+
+
+
 
 
 

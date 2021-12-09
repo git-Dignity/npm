@@ -141,11 +141,19 @@ export default (isLog) => {
   // 其实我觉得应该返回true才对，但includes这种逻辑也没办法
 
   // join
-  // console.log([1, 2, 3].sx_join()) // 1,2,3
-  // console.log([1, 2, 3].sx_join("*")) // 1*2*3
+  // console.log([1, 2, 3].zm_join()) // 1,2,3
+  // console.log([1, 2, 3].zm_join("*")) // 1*2*3
 
   // flat
   // console.log([1, [2, 3, [4, 5]], [8, 9]].zm_flat())  // [1, 2, 3, 4, 5, 8, 9]
+
+  // splice
+  var fruits = ["Banana", "Orange", "Apple", "Mango"]
+  // const spliceArr = fruits.zm_splice(1, 4, "Lemon", "Kiwi")
+  // console.log('----');
+  // console.log(spliceArr)
+  // console.log(fruits)
+
   
 
   arrayHand.end()
