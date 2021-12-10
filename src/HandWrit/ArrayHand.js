@@ -472,54 +472,91 @@ Array.prototype.zm_flat = function () {
   return arr
 }
 
-// 移除数组的第三个元素，并在数组第三个位置添加新元素:
-
-// var fruits = ["Banana", "Orange", "Apple", "Mango"];
-// fruits.splice(2,1,"Lemon","Kiwi");
-
-// Banana,Orange,Lemon,Kiwi,Mango
-
-// 截取长度和替换长度的比较，不同情况
-// splice() 方法会改变原始数组。
-// start：规定从何处添加/删除元素。
-// length：删除多少元素
+/**
+ * @description fill、splice的区别？
+ * @description fill将数组进行填充；而splice向/从数组添加/删除项目，并返回删除的项目
+ * @description 都是返回数组；但fill不会改变原数组；splice会改变原数组
+ * 
+ * @description 特别提醒（先搞清楚每个变量的作用是什么）
+ * @description length 要删除的长度
+ * @description this.length  数组的长度
+ * @description values.length 要添加进数组的长度
+ * 
+ * @description 易错点
+ * @description 我自己手写的时候，这几处地方做错了，所以要特别注意
+ * @description if (length === 0) return [] 这里我没有返回空数组
+ * @description const cha = length - values.length; 这里的length我拿成this.length 
+ * @description for (let i = start + length; i < tempArr.length; i++) { 这里的加length，我写做values.length
+ * @description 要注意删除数组的时候，有两处if，里面的for循环对象是不一样的
+ * 
+ * 
+ * @description 简版思路：
+ * @description 先计算要删除的数组长度length
+ * @description 对要添加进数组的项，添加到this中
+ * @description 因为要添加进数组来，那原来的数组的长度肯定发生变化，所以要重新计算数组长度this.length
+ * @description 接着开始删除数组，有两种情况
+ * @description 一种是：要删除的数组长度大于添加数组的长度，这个时候要循环删除原来数组不要的项
+ * @description 一种是：要删除的数组长度小于添加数组的长度，这个时候要添加原本数组后面的项
+ *
+ * @description 实现思路：
+ * @description 1. 接收传进从何处开始的start、要删除的长度的length、要添加到数组的新项目values
+ * @description 2. 先计算要删除的数组长度length；
+ * @description 2.1. 何处开始的start + 要删除的长度加起来大于原数组的长度（异常），我们取原数组长度 - start
+ * @description 2.2. 那如果小于的话，就正常是传入的length
+ * @description 3. 对要添加进数组的项，添加到this中，this谁调用我，我就指向谁。this就是调用的数组
+ * @description 4. 因为要添加进数组来，那原来的数组的长度肯定发生变化，所以要重新计算数组长度this.length
+ * @description 5. 接着开始删除数组，有两种情况
+ * @description 5.1. 一种是：要删除的数组长度大于添加数组的长度，这个时候要循环删除原来数组不要的项
+ * @description 5.2. 一种是：要删除的数组长度小于添加数组的长度，这个时候要添加原本数组后面的项
+ * @description 6. 最后将要删除的项返回出去
+ *
+ * @description 手写splice
+ *
+ * @param {Number} start 规定从何处添加/删除元素
+ * @param {Number} length 要删除的长度
+ * @param {*} values 要添加到数组中的新项目（可选）
+ * @return {Array} 要删除的数组
+ * @memberof ArrayHand
+ * @example
+ * var fruits = ["Banana", "Orange", "Apple", "Mango"]
+ * const spliceArr = fruits.zm_splice(1, 4, "Lemon", "Kiwi")
+ * console.log(spliceArr)  // ["Orange", "Apple", "Mango"]
+ * console.log(fruits) // ["Banana", "Lemon", "Kiwi"]
+ * 
+ * const spliceArr1 = fruits.zm_splice(1, 1, "Lemon", "Kiwi")
+ * console.log(spliceArr1)  // ["Orange"]
+ * console.log(fruits) // ["Banana", "Lemon", "Kiwi", "Apple", "Mango"]
+ */
 Array.prototype.zm_splice = function (start, length, ...values) {
-  // 1 4
   if (length === 0) return []
-  // 添加的索引 + 要删除/添加的 > 数组长度
-  // 数组长度肯定比删除索引 + 删除的长度 大啊，如果不是的话，就是超出，那就取数组长度 - 删除索引
-  length = start + length > this.length - 1 ? this.length - start : length // 超出
-  console.log(length) // 3
+
+  length = start + length > this.length - 1 ? this.length - start : length // 要删除的长度
 
   const res = [],
     tempArr = [...this]
 
-  // 添加数组项
-  // 左右两边都加start，那其实就循环数组，只不过从start开始循环
+  // 添加新数组项：左右两边都加start，那其实就循环values数组，只不过从start开始循环
   for (let i = start; i < start + values.length; i++) {
-    this[i] = values[i - start] // 从0开始
+    this[i] = values[i - start] // values数组从0开始添加进去
   }
-  console.log(this)
 
-  // console.log(this, tempArr);
-
+  // 数组的长度：因为要添加进数组来，那原来的数组的长度肯定发生变化，所以要重新计算数组长度this.length
   this.length = start + values.length
-  // console.log(this.length);
-  // console.log(values.length, length);
-  // 超出
+
+  // 删除数组，有两种情况
+
+  // 一种是：要删除的数组长度大于添加数组的长度，这个时候要循环删除原来数组不要的项
   if (values.length < length) {
-    const cha = length - values.length
-    console.log(cha)
-    // 因为要删除的项还没有删掉，我们设为undefined，然后让其数组长度减少，项也就没了
+    const cha = length - values.length // 走到这里来，length指的是this.length - start，减掉新数组长度，剩余的要删除的长度
     for (let i = start + values.length; i < tempArr.length; i++) {
       this[i] = tempArr[i + cha]
     }
     this.length = this.length - cha
   }
-  // 正常情况
+  // 一种是：要删除的数组长度小于添加数组的长度，这个时候要添加原本数组后面的项
   if (values.length > length) {
     for (let i = start + length; i < tempArr.length; i++) {
-      // console.log(i, tempArr[i]);
+      // 这个i，算上第一处标记+要删除的长度，后面的都是我们原来要的数组
       this.push(tempArr[i])
     }
   }
@@ -529,12 +566,6 @@ Array.prototype.zm_splice = function (start, length, ...values) {
   }
   return res
 }
-
-
-
-
-
-
 
 
 export default ArrayHand

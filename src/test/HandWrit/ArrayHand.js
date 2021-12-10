@@ -150,9 +150,12 @@ export default (isLog) => {
   // splice
   var fruits = ["Banana", "Orange", "Apple", "Mango"]
   // const spliceArr = fruits.zm_splice(1, 4, "Lemon", "Kiwi")
-  // console.log('----');
-  // console.log(spliceArr)
-  // console.log(fruits)
+  // console.log(spliceArr)  // ["Orange", "Apple", "Mango"]
+  // console.log(fruits) // ["Banana", "Lemon", "Kiwi"]
+
+  // const spliceArr1 = fruits.zm_splice(1, 1, "Lemon", "Kiwi")
+  // console.log(spliceArr1)  // ["Orange"]
+  // console.log(fruits) // ["Banana", "Lemon", "Kiwi", "Apple", "Mango"]
 
   
 
