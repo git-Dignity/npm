@@ -301,8 +301,6 @@ Function.prototype.myApply1 = function (context) {
   return result
 }
 
-
-
 /**
  * @description apply和call实现类似，不同的就是参数的处理
  * @description apply传入的是数组，call传入多个参数，逗号分隔
@@ -311,7 +309,7 @@ Function.prototype.myApply1 = function (context) {
  * @description 改变this的指向，这时的this指向context
  * @description 第二个参数：传进调用方法的n个参数（多个）
  * @description ⭐写的比较方便，那是因为借助es6的...扩展运算符执行，es5只能借助eval来执行函数
- * 
+ *
  * @description 核心：改变this的指向，改成context去调用传入的方法（调用的同时，也给对象添加了该方法，自然可以调用）；
  * @description 参数接收到就利用es6的...扩展运算符传参
  *
@@ -381,6 +379,8 @@ Function.prototype.mybind1 = function (context) {
  * @description 考虑到函数柯里化的情况，我们可以构建一个更加健壮的bind()
  * @description 这次的bind()方法可以绑定对象，也支持在绑定的时候传参
  *
+ * @description Array.prototype.slice.call可以将arguments转成数组
+ *
  * @description 手写bind（第二版）
  *
  * @param {*} context this指向
@@ -427,10 +427,12 @@ Function.prototype.mybind2 = function (context) {
  * fun.mybind3(obj45, 1, 2)();  // Tom
  */
 Function.prototype.mybind3 = function (context) {
-  var args = Array.prototype.slice(arguments, 1),
+  // mybind3({x:1},2, 1)，这个args就是2, 1
+  var args = Array.prototype.slice.call(arguments, 1),
     F = function () {},
     self = this,
     bound = function () {
+      // 因为bind不会执行函数，所以这里的innerArgs接收到函数mybind3({x:1},2, 1)(3)执行的参数3
       var innerArgs = Array.prototype.slice.call(arguments)
       var finalArgs = args.concat(innerArgs)
       return self.apply(this instanceof F ? this : context, finalArgs)
@@ -489,31 +491,86 @@ Function.prototype.myBind = function (oThis) {
 }
 
 
-// bind是返回一个函数，而不是执行结果
-// bind返回的函数，拿来当做构造函数，该怎么处理
+/**
+ * @description myBind、mybind4的区别？
+ * @description 1. myBind在接收bind内的参数args，用的是Array.prototype.slice.call(arguments, 1)，剔除第一个参数，即第一个对象；
+ * @description 而mybind4在接收bind内的参数，用的是es6的解构，更加简洁
+ * @description 2. 同理，在接收执行函数传入的参数innerArgs，myBind用的还是Array.prototype.slice.call(arguments)，获取方法的全部参数
+ * @description 而mybind4也是用的解构
+ * @description 3. 合并数组时候，mybind用的是concat合并两个数组；mybind4还是用的解构合并数组
+ * @description 4. 在执行函数的步骤，mybind用的是apply来传入this和执行；
+ * @description 而mybind4直接执行函数，因为mybind4直接将函数定义在this中，所以可直接执行
+ * @description 5.关于构造函数。mybind是创建一个空函数，将this.prototype
+ * 
+ *
+ * @description 为什么上面的myBind已经是最终版了，为什么还有这个mybind4方法？
+ * @description 因为，之前都是基于es5语法写的，mybind4是基于es6语法写的，更加简洁
+ * 
+ * @description 小知识
+ * @description instanceof来判断一个构造函数的prototype属性所指向的对象是否存在另外一个要检测对象的原型链上
+ * 
+ * @description 特别提醒
+ * @description bind是返回一个函数，而不是执行结果。
+ * @description bind返回的函数，拿来当做构造函数，该怎么处理？
+ * @description bind()方法主要就是将函数绑定到某个对象，this;
+ * @description bind()会创建一个函数，函数体内的this对象的值会被绑定到传入bind()中的第一个参数的值;
+ * @description 例如：f.bind(obj)，实际上可以理解为obj.f()，这时f函数体内的this自然指向的是obj；
+ * 
+ * @description 实现思路
+ * @description 1. 接收传进的this指向context、方法参数后面跟随着参数args，可支持柯里化
+ * @description 2. 先定义一个变量_this来接收this，保存起来，赋给context
+ * @description 3. 定义一个函数fBound，有一个参数innerArgs，比如f.mybind4({x:1},2)(3);该innerArgs值为3
+ * @description 4. 因为我们知道，bind是不会执行函数的，所以后面就有个()来执行函数，传入的参数就是innerArgs
+ * @description 5. 函数fBound首先判断当前this instanceof _this
+ * @description 6. 若不相等？
+ * @description 7. 我们来开始执行this，也就是目标函数，将全部参数解构传进去函数内
+ * @description 8. 执行完之后，记得delete掉函数
+ * @description 9. 为什么要用一个res来接收context[fn]/this[fn]，因为我们需要返回执行函数，所以要return它，但又要return之后删除delete函数
+ * @description 10. return过后的代码将无效化。所以，这才有了res先保留函数执行，在进行删除操作，最后返回res
+ * @description 11. 若相等呢？
+ * @description 12. 将外部事先定义的_this指向赋值给this[fn]，执行7-10步骤
+ * @description 13. 因为可能会被作为构造函数，所以我们要给fBound添加原型，值为 目标函数的原型对象拷贝到新函数中
+ * @description 14. 返回fBound
+ * 
+ * @description 手写bind
+ *
+ * @param {*} context this指向
+ * @param {*} args 方法后面的参数（支持柯里化）f.mybind4({x:1},2)(3);，值为2
+ * @return {*}
+ * @memberof JSHand
+ * @example
+ * function f(y,z){
+ *   return this.x+y+z;
+ * }
+ *
+ * var m = f.mybind4({x:1},2);
+ * console.log(m(3)); // 6
+ */
+Function.prototype.mybind4 = function (context, ...args) {
+  var _this = this || window // this在这里指向的是目标函数
+  const fn = Symbol() // Symbol是唯一的，防止重名key
+  context[fn] = this
 
-Function.prototype.mybind4 = function (obj, ...args) {
-    obj = obj || window
+  const fBound = function (...innerArgs) {
+          if (this instanceof _this) {
+          this[fn] = _this
+          const res = this[fn](...[...args, ...innerArgs])
+          delete this[fn]
+          return res
+      } else {
+        const res = context[fn](...[...args, ...innerArgs])
+        delete context[fn]
+        return res
+      }
+  }
 
-    // Symbol是唯一的，防止重名key
-    const fn = Symbol()
-    obj[fn] = this
-    const _this = this
+  //将目标函数的原型对象拷贝到新函数中，因为目标函数有可能被当作构造函数使用
+  fBound.prototype = Object.create(this.prototype)
+  //返回fBond的引用，由外部按需调用
+  return fBound
 
-    const res = function (...innerArgs) {
-        console.log(this, _this)
-        if (this instanceof _this) {
-            this[fn] = _this
-            this[fn](...[...args, ...innerArgs])
-            delete this[fn]
-        } else {
-            obj[fn](...[...args, ...innerArgs])
-            delete obj[fn]
-        }
-    }
-    res.prototype = Object.create(this.prototype)
-    return res
 }
+
 
 
 export default JSHand

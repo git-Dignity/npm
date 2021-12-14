@@ -77,7 +77,14 @@ export default (isLog) => {
   // function fun() {
   //   console.log(this.name)
   // }
-  // fun.mybind2(obj45, 1, 2)() // Tom
+  // // fun.mybind2(obj45, 1, 2)() // Tom
+  // fun.mybind4(obj45, 1, 2)() // Tom
+
+  function f(y, z) {
+    return this.x + y + z
+  }
+  var m = f.mybind4({ x: 1 }, 2)
+  // console.log(m(3)) // 6
 
   jSHand.end()
 }
