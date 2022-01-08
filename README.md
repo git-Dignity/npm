@@ -60,3 +60,5 @@ JS中的bind的实现以及使用：https://www.cnblogs.com/heshan1992/p/6667596
 13 个 JS 数组精简技巧，一起来看看：https://juejin.cn/post/6844903981827751943?utm_source=gold_browser_extension#heading-9
 
 56个JavaScript 实用工具函数助你提升开发效率！：https://juejin.cn/post/7019090370814279693?utm_source=gold_browser_extension
+
+[译]18个有用的JavaScript片段：https://juejin.cn/post/6862577796279959566?utm_source=gold_browser_extension
