@@ -412,7 +412,7 @@ class App {
     this.initHandleWrite()
 
     initNumberVal(false)
-    initInternet(false)
+    initInternet(true)
   }
 }
 
