@@ -10,6 +10,7 @@ import { Dom } from "./Dom"
 import { Internet } from "./Internet"
 
 // 工具类测试
+import initAlgorithm from "./test/Algorithm/Algorithm"
 import initArrayTool from "./test/JsLib/ArrayTool"
 import initStrTool from "./test/JsLib/StrTool"
 import initTool from "./test/JsLib/Tool"
@@ -50,20 +51,19 @@ import { CareTaker, Editor } from "./DesignModel/备忘录模式"
 // 手写系列
 import { objectFactory, HandleWritePromise } from "./HandWrit/index"
 import { myAxios } from "./HandWrit/myAxios/myAxios"
-import {JSHand} from './HandWrit'
+import { JSHand } from "./HandWrit"
 
 // 手写系列测试
 import initJSHand from "./test/HandWrit/JSHand"
 import initArrayHand from "./test/HandWrit/ArrayHand"
 import initObjectHand from "./test/HandWrit/ObjectHand"
-import initStringHand from './test/HandWrit/StringHand'
-import initPromiseHand from './test/HandWrit/PromiseHand'
+import initStringHand from "./test/HandWrit/StringHand"
+import initPromiseHand from "./test/HandWrit/PromiseHand"
 
 class App {
   constructor(id) {
     // this.$el = $('#'+id)
   }
-
 
   // 工厂模式
   initCreator() {
@@ -274,12 +274,6 @@ class App {
     // this.initEditor()
   }
 
-  initAlgorithm() {
-    let algorithm = new Algorithm()
-    // console.log(algorithm.combinationNewStr(['a', 's', 'd', '1', '2', '3', '5', '6', 'h2', '9', '12', '13', '14', '15', 'f', 'g']));
-    // a;s;d;1-3;5-6;h2;9;12-15;f;g
-  }
-
   initHandleWrite() {
     // console.log("手写系列 start-_--_--_--_--_--_--_-")
 
@@ -390,7 +384,7 @@ class App {
     // this.initList();
     // this.initProgressBar()
     // this.initPopover()
-    initJSHand(true)  // 还没有写完
+    initJSHand(true) // 还没有写完
     initArrayHand(false)
     initObjectHand(false)
     initStringHand(false)
@@ -408,11 +402,11 @@ class App {
     initDateOperation(false)
     this.initDesignModel()
 
-    this.initAlgorithm()
+    initAlgorithm(true)
     this.initHandleWrite()
 
     initNumberVal(false)
-    initInternet(true)
+    initInternet(false)
   }
 }
 
