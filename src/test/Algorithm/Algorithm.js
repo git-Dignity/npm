@@ -1,7 +1,7 @@
 /*
  * @Author: zemin zheng
  * @Date: 2021-09-15 16:40:43
- * @LastEditTime: 2022-03-16 19:13:58
+ * @LastEditTime: 2022-03-17 11:31:03
  * @LastEditors: zemin zheng
  * @Description: 算法系列 -- 测试文件
  * @FilePath: \npm\src\test\Algorithm\Algorithm.js
@@ -47,9 +47,24 @@ export default (isLog) => {
   //   console.log(twoSum2) // [0, 1]
 
   const twoSum3 = algorithm.twoSum1([2, 7, 11, 15], 9)
-  console.log(twoSum3) // [0, 1]
+  // console.log(twoSum3) // [0, 1]
 
   //   twoSum end
+
+  // isValid
+  const isValid = algorithm.isValid("{[()]}")
+  // console.log(isValid);  // true
+
+  const isValid1 = algorithm.isValid("{[()]}}")
+  // console.log(isValid1); // false
+
+  const isValid2 = algorithm.isValid1("{[()]}")
+  // console.log(isValid2) // true
+
+  const isValid3 = algorithm.isValid1("{[(])}")
+  // console.log(isValid3) // false
+
+  // isValid end
 
   algorithm.end()
 }
