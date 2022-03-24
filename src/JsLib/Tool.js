@@ -356,9 +356,18 @@ class Tool {
   /**
    * @description 在一定时间间隔内，多次调用一个方法，只会执行一次
    * @description 这个方法的实现是从Lodash库中copy的
-   * 
+   *
+   * @description 通俗易懂说：
+   * @description 1. 非立即执行版：在第一次触发事件时，不立即执行函数，而是给出一个期限值比如200ms
+   * @description 如果在200ms内没有再次触发滚动事件，那么就执行函数
+   * @description 如果在200ms内再次触发滚动事件，那么当前的计时取消，重新开始计时
+   *
+   * @description 2. 立即执行版：在第一次触发事件时，立即执行函数，在接下来的期限值不执行其他的函数，比如200ms
+   * @description 首先执行函数，在接下来的200ms内有函数进来，不执行
+   * @description 200ms后，有函数进来，才重复上一步的操作
+   *
    * @description 函数防抖
-   * 
+   *
    * @param {Function} func 函数
    * @param {Number} wait 延迟执行毫秒数
    * @param {Boolean} immediate = false true：表立即执行；false：表非立即执行
@@ -395,7 +404,7 @@ class Tool {
           timeout = null
           // console.log(2)
         }, wait)
-        //  console.log(3)
+        // console.log(3)
         if (callNow) func.apply(context, args)
       } else {
         timeout = setTimeout(() => {
@@ -1040,7 +1049,7 @@ class Tool {
 
   /**
    * @description 防XSS攻击
-   * 
+   *
    * @description 转义HTML
    *
    * @param {String} str HTML字符串
