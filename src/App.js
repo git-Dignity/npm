@@ -395,14 +395,14 @@ class App {
     initFile(false)
     initDom(false)
     initTool(false)
-    initArrayTool(false)
+    initArrayTool(true)
     initStrTool(false)
     initCheck(false)
     initBrowser(false)
     initDateOperation(false)
     this.initDesignModel()
 
-    initAlgorithm(true)
+    initAlgorithm(false)
     this.initHandleWrite()
 
     initNumberVal(false)

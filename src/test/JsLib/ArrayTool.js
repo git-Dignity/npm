@@ -34,20 +34,31 @@ export default (isLog) => {
   // console.log(arrayTool.listChunk([1, 2, 3, 4, 5, 6, 7, 8, 9], 0)) // []
   // console.log(arrayTool.listChunk([1, 2, 3, 4, 5, 6, 7, 8, 9], -1)) // []
 
-  // const person={
-  //     name:'xiaoming',
-  //     child:{
-  //         name:'Jack',
-  //         eat: function(){
-  //             console.log('阿巴');
-  //         }
-  //     }
-  // }
+  const person={
+      name:'xiaoming',
+      child:{
+          name:'Jack',
+          eat: function(){
+              console.log('阿巴');
+          },
+          date: new Date()
+      }
+  }
+
+  // deepCopy start 
 
   // let personCopy = arrayTool.deepCopy(person)
   // personCopy.child.eat = []
   // console.log(person.child.eat);      // fn()
   // console.log(personCopy.child.eat); // []  确实两个对象值引用不相同了
+
+  // let personCopy = arrayTool.deepCopy1(person)
+  // personCopy.child.eat = []
+  // console.log(person.child.eat);      // fn()
+  // console.log(personCopy.child.eat); // []  确实两个对象值引用不相同了
+  // console.log(personCopy);
+
+  // deepCopy end
 
   // console.log(arrayTool.uniqueArray([undefined, null, null, 1, 1])) // [undefined, null, 1]
 

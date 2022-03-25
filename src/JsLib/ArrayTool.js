@@ -188,6 +188,42 @@ class ArrayTool {
   }
 
   /**
+   * @description 提问：
+   * @description 1. 为什么使用WeakMap？
+   * @description 因为WeakMap是弱引用，可以防止递归进入死循环
+   * @description 2. 为什么使用obj.constructor()创建空对象？
+   * @description 构造函数新建一个空的对象，而不是使用{}或者[],这样可以保持原形链的继承
+   * @description 3. 有必要加上obj.hasOwnProperty(key)判断
+   * @description 判断属性是否来自原型链上，因为for..in..也会遍历其原型链上的可枚举属性
+   *
+   * @description 深拷贝（递归拷贝）
+   *
+   * @param {*} obj
+   * @param {*} [cache=new WeakMap()]
+   * @return {*}
+   * @memberof ArrayTool
+   */
+  deepCopy1(obj, cache = new WeakMap()) {
+    // console.log(obj);
+    if (obj === null || typeof obj !== "object") return obj
+    if (obj instanceof Date) return new Date(obj)
+    if (obj instanceof RegExp) return new RegExp(obj)
+
+    if (cache.has(obj)) return cache.get(obj) // 如果出现循环引用，则返回缓存的对象，防止递归进入死循环
+    let cloneObj = new obj.constructor() // 使用对象所属的构造函数创建一个新对象
+    cache.set(obj, cloneObj) // 缓存对象，用于循环引用的情况
+    // console.log(cloneObj, '---');
+
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        cloneObj[key] = this.deepCopy1(obj[key], cache) // 递归拷贝
+      }
+    }
+
+    return cloneObj
+  }
+
+  /**
    * @description 数组去重
    * @description 原理：利用Set中不能出现重复元素的特征
    * @param {Array} arr 目标数组
@@ -628,15 +664,15 @@ class ArrayTool {
   /**
    * @description 思路：去判断他们可能会相等的情况（数字、日期、非对象）、再去判断不相等的情况（原型、对象长度不一致直接返回false）
    * @description 如果以上都满足，那就是对象数组类型了，通过every函数让对象里面的属性去做递归（只要有一个为false，那结果就为false）
-   * 
+   *
    * @description 在两个变量之间进行深度比较以确定它们是否全等。
    * @description 此代码段精简的核心在于Array.prototype.every()的使用。
-   * 
+   *
    * @description 全等判断
    *
    * @param {*} a 目标变量a
    * @param {*} b 目标变量b
-   * @return {Boolean} 
+   * @return {Boolean}
    * @memberof ArrayTool
    * @example
    * equals({ a: [2, { e: 3 }], b: [4], c: 'foo' }, { a: [2, { e: 3 }], b: [4], c: 'foo' });  // true
