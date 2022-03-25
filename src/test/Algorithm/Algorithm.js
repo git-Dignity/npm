@@ -66,5 +66,49 @@ export default (isLog) => {
 
   // isValid end
 
+  // arrayToTree start
+  let arr = [
+    { id: 1, name: "部门1", pid: 0 },
+    { id: 2, name: "部门2", pid: 1 },
+    { id: 3, name: "部门3", pid: 1 },
+    { id: 4, name: "部门4", pid: 3 },
+    { id: 5, name: "部门5", pid: 10 },
+  ]
+  let result = []
+  const arrayToTree = algorithm.arrayToTree(arr, result, 0)
+  // console.log(arrayToTree)
+
+  const arrayToTree1 = algorithm.arrayToTree1(arr)
+  // console.log(arrayToTree1)
+
+  const arrayToTree2 = algorithm.arrayToTree2(arr)
+  // console.log(arrayToTree2)
+  // 输出
+  // [
+  //   {
+  //       "id": 1,
+  //       "name": "部门1",
+  //       "pid": 0,
+  //       "children": [
+  //           {
+  //               "id": 2,
+  //               "name": "部门2",
+  //               "pid": 1,
+  //               "children": []
+  //           },
+  //           {
+  //               "id": 3,
+  //               "name": "部门3",
+  //               "pid": 1,
+  //               "children": [
+  //                   // 结果 ,,,
+  //               ]
+  //           }
+  //       ]
+  //   }
+  // ]
+
+  // arrayToTree end 
+
   algorithm.end()
 }

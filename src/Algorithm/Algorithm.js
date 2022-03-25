@@ -74,7 +74,7 @@ class Algorithm {
    * @description -109 <= nums[i] <= 109
    * @description -109 <= target <= 109
    * @description 只会存在一个有效答案
-   * 
+   *
    * @description https://juejin.cn/post/7072149856139083812#heading-3
    *
    * @description 双层循环（时间复杂度为O(n^2)）
@@ -161,7 +161,7 @@ class Algorithm {
    * @description 字符串s的长度一定是偶数，不可能是奇数(一对对匹配)。
    * @description 右括号前面一定跟着左括号，才符合匹配条件，具备对称性。
    * @description 右括号前面如果不是左括号，一定不是有效的括号。
-   * 
+   *
    * @description 面试官：你都工作3年了，这个算法题都不会：https://juejin.cn/post/7067315820937871373
    *
    * @description 本方法采用 -- 暴力消除法（解法一）
@@ -253,6 +253,160 @@ class Algorithm {
 
     // 最后检查栈内还有没有元素，有说明还有未匹配则不符合
     return !stack.length
+  }
+
+
+  /**
+   * @description 扁平数据结构转Tree
+   * @description 面试了十几个高级前端，竟然连（扁平数据结构转Tree）都写不出来：https://juejin.cn/post/6983904373508145189#heading-6
+   * 
+   * @description 不考虑性能实现，递归遍历查找（解法一）
+   * @description 时间复杂度为O(2^n)
+   *
+   * @param {Array} data 目标数组
+   * @param {Array} result 存放结果集
+   * @param {Number} pid 第一级的父id
+   * @return {*} 
+   * @memberof Algorithm
+   * @example
+   * let arr = [
+   *   { id: 1, name: "部门1", pid: 0 },
+   *   { id: 2, name: "部门2", pid: 1 },
+   *   { id: 3, name: "部门3", pid: 1 },
+   *   { id: 4, name: "部门4", pid: 3 },
+   *   { id: 5, name: "部门5", pid: 10 },
+   * ]
+   * 
+   * let result = []
+   * const arrayToTree = algorithm.arrayToTree(arr, result, 0)
+   * console.log(arrayToTree)
+   * 输出
+   * [
+        {
+            "id": 1,
+            "name": "部门1",
+            "pid": 0,
+            "children": [
+                {
+                    "id": 2,
+                    "name": "部门2",
+                    "pid": 1,
+                    "children": []
+                },
+                {
+                    "id": 3,
+                    "name": "部门3",
+                    "pid": 1,
+                    "children": [
+                        // 结果 ,,,
+                    ]
+                }
+            ]
+        }
+    ]
+   */
+  arrayToTree(data, result, pid) {
+    for (const key in data) {
+      if (Object.hasOwnProperty.call(data, key)) {
+        const element = data[key]
+        if (element.pid === pid) {
+          const item = { ...element, children: [] }
+          result.push(item)
+          this.arrayToTree(data, item.children, item.id)
+        }
+      }
+    }
+    return result
+  }
+
+  /**
+   * @description 思路：
+   * @description 实则是给itemMap添加children，又借助一开始result.push了第一个节点元素（对象引用的值一样，itemMap变，result添加的第一个也变）
+   * @description 先把数据转成Map去存储，之后遍历的同时借助对象的引用，直接从Map找对应的数据做存储
+   * 
+   * @description 相比上一个解法一（递归遍历）
+   * @description 有两次循环，该实现的时间复杂度为O(2n)，需要一个Map把数据存储起来，空间复杂度O(n)
+   * 
+   * @description 不用递归，Map也能搞定（解法二）
+   *
+   * @param {Array} items 目标数组
+   * @return {*} 
+   * @memberof Algorithm
+   */
+  arrayToTree1(items) {
+    const result = [] // 存放结果集
+    const itemMap = {} 
+
+    // 先转成map存储
+    for (const item of items) {
+      itemMap[item.id] = { ...item, children: [] }
+    }
+
+    for (const item of items) {
+      const id = item.id
+      const pid = item.pid
+      const treeItem = itemMap[id]
+      if (pid === 0) {
+        result.push(treeItem)
+      } else {
+        if (!itemMap[pid]) {
+          itemMap[pid] = {
+            children: [],
+          }
+        }
+        itemMap[pid].children.push(treeItem)
+      }
+    }
+    return result
+  }
+
+
+  /**
+   * @description 思路
+   * @description 主要思路也是先把数据转成Map去存储，之后遍历的同时借助对象的引用，直接从Map找对应的数据做存储。
+   * @description 不同点在遍历的时候即做Map存储,有找对应关系。性能会更好
+   * 
+   * @description 相比上一个解法二（Map for...of）
+   * @description 一次循环就搞定了，该实现的时间复杂度为O(n)，需要一个Map把数据存储起来，空间复杂度O(n)
+   * 
+   * @description 最优性能（解法三）
+   *
+   * @param {*} items
+   * @return {*} 
+   * @memberof Algorithm
+   */
+  arrayToTree2(items) {
+    const result = [] // 存放结果集
+    const itemMap = {} //
+    for (const item of items) {
+      const id = item.id
+      const pid = item.pid
+
+      if (!itemMap[id]) {
+        itemMap[id] = {
+          children: [],
+        }
+      }
+
+      itemMap[id] = {
+        ...item,
+        children: itemMap[id]["children"],
+      }
+
+      const treeItem = itemMap[id]
+
+      if (pid === 0) {
+        result.push(treeItem)
+      } else {
+        if (!itemMap[pid]) {
+          itemMap[pid] = {
+            children: [],
+          }
+        }
+        itemMap[pid].children.push(treeItem)
+      }
+    }
+    return result
   }
 }
 
