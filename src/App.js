@@ -384,7 +384,7 @@ class App {
     // this.initList();
     // this.initProgressBar()
     // this.initPopover()
-    initJSHand(true) // 还没有写完
+    initJSHand(false) // 还没有写完
     initArrayHand(false)
     initObjectHand(false)
     initStringHand(false)
@@ -395,7 +395,7 @@ class App {
     initFile(false)
     initDom(false)
     initTool(false)
-    initArrayTool(true)
+    initArrayTool(false)
     initStrTool(false)
     initCheck(false)
     initBrowser(false)
@@ -406,7 +406,7 @@ class App {
     this.initHandleWrite()
 
     initNumberVal(false)
-    initInternet(false)
+    initInternet(true)
   }
 }
 

@@ -1,3 +1,5 @@
+import axios from "axios"
+
 /**
  * 网络类
  *
@@ -47,13 +49,13 @@ class Internet {
    * firstFn().then(console.log) // 1
    * firstFn().then(console.log) // 1
    * firstFn().then(console.log) // 1
-   * 
+   *
    * setTimeout(() => {
    *   firstFn().then(console.log) // 2
    *   firstFn().then(console.log) // 2
    *   firstFn().then(console.log) // 2
    * }, 3000)
-   * 
+   *
    * 可以看到虽然我们调用了firstFn6次，但是实际请求只发生了两次（因为count只由1变成了2）
    */
   firstPromise(promiseFunction) {
@@ -65,6 +67,77 @@ class Internet {
         : // 否则发送请求，且在finally时将p置空，那么下一次请求可以重新发起
           (p = promiseFunction.apply(this, args).finally(() => (p = null)))
     }
+  }
+
+
+  /**
+   * @description 思路：
+   * @description 利用while，每次执行多少个请求，根据limit参数决定循环次数
+   * @description while内部调用axios，通过每次都会走finally回调，等到执行到最后一个请求的时候才resolve返回结果集
+   * @description 否则，继续执行start函数
+   * @description 因为每次请求都是拿数组的第一个请求，之后就删除掉这个请求，不用再新建值来记录当前取到第几个数组了
+   * 
+   * @description 10个常见的前端手写功能，你全都会吗？（https://juejin.cn/post/7031322059414175774#heading-6）
+   * 
+   * @description 异步控制并发数
+   *
+   * @param {*} [urls=[]] 请求列表
+   * @param {number} [limit=3]  一次执行多少个请求
+   * @return {Array} 
+   * @memberof Internet
+   * @example
+   * limitRequest(
+   * [
+        "http://zhengzemin.cn:3333/agentEvent/getAll?current=1&size=9999&schedule=0",
+        "http://zhengzemin.cn:3333/itKnowledge/getAll",
+        "http://zhengzemin.cn:3333/transactions",
+        "http://zhengzemin.cn:3333/agentEvent/getAll?current=1&size=9999&schedule=0",
+      ],
+      1
+    )
+    .then((res) => {
+      console.log(res)  // 返回全部请求的res
+    })
+
+   */
+  limitRequest(urls = [], limit = 3) {
+    return new Promise((resolve, reject) => {
+      const len = urls.length
+      let count = 0
+      let result = []
+
+      // 同时启动limit个任务
+      while (limit > 0) {
+        start()
+        limit -= 1
+      }
+
+      function start() {
+        const url = urls.shift() // 从数组中拿取第一个任务
+        if (url) {
+          axios
+            .get(url)
+            .then((res) => {
+              console.log(res)
+              result.push(res)
+            })
+            .catch((err) => {
+              console.log(err)
+              result.push(err)
+            })
+            .finally(() => {
+              if (count == len - 1) {
+                // 最后一个任务完成
+                resolve(result)
+              } else {
+                // 完成之后，启动下一个任务
+                count++
+                start()
+              }
+            })
+        }
+      }
+    })
   }
 }
 

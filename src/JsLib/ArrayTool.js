@@ -198,8 +198,8 @@ class ArrayTool {
    *
    * @description 深拷贝（递归拷贝）
    *
-   * @param {*} obj
-   * @param {*} [cache=new WeakMap()]
+   * @param {Array} obj 目标数组
+   * @param {WeakMap} [cache=new WeakMap()]
    * @return {*}
    * @memberof ArrayTool
    */
