@@ -62,6 +62,8 @@ export default (isLog) => {
 
   // console.log(arrayTool.uniqueArray([undefined, null, null, 1, 1])) // [undefined, null, 1]
 
+  // console.log(arrayTool.uniqueArray1([undefined, null, null, 1, 1])) // [undefined, null, 1]
+
   // console.log(arrayTool.uniqueMultiDimensionalArray([undefined, null, null, 1, 1, [111, 22], [111, 22]])); // 要实现一下
 
 //   console.log(

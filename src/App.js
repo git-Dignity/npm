@@ -396,7 +396,7 @@ class App {
     initFile(false)
     initDom(false)
     initTool(false)
-    initArrayTool(false)
+    initArrayTool(true)
     initStrTool(false)
     initCheck(false)
     initBrowser(false)
