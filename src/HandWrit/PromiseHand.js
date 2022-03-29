@@ -1,7 +1,7 @@
 /**
  * 手写系列 -- Promise篇 底层方法
  * 你说你总忘记JS的方法，好，来一起手写，增加记忆
- * 
+ *
  * 可分成两个学习
  * 一部分：手写Promise（constructor、then）
  * 另一部分：手写all、race、addSettled、any
@@ -10,31 +10,30 @@
  */
 class PromiseHand {
   constructor(executor) {
-    this.status = 'pending' // 初始状态为等待
+    this.status = "pending" // 初始状态为等待
     this.value = null // 成功的值
     this.reason = null // 失败的原因
     this.onFulfilledCallbacks = [] // 成功的回调函数数组
     this.onRejectedCallbacks = [] // 失败的回调函数数组
-    let resolve = value => {
-      if (this.status === 'pending') {
-        this.status = 'fulfilled'
-        this.value = value;
-        this.onFulfilledCallbacks.forEach(fn => fn()) // 调用成功的回调函数
+    let resolve = (value) => {
+      if (this.status === "pending") {
+        this.status = "fulfilled"
+        this.value = value
+        this.onFulfilledCallbacks.forEach((fn) => fn()) // 调用成功的回调函数
       }
     }
-    let reject = reason => {
-      if (this.status === 'pending') {
-        this.status = 'rejected'
+    let reject = (reason) => {
+      if (this.status === "pending") {
+        this.status = "rejected"
         this.reason = reason
-        this.onRejectedCallbacks.forEach(fn => fn()) // 调用失败的回调函数
+        this.onRejectedCallbacks.forEach((fn) => fn()) // 调用失败的回调函数
       }
-    };
+    }
     try {
       executor(resolve, reject)
     } catch (err) {
       reject(err)
     }
-
   }
   /**
    * @description 手写then，结合constructor
@@ -66,27 +65,29 @@ class PromiseHand {
   then(onFulfilled, onRejected) {
     // resolve, reject是constructor中的resolve、reject
     return new PromiseHand((resolve, reject) => {
-      if (this.status === 'fulfilled') {
+      if (this.status === "fulfilled") {
         setTimeout(() => {
-          const x = onFulfilled(this.value);
+          const x = onFulfilled(this.value)
           // x instanceof PromiseHand 看他then中是不是存在Promise
           x instanceof PromiseHand ? x.then(resolve, reject) : resolve(x)
         })
       }
-      if (this.status === 'rejected') {
+      if (this.status === "rejected") {
         setTimeout(() => {
           const x = onRejected(this.reason)
           x instanceof PromiseHand ? x.then(resolve, reject) : resolve(x)
         })
       }
-      if (this.status === 'pending') {
-        this.onFulfilledCallbacks.push(() => { // 将成功的回调函数放入成功数组
+      if (this.status === "pending") {
+        this.onFulfilledCallbacks.push(() => {
+          // 将成功的回调函数放入成功数组
           setTimeout(() => {
             const x = onFulfilled(this.value)
             x instanceof PromiseHand ? x.then(resolve, reject) : resolve(x)
           })
         })
-        this.onRejectedCallbacks.push(() => { // 将失败的回调函数放入失败数组
+        this.onRejectedCallbacks.push(() => {
+          // 将失败的回调函数放入失败数组
           setTimeout(() => {
             const x = onRejected(this.reason)
             x instanceof PromiseHand ? x.then(resolve, reject) : resolve(x)
@@ -95,8 +96,6 @@ class PromiseHand {
       }
     })
   }
-
-
 
   /**
    * @description 打印开始点
@@ -222,6 +221,22 @@ class PromiseHand {
    * })
    */
   race(promises) {
+    return new Promise((resolve, reject) => {
+      promises.forEach((promise) => {
+        if (promise instanceof Promise) {
+          promise.then(
+            (res) => {
+              resolve(res)
+            },
+            (err) => {
+              reject(err)
+            }
+          )
+        } else {
+          resolve(promise)
+        }
+      })
+    })
   }
 
   /**

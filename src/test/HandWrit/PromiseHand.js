@@ -17,6 +17,7 @@ export default (isLog, isLog1) => {
   promiseHand.start()
 
   // 这是Promise手写
+  // 手写then，结合constructor
 
   // 测试
   function p1() {
@@ -29,14 +30,14 @@ export default (isLog, isLog1) => {
       setTimeout(resolve, 1000, 2)
     })
   }
-  p1()
-    .then((res) => {
-      console.log(res) // 1
-      return p2()
-    })
-    .then((ret) => {
-      console.log(ret) // 2
-    })
+  // p1()
+  //   .then((res) => {
+  //     console.log(res) // 1
+  //     return p2()
+  //   })
+  //   .then((ret) => {
+  //     console.log(ret) // 2
+  //   })
 
   // end
 
@@ -44,6 +45,8 @@ export default (isLog, isLog1) => {
   if (!isLog1) {
     return
   }
+
+  // 手写all、race、addSettled、any
 
   console.log("友情提示：因为是异步，所以可能比较慢输出打印")
 
@@ -77,7 +80,7 @@ export default (isLog, isLog1) => {
   promiseHand
     .race([promise0, promise1, promise2, promise3, promise4])
     .then((res) => {
-      //   console.log(res) // ["what", "now", "marry"]  我先执行的promise0，但却先输出promise1的值，原因是promise0加定时器了，先快就先返回谁
+        // console.log(res) // ["what", "now", "marry"]  我先执行的promise0，但却先输出promise1的值，原因是promise0加定时器了，先快就先返回谁
     })
 
   // allSettled

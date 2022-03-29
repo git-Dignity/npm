@@ -388,7 +388,7 @@ class App {
     initArrayHand(false)
     initObjectHand(false)
     initStringHand(false)
-    initPromiseHand(true)
+    initPromiseHand(true, true)
 
     initStorage(false)
     initObjectTool(false)
