@@ -387,7 +387,7 @@ class App {
     // this.initPopover()
     initJSHand(false) // 还没有写完
     initArrayHand(false)
-    initObjectHand(false)
+    initObjectHand(true)
     initStringHand(false)
     initPromiseHand(false, true)
 

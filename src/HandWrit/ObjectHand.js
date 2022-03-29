@@ -67,6 +67,37 @@ class ObjectHand {
 
     return false
   }
+
+  /**
+   * @description 获取隐式原型Object.getPrototypeOf(target)  相当于 proto = target.__proto__
+   * 
+   * @description instanceOf手写（和上面一样，入参相反）
+   *
+   * @param {*} target 目标对象
+   * @param {*} origin 父
+   * @return {Boolean} 
+   * @memberof ObjectHand
+   * @example
+   * function Person(name) {
+   *   this.name = name
+   * }
+   * const person = new Person("阿泽")
+   *
+   * console.log(objectHand.instanceOf1(person, Person)) // true
+   * console.log(objectHand.instanceOf1({}, Person)) // false
+   * console.log(objectHand.instanceOf1(null, Person)) // false
+   */
+  instanceOf1(target, origin) {
+    if (typeof target !== "object" || target === null) return false
+    if (typeof origin !== "function")
+      throw new TypeError("origin must be function")
+    let proto = Object.getPrototypeOf(target) // 相当于 proto = target.__proto__;
+    while (proto) {
+      if (proto === origin.prototype) return true
+      proto = Object.getPrototypeOf(proto)
+    }
+    return false
+  }
 }
 
 /**
@@ -188,7 +219,7 @@ Object.prototype.zm_values = function (obj) {
 /**
  * @description is？
  * @description 判断a是否等于b
- * 
+ *
  * @description 特别提醒
  * @description === 运算符 (也包括 == 运算符) 将数字 -0 和 +0 视为相等 ，而将Number.NaN 与NaN视为不相等
  * @description 但在is函数中，-0 和 +0 视为不相等 ， 而将Number.NaN 与NaN视为相等
@@ -209,7 +240,7 @@ Object.prototype.zm_values = function (obj) {
  * const a = { name: "阿泽" }
  * const b = a
  * const c = { name: "阿泽" }
- * 
+ *
  * console.log(Object.zm_is(a, b)) // true
  * console.log(Object.zm_is(a, c)) // false  地址值引用不一样
  * console.log(Object.zm_is(+0, -0)) // false  如果用===他们是相等的，is内部处理了
@@ -225,13 +256,11 @@ Object.prototype.zm_is = function (x, y) {
   return x !== x && y !== y
 }
 
-
-
 /**
  * @description join、assign的区别？
  * @description join将数组用分隔符拼成字符串，分隔符默认为逗号；而assign接收多个对象，并将多个对象合成一个对象
  * @description 一个数组 -> 字符串；一个返回对象
- * 
+ *
  * @description 特别提醒
  * @description assign接收多个对象，并将多个对象合成一个对象
  * @description 这些对象如果有重名属性，以后来的对象属性值为准
@@ -254,22 +283,22 @@ Object.prototype.zm_is = function (x, y) {
  * const testa = { name: "阿泽" }
  * const testb = { name: "Dignity_", age: 22 }
  * const testc = { age: 18, gender: "男" }
- * 
+ *
  * const testd = Object.zm_assign(testa, testb, testc)
  * console.log(testd) // { name: 'Dignity_', age: 18, gender: '男' }
  * console.log(testa === testd) // true
  */
- Object.prototype.zm_assign = function (target, ...args) {
+Object.prototype.zm_assign = function (target, ...args) {
   if (target === null || target === undefined) {
-      throw new TypeError('Cannot convert undefined or null to object')
+    throw new TypeError("Cannot convert undefined or null to object")
   }
   target = Object(target)
 
   for (let nextObj of args) {
-    console.log(nextObj);
-      for (let key in nextObj) {
-          nextObj.hasOwnProperty(key) && (target[key] = nextObj[key])
-      }
+    // console.log(nextObj);
+    for (let key in nextObj) {
+      nextObj.hasOwnProperty(key) && (target[key] = nextObj[key])
+    }
   }
   return target
 }

@@ -52,6 +52,10 @@ export default (isLog) => {
   // console.log(objectHand.instanceOf(Person, {})) // false
   // console.log(objectHand.instanceOf(Person, null)) // false
 
+  // console.log(objectHand.instanceOf1(person, Person)) // true
+  // console.log(objectHand.instanceOf1({}, Person)) // false
+  // console.log(objectHand.instanceOf1(null, Person)) // false
+
   // is
   const a = { name: "阿泽" }
   const b = a

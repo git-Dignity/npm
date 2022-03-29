@@ -181,7 +181,7 @@ class Tool {
    * @description 获取url参数（URLSearchParams）
    *
    * @param {String} [url=window.location.search] ?和后面的参数
-   * @return {Object} 
+   * @return {Object}
    * @memberof Tool
    */
   getURLParameters2(url = window.location.search) {
@@ -900,12 +900,12 @@ class Tool {
    * const hub = tool.createEventHub()
    * let increment = 0
    *
-   * // 订阅，监听不同事件
+   * 订阅，监听不同事件
    * hub.on("message", handler)
    * hub.on("message", () => console.log("Message event fired"))
    * hub.on("increment", () => console.log(increment++))
    *
-   * // 发布：发出事件以调用所有订阅给它们的处理程序，并将数据作为参数传递给它们
+   * 发布：发出事件以调用所有订阅给它们的处理程序，并将数据作为参数传递给它们
    * hub.emit("message", "hello world") // 打印 'hello world' 和 'Message event fired'
    * hub.emit("message", { hello: "world" }) // 打印 对象 和 'Message event fired'
    * hub.emit("increment") // increment = 1
@@ -913,14 +913,13 @@ class Tool {
    * // 停止订阅
    * hub.off("message", handler) // 把handler函数给删除掉
    * hub.emit("message", { hello: "world" }) // Message event fired
-   * // 为什么只打印一个，那是因为上面已经停止订阅了handler，自然不会打印出{ hello: "world" }；
-   * // message有两个订阅者，所以Message event fired还在，打印。
+   * 为什么只打印一个，那是因为上面已经停止订阅了handler，自然不会打印出{ hello: "world" }；
+   * message有两个订阅者，所以Message event fired还在，打印。
    */
   createEventHub() {
     return {
       hub: Object.create(null),
       emit(event, data) {
-        console.log(this.hub)
         ;(this.hub[event] || []).forEach((handler) => handler(data))
       },
       on(event, handler) {
