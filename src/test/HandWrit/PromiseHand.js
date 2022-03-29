@@ -8,7 +8,7 @@
  */
 import { PromiseHand } from "../../HandWrit"
 
-export default (isLog) => {
+export default (isLog, isLog1) => {
   if (!isLog) {
     return
   }
@@ -16,7 +16,36 @@ export default (isLog) => {
   let promiseHand = new PromiseHand()
   promiseHand.start()
 
-  console.log('友情提示：因为是异步，所以可能比较慢输出打印');
+  // 这是Promise手写
+
+  // 测试
+  function p1() {
+    return new PromiseHand((resolve, reject) => {
+      setTimeout(resolve, 1000, 1)
+    })
+  }
+  function p2() {
+    return new PromiseHand((resolve, reject) => {
+      setTimeout(resolve, 1000, 2)
+    })
+  }
+  p1()
+    .then((res) => {
+      console.log(res) // 1
+      return p2()
+    })
+    .then((ret) => {
+      console.log(ret) // 2
+    })
+
+  // end
+
+  // 下面是promise的方法
+  if (!isLog1) {
+    return
+  }
+
+  console.log("友情提示：因为是异步，所以可能比较慢输出打印")
 
   let promise0 = new Promise((resolve) => {
     setTimeout(() => {

@@ -388,7 +388,7 @@ class App {
     initArrayHand(false)
     initObjectHand(false)
     initStringHand(false)
-    initPromiseHand(false)
+    initPromiseHand(true)
 
     initStorage(false)
     initObjectTool(false)
@@ -406,7 +406,7 @@ class App {
     this.initHandleWrite()
 
     initNumberVal(false)
-    initInternet(true)
+    initInternet(false)
   }
 }
 

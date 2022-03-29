@@ -64,3 +64,5 @@ JS中的bind的实现以及使用：https://www.cnblogs.com/heshan1992/p/6667596
 [译]18个有用的JavaScript片段：https://juejin.cn/post/6862577796279959566?utm_source=gold_browser_extension
 
 （已读）蚂蚁金服笔试真题：如何防止重复请求？两数之和求解?：https://juejin.cn/post/7072149856139083812
+
+（在啃）10个常见的前端手写功能，你全都会吗？https://juejin.cn/post/7031322059414175774#heading-10

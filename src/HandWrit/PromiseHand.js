@@ -1,11 +1,102 @@
 /**
  * 手写系列 -- Promise篇 底层方法
  * 你说你总忘记JS的方法，好，来一起手写，增加记忆
+ * 
+ * 可分成两个学习
+ * 一部分：手写Promise（constructor、then）
+ * 另一部分：手写all、race、addSettled、any
  *
  * @class PromiseHand
  */
 class PromiseHand {
-  constructor() {}
+  constructor(executor) {
+    this.status = 'pending' // 初始状态为等待
+    this.value = null // 成功的值
+    this.reason = null // 失败的原因
+    this.onFulfilledCallbacks = [] // 成功的回调函数数组
+    this.onRejectedCallbacks = [] // 失败的回调函数数组
+    let resolve = value => {
+      if (this.status === 'pending') {
+        this.status = 'fulfilled'
+        this.value = value;
+        this.onFulfilledCallbacks.forEach(fn => fn()) // 调用成功的回调函数
+      }
+    }
+    let reject = reason => {
+      if (this.status === 'pending') {
+        this.status = 'rejected'
+        this.reason = reason
+        this.onRejectedCallbacks.forEach(fn => fn()) // 调用失败的回调函数
+      }
+    };
+    try {
+      executor(resolve, reject)
+    } catch (err) {
+      reject(err)
+    }
+
+  }
+  /**
+   * @description 手写then，结合constructor
+   *
+   * @param {Function} onFulfilled 成功的回调函数
+   * @param {Function} onRejected 失败的回调函数
+   * @return {*} 
+   * @memberof PromiseHand
+   * @example
+   * function p1() {
+      return new PromiseHand((resolve, reject) => {
+        setTimeout(resolve, 1000, 1)
+      })
+    }
+    function p2() {
+      return new PromiseHand((resolve, reject) => {
+        setTimeout(resolve, 1000, 2)
+      })
+    }
+    p1()
+      .then((res) => {
+        console.log(res) // 1
+        return p2() // x instanceof PromiseHand 为 true
+      })
+      .then((ret) => {
+        console.log(ret) // 2
+      })
+   */
+  then(onFulfilled, onRejected) {
+    // resolve, reject是constructor中的resolve、reject
+    return new PromiseHand((resolve, reject) => {
+      if (this.status === 'fulfilled') {
+        setTimeout(() => {
+          const x = onFulfilled(this.value);
+          // x instanceof PromiseHand 看他then中是不是存在Promise
+          x instanceof PromiseHand ? x.then(resolve, reject) : resolve(x)
+        })
+      }
+      if (this.status === 'rejected') {
+        setTimeout(() => {
+          const x = onRejected(this.reason)
+          x instanceof PromiseHand ? x.then(resolve, reject) : resolve(x)
+        })
+      }
+      if (this.status === 'pending') {
+        this.onFulfilledCallbacks.push(() => { // 将成功的回调函数放入成功数组
+          setTimeout(() => {
+            const x = onFulfilled(this.value)
+            x instanceof PromiseHand ? x.then(resolve, reject) : resolve(x)
+          })
+        })
+        this.onRejectedCallbacks.push(() => { // 将失败的回调函数放入失败数组
+          setTimeout(() => {
+            const x = onRejected(this.reason)
+            x instanceof PromiseHand ? x.then(resolve, reject) : resolve(x)
+          })
+        })
+      }
+    })
+  }
+
+
 
   /**
    * @description 打印开始点
@@ -131,22 +222,6 @@ class PromiseHand {
    * })
    */
   race(promises) {
-    return new Promise((resolve, reject) => {
-      promises.forEach((promise) => {
-        if (promise instanceof Promise) {
-          promise.then(
-            (res) => {
-              resolve(res)
-            },
-            (err) => {
-              reject(err)
-            }
-          )
-        } else {
-          resolve(promise)
-        }
-      })
-    })
   }
 
   /**
@@ -228,7 +303,6 @@ class PromiseHand {
     })
   }
 
-  
   /**
    * @description all、any？
    * @description all将全成功的返回一个数组，第一个失败的返回失败的值；
@@ -236,7 +310,7 @@ class PromiseHand {
    * @description 本质上，all、any功能相反的。
    * @description all是全成功就返回成功的数组；any是全失败就返回失败的数组。
    * @description all是第一个失败就返回失败的值；any是第一个成功就返回成功的数组。
-   * 
+   *
    * @description 特别提醒
    * @description 接收一个Promise数组，数组中如有非Promise项，则此项当做成功
    * @description 如果有一个Promise成功，则返回这个成功结果
@@ -265,19 +339,19 @@ class PromiseHand {
    * promiseHand.any([pErr, pSlow, pFast]).then((value) => {
    *   console.log(value); // 很快完成  // 对于any，他的顺序是：pFast pSlow pErr
    * })
-   * 
+   *
    * 没一个成功，都失败，就返回失败的值
    * promiseHand.any([pErr]).catch((err) => {
    *   console.log(err); // Error: All promises were rejected at eval
    * })
-   * 
-   * 
+   *
+   *
    * 扩展
    * console.log(Promise.any); // undefined
-   * 
-   * I want to use a library with Angular, which uses Promise.any. When calling a function there, 
-   * I get the error TypeError: Promise.any is not a function. The library has a React example, 
-   * which works for me in the same browser. Afaik, Promise.any is not finalized in the specification yet, 
+   *
+   * I want to use a library with Angular, which uses Promise.any. When calling a function there,
+   * I get the error TypeError: Promise.any is not a function. The library has a React example,
+   * which works for me in the same browser. Afaik, Promise.any is not finalized in the specification yet,
    * so it's not available in ES2020.
    * 翻译过来就是：
    * 当调用那里的函数时，我得到错误TypeError: Promise。Any不是函数。该库有一个React示例，在相同的浏览器中也适用于我。
