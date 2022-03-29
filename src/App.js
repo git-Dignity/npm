@@ -395,8 +395,8 @@ class App {
     initObjectTool(false)
     initFile(false)
     initDom(false)
-    initTool(false)
-    initArrayTool(true)
+    initTool(true)
+    initArrayTool(false)
     initStrTool(false)
     initCheck(false)
     initBrowser(false)
@@ -404,7 +404,7 @@ class App {
     this.initDesignModel()
 
     initAlgorithm(false)
-    initArrayAlgorithm(true)
+    initArrayAlgorithm(false)
     this.initHandleWrite()
 
     initNumberVal(false)

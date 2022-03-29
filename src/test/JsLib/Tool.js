@@ -29,8 +29,20 @@ export default (isLog) => {
   // console.log(tool.getImages(document,false))  //去重    ['image1.jpg', 'image2.png', '...']
   // console.log(tool.detectDeviceType()) // "Mobile" or "Desktop"
   // console.log(tool.currentURL())   // http://localhost:9000/
+
+  // getURLParameters
+
   // console.log(tool.getURLParameters(tool.currentURL()))
+
   // console.log(tool.getURLParameters('http://url.com/page?n=哈哈&s=Smith')) // {n: 'Adam', s: 'Smith'}
+
+   const getURLParameters1 = tool.getURLParameters1('http://url.com/page?n=哈哈&s=Smith')
+  //  console.log(getURLParameters1) // {n: '哈哈', s: 'Smith'}
+
+  const getURLParameters2 = tool.getURLParameters2("?n=哈哈&s=Smith")
+  //  console.log(getURLParameters2) // {n: '哈哈', s: 'Smith'}
+
+
   // const fn = () => console.log('!');
   // document.body.addEventListener('click', fn);
   // tool.off(document.body, 'click', fn);   // 如何从元素中移除事件监听器?

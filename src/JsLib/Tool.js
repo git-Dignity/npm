@@ -146,6 +146,52 @@ class Tool {
   }
 
   /**
+   * @description 思路：
+   * @description 1. 根据?切割split，拿到后面参数的字符串
+   * @description 2. 再根据&切割split，得到数组
+   * @description 3. 对数组进行forEach循环，拿到每一项，在继续=切割split，拿到key、val
+   *
+   * @description decodeURIComponent() 函数可对 encodeURIComponent() 函数编码的 URI 进行解码
+   * @description 获取url参数（split方法）
+   *
+   * @param {String} url
+   * @return {Object}
+   * @memberof Tool
+   * @example
+   * getURLParameters(tool.currentURL()) // {}
+   *
+   * getURLParameters('http://url.com/page?n=哈哈&s=Smith') // {n: '哈哈', s: 'Smith'}
+   */
+  getURLParameters1(url) {
+    const res = {}
+    if (url.includes("?")) {
+      const str = url.split("?")[1]
+      const arr = str.split("&")
+      arr.forEach((item) => {
+        const key = item.split("=")[0]
+        const val = item.split("=")[1]
+
+        res[key] = decodeURIComponent(val) // 解码
+      })
+    }
+    return res
+  }
+
+  /**
+   * @description 获取url参数（URLSearchParams）
+   *
+   * @param {String} [url=window.location.search] ?和后面的参数
+   * @return {Object} 
+   * @memberof Tool
+   */
+  getURLParameters2(url = window.location.search) {
+    // 创建一个URLSearchParams实例
+    const urlSearchParams = new URLSearchParams(url)
+    // 把键值对列表转换为一个对象
+    return Object.fromEntries(urlSearchParams.entries())
+  }
+
+  /**
    * @description 如何从元素中移除事件监听器?
    * @param {HTMLElement} el
    * @param { String } evt 事件类型 如：'click'
