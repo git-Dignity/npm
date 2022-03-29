@@ -7,7 +7,9 @@
  * @FilePath: \npm\src\Algorithm\index.js
  */
 import Algorithm  from "./Algorithm";
+import ArrayAlgorithm from './ArrayAlgorithm'
 
 export {
-    Algorithm
+    Algorithm,
+    ArrayAlgorithm
 }
