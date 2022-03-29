@@ -246,21 +246,18 @@ class ArrayTool {
   /**
    * @description filter过滤每条数据，为true才返回；
    * @description 再借助indexOf查的是第一条，那如果有重复的值，索引肯定和第一条对应不上，自然不会返回后面重复的值
-   * 
+   *
    * @description indexOf去重
    *
    * @param {*} arr
-   * @return {*} 
+   * @return {*}
    * @memberof ArrayTool
    * @example
    * uniqueArray1([undefined, null, null, 1, 1])  // [undefined, null, 1]
    */
-  uniqueArray1(arr){
+  uniqueArray1(arr) {
     return arr.filter((item, index) => arr.indexOf(item) === index)
   }
-
-  
-
 
   /**
    * @description 利用属性名比较
@@ -455,11 +452,14 @@ class ArrayTool {
    * flatten([1, [2, [3, [4, 5], 6], 7], 8], 3); //  [1, 2, 3, 4, 5, 6, 7, 8]
    */
   flatten(arr, depth = 1) {
-    return arr.reduce((a, v) => {
-      return a.concat(
-        depth > 1 && Array.isArray(v) ? this.flatten(v, depth - 1) : v
-      )
-    }, [])
+    if (depth > 0) {
+      return arr.reduce((a, v) => {
+        return a.concat(
+          depth > 1 && Array.isArray(v) ? this.flatten(v, depth - 1) : v
+        )
+      }, [])
+    }
+    return arr.slice()
   }
 
   /**

@@ -124,7 +124,7 @@ export default (isLog) => {
   // console.log(arrayTool.dropWhile([1, 2,3, 4], n => n >= 3)); // [3, 4]
   // console.log(arrayTool.dropWhile([1, 3,2,1, 4], n => n >= 3)); // [3, 2, 1, 4]
 
-  // console.log(arrayTool.flatten([1, [2], 3, 4])); // [1, 2, 3, 4]
+  // console.log(arrayTool.flatten([1, [2], 3, 4], 0)); // [1, 2, 3, 4]
   // console.log(arrayTool.flatten([1, [2, [3, [4, 5], 6], 7], 8], 2)); //  [1, 2, 3, [4, 5], 6, 7, 8]
   // console.log(arrayTool.flatten([1, [2, [3, [4, 5], 6], 7], 8], 3)); //  [1, 2, 3, 4, 5, 6, 7, 8]
 

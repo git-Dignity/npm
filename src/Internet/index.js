@@ -7,7 +7,9 @@
  * @FilePath: \npm\src\Internet\index.js
  */
 import Internet from './Internet'
+import Scheduler from './Scheduler'
 
 export {
-    Internet
+    Internet,
+    Scheduler
 }

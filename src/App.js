@@ -20,6 +20,7 @@ import initDom from "./test/Dom/Dom"
 import initNumberVal from "./test/JsLib/NumberVal"
 import initObjectTool from "./test/JsLib/ObjectTool"
 import initInternet from "./test/Internet/Internet"
+import initScheduler from "./test/Internet/Scheduler"
 import initCheck from "./test/Check/Check"
 import initDateOperation from "./test/Date/DateOperation"
 import initBrowser from "./test/Browser/Browser"
@@ -387,7 +388,7 @@ class App {
     // this.initPopover()
     initJSHand(false) // 还没有写完
     initArrayHand(false)
-    initObjectHand(true)
+    initObjectHand(false)
     initStringHand(false)
     initPromiseHand(false, true)
 
@@ -395,7 +396,7 @@ class App {
     initObjectTool(false)
     initFile(false)
     initDom(false)
-    initTool(true)
+    initTool(false)
     initArrayTool(false)
     initStrTool(false)
     initCheck(false)
@@ -409,6 +410,7 @@ class App {
 
     initNumberVal(false)
     initInternet(false)
+    initScheduler(false)
   }
 }
 
