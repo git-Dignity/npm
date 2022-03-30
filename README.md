@@ -66,3 +66,9 @@ JS中的bind的实现以及使用：https://www.cnblogs.com/heshan1992/p/6667596
 （已读）蚂蚁金服笔试真题：如何防止重复请求？两数之和求解?：https://juejin.cn/post/7072149856139083812
 
 （已读）10个常见的前端手写功能，你全都会吗？https://juejin.cn/post/7031322059414175774#heading-10
+
+（未啃）（算法题）中高级前端大厂面试秘籍，为你保驾护航金三银四，直通大厂(上)：https://juejin.cn/post/6844903776512393224#heading-67
+
+（未啃）深度剖析：如何实现一个 Virtual DOM 算法：https://github.com/livoras/blog/issues/13
+
+（未啃）（面试题部分）前端杂烩：https://juejin.cn/post/7069468539412807693#heading-2

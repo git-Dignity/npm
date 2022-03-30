@@ -405,7 +405,7 @@ class App {
     this.initDesignModel()
 
     initAlgorithm(false)
-    initArrayAlgorithm(false)
+    initArrayAlgorithm(true)
     this.initHandleWrite()
 
     initNumberVal(false)
