@@ -8,8 +8,10 @@
  */
 import Algorithm  from "./Algorithm";
 import ArrayAlgorithm from './ArrayAlgorithm'
+import Interview from './Interview'
 
 export {
     Algorithm,
-    ArrayAlgorithm
+    ArrayAlgorithm,
+    Interview
 }

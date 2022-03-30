@@ -19,6 +19,9 @@ export default (isLog) => {
   const bubbleSort = algorithm.bubbleSort([2, 3, 1, 5, 4])
   //   console.log(bubbleSort) // [1, 2, 3, 4, 5]
 
+  const bubbleSort1 = algorithm.bubbleSort1([2, 3, 1, 5, 4])
+  // console.log(bubbleSort1) // [1, 2, 3, 4, 5]
+
   const selectSort = algorithm.selectSort([2, 3, 1, 5, 4])
   // console.log(selectSort) // [1, 2, 3, 4, 5]
 

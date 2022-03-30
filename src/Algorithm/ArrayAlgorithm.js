@@ -52,6 +52,45 @@ class ArrayAlgorithm {
   }
 
   /**
+   * @description 思路：
+   * @description 只要i不大于0，即排序结束
+   * @description 想一想，i=0代表什么，不就是循环下来，第一个数是最小的值吗，即排序完成
+   *
+   * @description 演变过程
+   * @description [2, 3, 1, 5, 4]
+   * @description 2,1,3,5,4   此时i = 1
+   * @description 2,1,3,4,5   此时i = 3
+   * @description 1,2,3,4,5   此时i = 0
+   * @description 退出while
+   * 
+   * @description 冒泡排序如何实现，时间复杂度是多少， 还可以如何改进？https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/94
+   * @description 改进冒泡排序（循环次数减少）（不用两两比较）
+   *
+   * @param {*} arr
+   * @memberof ArrayAlgorithm
+   * @example
+   * algorithm.bubbleSort1([2, 3, 1, 5, 4])  // [1, 2, 3, 4, 5]
+   */
+  bubbleSort1(arr) {
+    let i = arr.length - 1
+
+    while (i > 0) {
+      let pos = 0
+      for (let j = 0; j < i; j++) {
+        if (arr[j] > arr[j + 1]) {
+          pos = j
+          // 下面的操作是es5写法，可以写成 [ arr[j], arr[j+1] ] = [ arr[j+1], arr[j] ]
+          const temp = arr[j]
+          arr[j] = arr[j + 1]
+          arr[j + 1] = temp
+        }
+      }
+      i = pos
+    }
+    return arr
+  }
+
+  /**
    * @description 选择排序: 遍历自身以后的元素，最小的元素跟自己调换位置
    *
    * @param {Array} arr 目标数组

@@ -12,6 +12,7 @@ import { Internet } from "./Internet"
 // 工具类测试
 import initAlgorithm from "./test/Algorithm/Algorithm"
 import initArrayAlgorithm from "./test/Algorithm/ArrayAlgorithm"
+import initInterview from "./test/Algorithm/Interview"
 import initArrayTool from "./test/JsLib/ArrayTool"
 import initStrTool from "./test/JsLib/StrTool"
 import initTool from "./test/JsLib/Tool"
@@ -405,7 +406,8 @@ class App {
     this.initDesignModel()
 
     initAlgorithm(false)
-    initArrayAlgorithm(true)
+    initArrayAlgorithm(false)
+    initInterview(true)
     this.initHandleWrite()
 
     initNumberVal(false)
