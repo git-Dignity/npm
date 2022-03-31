@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-03 10:55:55
- * @LastEditTime: 2022-03-31 14:28:03
+ * @LastEditTime: 2022-03-31 14:52:06
  * @LastEditors: zemin zheng
  * @Description: 网络 -- 测试文件
  * @FilePath: \npm\src\test\Internet\Internet.js
@@ -38,7 +38,7 @@ export default (isLog) => {
   // 可以看到虽然我们调用了firstFn6次，但是实际请求只发生了两次（因为count只由1变成了2）
 
   // limitRequest
-  
+
   // internet
   //   .limitRequest(
   //     [
@@ -54,6 +54,11 @@ export default (isLog) => {
   //   })
 
   // 前面会不断输出，因为limitRequest函数内部在then打印了res，方便看清逻辑
+
+  // ajax
+  // internet.ajax().get("http://zhengzemin.cn:3333/transactions", (res) => {
+  //   console.log(res) // { "code": 20000, "data": {} }
+  // })
 
   internet.end()
 }

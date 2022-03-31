@@ -69,7 +69,6 @@ class Internet {
     }
   }
 
-
   /**
    * @description 思路：
    * @description 利用while，每次执行多少个请求，根据limit参数决定循环次数
@@ -138,6 +137,52 @@ class Internet {
         }
       }
     })
+  }
+
+  /**
+   * @description 思路：
+   * @description 1. 使用XMLHttpRequest实例化对象xhr
+   * @description 2. 调open方法
+   * @description 3. 调onreadystatechange方法监听请求回来的数据，只有当readyState为4才是成功的状态，可调回调函数fn
+   * @description 4. 最后一步发送send方法
+   * @description 注意的一点是：gei、post请求不同的点是，post请求要设置头部setRequestHeader、send(data)的时候要发送data
+   * 
+   * @description 实现原生的AJAX请求
+   *
+   * @return {*} 
+   * @memberof Internet
+   * @example
+   * internet.ajax().get("http://zhengzemin.cn:3333/transactions", (res) => {
+   *   console.log(res)  // { "code": 20000, "data": {} }
+   * })
+   */
+  ajax() {
+    return {
+      get(url, fn) {
+        const xhr = new XMLHttpRequest()
+        xhr.open("GET", url, true) // 第三个参数异步与否
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            fn(xhr.responseText)
+          }
+        }
+        xhr.send()
+      },
+      post(url, data, fn) {
+        const xhr = new XMLHttpRequest()
+        xhr.open("POST", url, true)
+        xhr.setRequestHeader(
+          "Content-type",
+          "application/x-www-form-urlencoded"
+        )
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            fn(xhr.responseText)
+          }
+        }
+        xhr.send(data)
+      },
+    }
   }
 }
 

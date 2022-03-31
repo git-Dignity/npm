@@ -433,11 +433,11 @@ class App {
 
     initAlgorithm(false)
     initArrayAlgorithm(false)
-    initInterview(true)
+    initInterview(false)
     this.initHandleWrite()
 
     initNumberVal(false)
-    initInternet(false)
+    initInternet(true)
     initScheduler(false)
   }
 }
