@@ -10,22 +10,48 @@ import { Dom } from "./Dom"
 import { Internet } from "./Internet"
 
 // 工具类测试
+
+// 算法系列 
 import initAlgorithm from "./test/Algorithm/Algorithm"
+// 数组算法系列
 import initArrayAlgorithm from "./test/Algorithm/ArrayAlgorithm"
+// 面试题算法系列
 import initInterview from "./test/Algorithm/Interview"
+// 数组工具
 import initArrayTool from "./test/JsLib/ArrayTool"
+// 字符串工具
 import initStrTool from "./test/JsLib/StrTool"
+// 工具
 import initTool from "./test/JsLib/Tool"
+// 文件
 import initFile from "./test/File/File"
+// DOM
 import initDom from "./test/Dom/Dom"
+// 数值计算类
 import initNumberVal from "./test/JsLib/NumberVal"
+// 对象工具
 import initObjectTool from "./test/JsLib/ObjectTool"
+// 网络
 import initInternet from "./test/Internet/Internet"
+// 带并发的异步调度器 Scheduler类
 import initScheduler from "./test/Internet/Scheduler"
+// 检查
 import initCheck from "./test/Check/Check"
+// 日期库
 import initDateOperation from "./test/Date/DateOperation"
+// 浏览器操作相关browser工具
 import initBrowser from "./test/Browser/Browser"
+// 浏览器存储相关storage工具函数
 import initStorage from "./test/Storage/Storage"
+
+
+// 手写系列测试
+import initJSHand from "./test/HandWrit/JSHand"
+import initArrayHand from "./test/HandWrit/ArrayHand"
+import initObjectHand from "./test/HandWrit/ObjectHand"
+import initStringHand from "./test/HandWrit/StringHand"
+import initPromiseHand from "./test/HandWrit/PromiseHand"
+
 
 // 算法
 import { Algorithm } from "./Algorithm/index"
@@ -56,12 +82,6 @@ import { objectFactory, HandleWritePromise } from "./HandWrit/index"
 import { myAxios } from "./HandWrit/myAxios/myAxios"
 import { JSHand } from "./HandWrit"
 
-// 手写系列测试
-import initJSHand from "./test/HandWrit/JSHand"
-import initArrayHand from "./test/HandWrit/ArrayHand"
-import initObjectHand from "./test/HandWrit/ObjectHand"
-import initStringHand from "./test/HandWrit/StringHand"
-import initPromiseHand from "./test/HandWrit/PromiseHand"
 
 class App {
   constructor(id) {

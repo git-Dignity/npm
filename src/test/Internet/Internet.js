@@ -1,9 +1,9 @@
 /*
  * @Author: your name
  * @Date: 2021-09-03 10:55:55
- * @LastEditTime: 2021-09-03 10:57:10
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
+ * @LastEditTime: 2022-03-31 14:28:03
+ * @LastEditors: zemin zheng
+ * @Description: 网络 -- 测试文件
  * @FilePath: \npm\src\test\Internet\Internet.js
  */
 import { Internet } from "../../Internet"

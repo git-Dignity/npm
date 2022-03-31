@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-09-03 10:55:55
- * @LastEditTime: 2021-09-03 10:57:10
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \npm\src\test\Internet\Internet.js
+ * @LastEditTime: 2022-03-31 14:28:29
+ * @LastEditors: zemin zheng
+ * @Description: 带并发的异步调度器 Scheduler类 -- 测试文件
+ * @FilePath: \npm\src\test\Internet\Scheduler.js
  */
 import { Scheduler } from "../../Internet"
 

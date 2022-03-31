@@ -1,3 +1,11 @@
+/*
+ * @Author: zemin zheng
+ * @Date: 2021-09-15 15:58:11
+ * @LastEditTime: 2022-03-31 14:30:52
+ * @LastEditors: zemin zheng
+ * @Description: 浏览器存储相关storage工具函数 -- 测试文件
+ * @FilePath: \npm\src\test\Storage\Storage.js
+ */
 import { Storage } from "../../Storage/Storage"
 
 export default (isLog) => {

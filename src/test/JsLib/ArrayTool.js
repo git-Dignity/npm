@@ -3,7 +3,7 @@
  * @Date: 2021-08-19 12:47:51
  * @LastEditTime: 2021-09-07 14:52:43
  * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
+ * @Description: 数组工具类 -- 测试文件
  * @FilePath: \npm\src\test\JsLib\ArrayTool.js
  */
  

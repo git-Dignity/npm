@@ -1,9 +1,9 @@
 /*
  * @Author: your name
  * @Date: 2021-09-07 15:44:28
- * @LastEditTime: 2021-09-15 15:16:10
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
+ * @LastEditTime: 2022-03-31 14:30:29
+ * @LastEditors: zemin zheng
+ * @Description: 浏览器操作相关browser工具 -- 测试文件
  * @FilePath: \npm\src\test\Browser\Browser.js
  */
 

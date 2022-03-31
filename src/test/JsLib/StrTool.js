@@ -1,3 +1,11 @@
+/*
+ * @Author: zemin zheng
+ * @Date: 2021-09-06 11:29:06
+ * @LastEditTime: 2022-03-31 14:22:44
+ * @LastEditors: zemin zheng
+ * @Description: 字符串工具 -- 测试文件
+ * @FilePath: \npm\src\test\JsLib\StrTool.js
+ */
 import { StrTool } from "../../JsLib"
 
 export default (isLog) => {

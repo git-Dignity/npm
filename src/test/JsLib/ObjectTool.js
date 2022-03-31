@@ -1,3 +1,11 @@
+/*
+ * @Author: zemin zheng
+ * @Date: 2021-09-15 14:32:48
+ * @LastEditTime: 2022-03-31 14:24:24
+ * @LastEditors: zemin zheng
+ * @Description: 对象工具 -- 测试文件
+ * @FilePath: \npm\src\test\JsLib\ObjectTool.js
+ */
 import { ObjectTool } from "../../JsLib"
 
 export default (isLog) => {
