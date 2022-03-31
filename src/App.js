@@ -46,10 +46,16 @@ import initStorage from "./test/Storage/Storage"
 
 
 // 手写系列测试
+
+// 手写系列 -- JavaScript底层方法
 import initJSHand from "./test/HandWrit/JSHand"
+// 手写系列 -- 数组篇
 import initArrayHand from "./test/HandWrit/ArrayHand"
+// 手写系列 -- 对象篇
 import initObjectHand from "./test/HandWrit/ObjectHand"
+// 手写系列 -- 对象篇
 import initStringHand from "./test/HandWrit/StringHand"
+// 手写系列 -- Promise篇
 import initPromiseHand from "./test/HandWrit/PromiseHand"
 
 
