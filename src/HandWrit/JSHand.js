@@ -35,6 +35,12 @@ class JSHand {
    * @description 7. 如果构造函数返回一个对象，那么我们也返回这个对象
    * @description 8. 如上否则，就返回默认值
    *
+   * @description New做了什么？
+   * @description 1. 创建一个新对象
+   * @description 2. 将构造函数的显式原型Prototype赋值给新对象obj的隐式原型
+   * @description 3. 改变this指向，执行构造函数的属性给新对象，apply、call
+   * @description 4. 返回新对象
+   *
    *
    * @description New手写
    *
@@ -66,6 +72,22 @@ class JSHand {
     var ret = Constructor.apply(obj, arguments) //借用外部传入的构造器给obj设置属性
 
     return typeof ret === "object" ? ret : obj //确保构造器总是返回一个对象
+  }
+
+  /**
+   * @description New手写（简单版）
+   *
+   * @param {*} fn
+   * @param {*} args
+   * @return {*}
+   * @memberof JSHand
+   */
+  objectFactory1(fn, ...args) {
+    const obj = {}
+    obj.__proto__ = fn.prototype
+    fn.apply(obj, args)
+
+    return obj
   }
 }
 
@@ -490,7 +512,6 @@ Function.prototype.myBind = function (oThis) {
   return fBound
 }
 
-
 /**
  * @description myBind、mybind4的区别？
  * @description 1. myBind在接收bind内的参数args，用的是Array.prototype.slice.call(arguments, 1)，剔除第一个参数，即第一个对象；
@@ -501,21 +522,21 @@ Function.prototype.myBind = function (oThis) {
  * @description 4. 在执行函数的步骤，mybind用的是apply来传入this和执行；
  * @description 而mybind4直接执行函数，因为mybind4直接将函数定义在this中，所以可直接执行
  * @description 5.关于构造函数。mybind是创建一个空函数，将this.prototype
- * 
+ *
  *
  * @description 为什么上面的myBind已经是最终版了，为什么还有这个mybind4方法？
  * @description 因为，之前都是基于es5语法写的，mybind4是基于es6语法写的，更加简洁
- * 
+ *
  * @description 小知识
  * @description instanceof来判断一个构造函数的prototype属性所指向的对象是否存在另外一个要检测对象的原型链上
- * 
+ *
  * @description 特别提醒
  * @description bind是返回一个函数，而不是执行结果。
  * @description bind返回的函数，拿来当做构造函数，该怎么处理？
  * @description bind()方法主要就是将函数绑定到某个对象，this;
  * @description bind()会创建一个函数，函数体内的this对象的值会被绑定到传入bind()中的第一个参数的值;
  * @description 例如：f.bind(obj)，实际上可以理解为obj.f()，这时f函数体内的this自然指向的是obj；
- * 
+ *
  * @description 实现思路
  * @description 1. 接收传进的this指向context、方法参数后面跟随着参数args，可支持柯里化
  * @description 2. 先定义一个变量_this来接收this，保存起来，赋给context
@@ -531,7 +552,7 @@ Function.prototype.myBind = function (oThis) {
  * @description 12. 将外部事先定义的_this指向赋值给this[fn]，执行7-10步骤
  * @description 13. 因为可能会被作为构造函数，所以我们要给fBound添加原型，值为 目标函数的原型对象拷贝到新函数中
  * @description 14. 返回fBound
- * 
+ *
  * @description 手写bind
  *
  * @param {*} context this指向
@@ -552,25 +573,22 @@ Function.prototype.mybind4 = function (context, ...args) {
   context[fn] = this
 
   const fBound = function (...innerArgs) {
-          if (this instanceof _this) {
-          this[fn] = _this
-          const res = this[fn](...[...args, ...innerArgs])
-          delete this[fn]
-          return res
-      } else {
-        const res = context[fn](...[...args, ...innerArgs])
-        delete context[fn]
-        return res
-      }
+    if (this instanceof _this) {
+      this[fn] = _this
+      const res = this[fn](...[...args, ...innerArgs])
+      delete this[fn]
+      return res
+    } else {
+      const res = context[fn](...[...args, ...innerArgs])
+      delete context[fn]
+      return res
+    }
   }
 
   //将目标函数的原型对象拷贝到新函数中，因为目标函数有可能被当作构造函数使用
   fBound.prototype = Object.create(this.prototype)
   //返回fBond的引用，由外部按需调用
   return fBound
-
 }
-
-
 
 export default JSHand
