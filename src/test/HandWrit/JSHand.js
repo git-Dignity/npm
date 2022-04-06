@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-15 16:40:43
- * @LastEditTime: 2022-03-31 15:42:12
+ * @LastEditTime: 2022-03-31 17:06:09
  * @LastEditors: zemin zheng
  * @Description: 手写系列 -- JavaScript底层方法 -- 测试文件
  * @FilePath: \npm\src\test\HandWrit\JSHand.js
@@ -32,7 +32,6 @@ export default (isLog) => {
   //   console.log(handsomeBoy.isHandsome) // true
   //   handsomeBoy.sayName() // Hello , my name is Nealyang
 
-
   // call例子
   var value = 2
 
@@ -52,7 +51,7 @@ export default (isLog) => {
 
   // console.log(bar()); //  {value: 2, name: undefined, age: undefined}
 
-  // console.log(bar.myCall(obj11, "kevin", 18)) // {value: 1, name: {…}, age: "kevin"}
+  // console.log(bar.mycall(obj11, "kevin", 18)) // {value: 1, name: {…}, age: "kevin"}
 
   // console.log(bar.myCall1(obj11, "kevin", 18)) // {value: 1, name: {…}, age: "kevin"}
 
@@ -74,12 +73,15 @@ export default (isLog) => {
   // myObj.testFn.myApply2(myObj2, [22]) // Dignity_22岁了
 
   // bind例子
-  // var obj45 = { name: "Tom" }
-  // function fun() {
-  //   console.log(this.name)
-  // }
-  // // fun.mybind2(obj45, 1, 2)() // Tom
+  var obj45 = { name: "Tom" }
+  function fun() {
+    console.log(this.name)
+  }
+
+  // fun.mybind2(obj45, 1, 2)() // Tom
+  // fun.mybind3(obj45, 1, 2)(3) // Tom
   // fun.mybind4(obj45, 1, 2)() // Tom
+  fun.myBind(obj45, 1)(3, 4) // Tom
 
   function f(y, z) {
     return this.x + y + z

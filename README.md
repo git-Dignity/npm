@@ -1,4 +1,5 @@
 
+
 # [npm工具类](https://www.npmjs.com/package/javascript-tool-class)
 
 与大家分享自己所涉及到的npm知识，将常用方法封装成工具类
@@ -75,4 +76,4 @@ JS中的bind的实现以及使用：https://www.cnblogs.com/heshan1992/p/6667596
 
 （在啃）【1 月最新】前端 100 问：能搞懂 80% 的请把简历给我：https://juejin.cn/post/6844903885488783374#heading-34
 
-史上最全！熬夜整理56个JavaScript高级的手写知识点！！专业扫盲！https://juejin.cn/post/7023906112843808804#heading-60
+（在啃，bind）史上最全！熬夜整理56个JavaScript高级的手写知识点！！专业扫盲！https://juejin.cn/post/7023906112843808804#heading-60

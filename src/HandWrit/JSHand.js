@@ -40,6 +40,7 @@ class JSHand {
    * @description 2. 将构造函数的显式原型Prototype赋值给新对象obj的隐式原型
    * @description 3. 改变this指向，执行构造函数的属性给新对象，apply、call
    * @description 4. 返回新对象
+   * @description 总的来说：其实就是想要构造函数的原型和属性
    *
    *
    * @description New手写
@@ -101,6 +102,12 @@ class JSHand {
  * @description 2. 执行该函数
  * @description 3. 删除该函数
  *
+ * @description call做了什么？
+ * @description 1. 在传进来的context对象添加fn临时值（主要是想给后面执行方法用的），值为this
+ * @description 2. 将arguments参数转为数组，值为字符串
+ * @description 3. 执行context.fn，后删除，再返回
+ *
+ * @description 参数是多个字符串
  * @description 手写call（ES5写法）
  *
  * @param {*} context 多位参数（this指向对象，n个参数）
@@ -127,7 +134,7 @@ Function.prototype.myCall = function (context) {
   var context = context || window // this 参数可以传 null，当为 null 的时候，视为指向 window
 
   context.fn = this // 首先要获取调用call的函数，用this可以获取
-  console.log(this) // 外面的函数 function bar(name, age) { ... }
+  // console.log(this) // 外面的函数 function bar(name, age) { ... }
 
   // call 函数还能给定参数执行函数
   // 因为arguments是类数组对象，所以可以用for循环
@@ -136,8 +143,8 @@ Function.prototype.myCall = function (context) {
     args.push(`arguments[${i}]`)
   }
 
-  console.log(args) // ['arguments[0]', 'arguments[1]', 'arguments[2]']
-  console.log(`context.fn(${args})`) // context.fn(arguments[0],arguments[1],arguments[2])
+  // console.log(args) // ['arguments[0]', 'arguments[1]', 'arguments[2]']
+  // console.log(`context.fn(${args})`) // context.fn(arguments[0],arguments[1],arguments[2])
 
   // 我怎么将args这些参数传进去，args.join(',')？不行啦
   var result = eval(`context.fn(${args})`) // eval拼成一个函数会自己执行，args 会自动调用 Array.toString() 这个方法。
@@ -183,10 +190,10 @@ Function.prototype.myCall1 = function (context) {
   var context = context || window // this 参数可以传 null，当为 null 的时候，视为指向 window
 
   context.fn = this // 首先要获取调用call的函数，用this可以获取
-  console.log(this) // 外面的函数 function bar(name, age) { ... }
+  // console.log(this) // 外面的函数 function bar(name, age) { ... }
 
   const args = [...arguments].slice(1) // 删除第一个参数，是this的指向，其他后面就是传参进来的
-  console.log(args) // ['kevin', 18]
+  // console.log(args) // ['kevin', 18]
 
   const result = context.fn(...args)
 
@@ -241,6 +248,7 @@ Function.prototype.myCall2 = function (context, ...args) {
 /**
  * @description apply和call实现类似，不同的就是参数的处理
  *
+ * @description 参数是数组
  * @description 手写apply（ES5写法）
  *
  * @param {*} context this指向
@@ -376,6 +384,9 @@ Function.prototype.myApply2 = function (context, arr) {
  * @description 我们一步一步来演进bind的最终版
  * @description 首先我们可以通过给目标函数指定作用域来简单实现bind()方法
  *
+ * @description bind与apply/call一样都能改变函数this指向，但bind并不会立即执行函数，而是返回一个绑定了this的新函数，你需要再次调用此函数才能达到最终执行
+ * @description 使用了bind之后，this无法再被修改，使用call、apply也不行
+ *
  * @description 手写bind（第一版）
  *
  * @param {*} context this指向
@@ -419,7 +430,7 @@ Function.prototype.mybind1 = function (context) {
 Function.prototype.mybind2 = function (context) {
   var args = Array.prototype.slice.call(arguments, 1),
     self = this
-  console.log(args) // [1, 2]
+  // console.log(args) // [1, 2]
   return function () {
     var innerArgs = Array.prototype.slice.call(arguments)
     console.log(innerArgs) // []
@@ -456,6 +467,7 @@ Function.prototype.mybind3 = function (context) {
     bound = function () {
       // 因为bind不会执行函数，所以这里的innerArgs接收到函数mybind3({x:1},2, 1)(3)执行的参数3
       var innerArgs = Array.prototype.slice.call(arguments)
+      console.log(args, innerArgs)
       var finalArgs = args.concat(innerArgs)
       return self.apply(this instanceof F ? this : context, finalArgs)
     }
@@ -469,6 +481,9 @@ Function.prototype.mybind3 = function (context) {
  * @description 我们一步一步来演进bind的最终版
  * @description bind() 函数会创建一个新函数（称为绑定函数）
  * @description 是在ie8下，bind使用不了，写下兼容版
+ * 
+ * @description call、bind从入参看，是一样的，有何区别？
+ * @description bind不会执行函数，call会
  *
  * @description 手写bind（最终版）
  *
