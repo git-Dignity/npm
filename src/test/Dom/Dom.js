@@ -27,8 +27,8 @@ export default   (isLog) =>{
 
     // console.log(dom.getStyle(document.querySelector('p'), 'font-size'));    // 16px
 
-    console.log(dom.insertAfter(document.getElementById('msg'), '<p>我是insertAfter方法插入before的</p>', 'b'));   // 在msg为id的元素，之前添加p标签
-    console.log(dom.insertAfter(document.getElementById('msg'), '<p>我是insertAfter方法插入after的</p>', 'a'));   // 在msg为id的元素，之后添加p标签
+    // console.log(dom.insertAfter(document.getElementById('msg'), '<p>我是insertAfter方法插入before的</p>', 'b'));   // 在msg为id的元素，之前添加p标签
+    // console.log(dom.insertAfter(document.getElementById('msg'), '<p>我是insertAfter方法插入after的</p>', 'a'));   // 在msg为id的元素，之后添加p标签
 
     // console.log(dom.xxxxxx()); 
 

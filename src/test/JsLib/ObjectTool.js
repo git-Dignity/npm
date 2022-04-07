@@ -16,130 +16,137 @@ export default (isLog) => {
   let objectTool = new ObjectTool()
   objectTool.start()
 
+  // console.log(objectTool.cleanObject({
+  //     name: '',
+  //     value:123
+  // }))
+  // { value: 123 }
 
-  console.log(objectTool.cleanObject({
-      name: '', 
-      value:123
-  }))   // { value: 123 }
+  var obj = {
+    a: {
+      c: [1, 2],
+    },
+    b: 1,
+  }
+  obj.a.c.d = obj
+  // console.log(objectTool.cycleDetector(obj)) // true
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
-//   console.log(objectTool.xxx()) 
+  //   console.log(objectTool.xxx())
 
- 
-  
   objectTool.end()
 }
