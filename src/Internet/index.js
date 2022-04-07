@@ -8,8 +8,10 @@
  */
 import Internet from './Internet'
 import Scheduler from './Scheduler'
+import TimerDelay from './TimerDelay'    // 定时器延时器
 
 export {
     Internet,
-    Scheduler
+    Scheduler,
+    TimerDelay
 }

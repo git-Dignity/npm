@@ -886,7 +886,7 @@ class Tool {
   }
 
   /**
-   * @description 创建一个发布/订阅（发布-订阅）事件集线，有emit，on和off方法。
+   * @description 创建一个发布订阅（发布-订阅）事件集线，有emit，on和off方法。
    * @description 1. 使用Object.create(null)创建一个空的hub对象
    * @description 2. emit，根据event参数解析处理程序数组，然后.forEach()通过传入数据作为参数来运行每个处理程序。
    * @description 3. on，为事件创建一个数组（若不存在则为空数组），然后.push()将处理程序添加到该数组。
@@ -1115,6 +1115,44 @@ class Tool {
           '"': "&quot;",
         }[tag] || tag)
     )
+  }
+
+  /**
+   * @description 柯里化：参数不一次性传，分段传
+   * 
+   * @description 实现思路：
+   * @description 1. 获取目标函数的参数长度，后续方便做判断（相等则返回）
+   * @description 2. 获取第一个参数args1（传个目标函数的）
+   * @description 3. 返回一个函数res，获取第二个参数arg2
+   * @description 4. 合并参数，给fn传参（当然目标函数的参数和柯里化的参数数量要一致）
+   * 
+   * @description 实现一个科里化函数（柯里化）
+   *
+   * @param {Function} fn
+   * @param {*} args1 多个参数
+   * @return {*} 
+   * @memberof Tool
+   * @example
+   * const add = (a, b, c) => a + b + c
+     const a = tool.currying(add, 1)
+     console.log(a(2, 3)) // 6
+   */
+  currying(fn, ...args1) {
+    // 获取fn参数有几个
+    const length = fn.length
+    let allArgs = [...args1]  // 1
+    const res = (...arg2) => {
+      // arg2 2,3
+      allArgs = [...allArgs, ...arg2]
+      // 长度相等就返回执行结果
+      if (allArgs.length === length) {
+        return fn(...allArgs)
+      } else {
+        // 不相等继续返回函数
+        return res
+      }
+    }
+    return res
   }
 }
 

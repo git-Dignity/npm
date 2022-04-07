@@ -6,7 +6,7 @@
  * @Description: 浏览器存储相关storage工具函数 -- 测试文件
  * @FilePath: \npm\src\test\Storage\Storage.js
  */
-import { Storage } from "../../Storage/Storage"
+import { Storage } from "../../Storage"
 
 export default (isLog) => {
   if (!isLog) {

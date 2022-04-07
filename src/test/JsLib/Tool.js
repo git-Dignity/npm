@@ -17,7 +17,6 @@ export default (isLog) => {
   let tool = new Tool()
   tool.start()
 
-  
   // console.log(tool.hasClass(document.getElementById('aaa'), 'a')) // true
   // tool.toggleClass(document.querySelector('p#b'), 'a')
   // console.log(tool.getScrollPosition());   // // {x: 0, y: 200}
@@ -36,12 +35,13 @@ export default (isLog) => {
 
   // console.log(tool.getURLParameters('http://url.com/page?n=哈哈&s=Smith')) // {n: 'Adam', s: 'Smith'}
 
-   const getURLParameters1 = tool.getURLParameters1('http://url.com/page?n=哈哈&s=Smith')
+  const getURLParameters1 = tool.getURLParameters1(
+    "http://url.com/page?n=哈哈&s=Smith"
+  )
   //  console.log(getURLParameters1) // {n: '哈哈', s: 'Smith'}
 
   const getURLParameters2 = tool.getURLParameters2("?n=哈哈&s=Smith")
   //  console.log(getURLParameters2) // {n: '哈哈', s: 'Smith'}
-
 
   // const fn = () => console.log('!');
   // document.body.addEventListener('click', fn);
@@ -75,8 +75,6 @@ export default (isLog) => {
   //     "title": "Foo",
   //     "body": "bar bar bar"
   //   }
-
-  
 
   // tool.getDom("#app")
 
@@ -112,13 +110,11 @@ export default (isLog) => {
   // window.addEventListener("mousemove",tool.throttle(printHeight,1000,2));
 
   // console.log(tool.type([""]))  //array
-  
+
   // console.log(tool.arrScrambling([1,5,9]))
   // console.log(tool.similarity([1,2,3],[5,2]))  // 2
   // console.log(tool.countOccurrences([1,2,2,3],2)) // 2
-  
-  
-  
+
   // 尾递归
   var sumTco = tool.tco(function (x, y) {
     if (y > 0) {
@@ -129,7 +125,6 @@ export default (isLog) => {
     }
   })
   //   console.log(sumTco(1, 5));   //6    实际上现在sum函数就是accumulator函数   else那得到的
-
 
   // console.log(tool.trim(" dg   g145415  44 ",1)) // dgg14541544
   // console.log(tool.turnCase("asFG",1))  // ASFG
@@ -211,6 +206,10 @@ export default (isLog) => {
   // console.log(tool.getType(function (){})); // function
 
   // console.log(tool.escapeHTML('<a href="#">Me & you</a>')); // &lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;
+
+  const add = (a, b, c,) => a + b + c
+  const a = tool.currying(add, 1)
+  // console.log(a(2, 3)) // 6
 
   // console.log(tool.xxx());
 

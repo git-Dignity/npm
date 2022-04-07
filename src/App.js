@@ -35,6 +35,8 @@ import initObjectTool from "./test/JsLib/ObjectTool"
 import initInternet from "./test/Internet/Internet"
 // 带并发的异步调度器 Scheduler类
 import initScheduler from "./test/Internet/Scheduler"
+// 定时器延时器 TimerDelay类
+import initTimerDelay from "./test/Internet/TimerDelay"
 // 检查
 import initCheck from "./test/Check/Check"
 // 日期库
@@ -43,7 +45,8 @@ import initDateOperation from "./test/Date/DateOperation"
 import initBrowser from "./test/Browser/Browser"
 // 浏览器存储相关storage工具函数
 import initStorage from "./test/Storage/Storage"
-
+// LRU缓存函数
+import initLRUCache from "./test/Storage/LRUCache"
 
 // 手写系列测试
 
@@ -420,11 +423,12 @@ class App {
     initPromiseHand(false, true)
 
     initStorage(false)
+    initLRUCache(false)
     initObjectTool(false)
     initFile(false)
     initDom(false)
     initTool(false)
-    initArrayTool(true)
+    initArrayTool(false)
     initStrTool(false)
     initCheck(false)
     initBrowser(false)
@@ -439,6 +443,7 @@ class App {
     initNumberVal(false)
     initInternet(false)
     initScheduler(false)
+    initTimerDelay(false)
   }
 }
 
