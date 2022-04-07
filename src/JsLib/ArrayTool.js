@@ -260,6 +260,66 @@ class ArrayTool {
   }
 
   /**
+   * @description Map记录，借助reduce有保存值的特性，每个item判断是否存过，来去重
+   * 
+   * @description 数组去重
+   *
+   * @param {Array} arr 目标数组
+   * @return {Array}
+   * @memberof ArrayTool
+   * @example
+   * uniqueArray2([undefined, null, null, 1, 1])  // [undefined, null, 1]
+   */
+  uniqueArray2(arr) {
+    const newArr = []
+    arr.reduce((pre, next) => {
+      if (!pre.has(next)) {
+        pre.set(next, 1)
+        newArr.push(next)
+      }
+      return pre
+    }, new Map())
+    return newArr
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /**
    * @description 利用属性名比较
    * @description localeCompare对字符串进行排序
    * @description 思考：对每一个数组进行特定排序（localeCompare），因为数组元素可能位置不同但元素内容相同，所以必须按照某一顺序对其进行排序，这里按首字母对字符串进行排序
