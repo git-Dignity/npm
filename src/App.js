@@ -424,10 +424,10 @@ class App {
 
     initStorage(false)
     initLRUCache(false)
-    initObjectTool(true)
+    initObjectTool(false)
     initFile(false)
     initDom(false)
-    initTool(false)
+    initTool(true)
     initArrayTool(false)
     initStrTool(false)
     initCheck(false)
@@ -437,7 +437,7 @@ class App {
 
     initAlgorithm(false)
     initArrayAlgorithm(false)
-    initInterview(false)
+    initInterview(true)
     this.initHandleWrite()
 
     initNumberVal(false)

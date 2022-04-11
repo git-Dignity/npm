@@ -35,10 +35,10 @@ export default (isLog) => {
    */
   function add() {
     let args = [].slice.call(arguments)
-    console.log(args, "1111")
+    // console.log(args, "1111")
     let fn = function () {
       let fn_args = [].slice.call(arguments)
-      console.log(fn_args, "22222")
+      // console.log(fn_args, "22222")
       return add.apply(null, args.concat(fn_args))
     }
 
@@ -48,7 +48,7 @@ export default (isLog) => {
     return fn
   }
 
-  //   console.log(add(1)(2)(3, 4))  // 10
+  console.log(add(1)(2)(3, 4)) // 10
 
   const rotate = interview.rotate([1, 2, 3, 4, 5, 6], 7)
   //   console.log(rotate) // [6, 1, 2, 3, 4, 5]

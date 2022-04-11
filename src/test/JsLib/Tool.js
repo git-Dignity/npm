@@ -175,7 +175,6 @@ export default (isLog) => {
   // };
   // document.body.addEventListener('click', tool.once(startApp)); // 只执行一次startApp
 
-
   // console.log(tool.forOwn({ foo: 'bar', a: 1 }, v => console.log(v)));  // bar 1
 
   // console.log(tool.is(Array, [1])); // true
@@ -198,9 +197,14 @@ export default (isLog) => {
 
   // console.log(tool.escapeHTML('<a href="#">Me & you</a>')); // &lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;
 
-  const add = (a, b, c,) => a + b + c
+  const add = (a, b, c) => a + b + c
   const a = tool.currying(add, 1)
   // console.log(a(2, 3)) // 6
+
+  const add1 = tool.add(1)(2)(3)(4, 5)(1)()
+  // console.log(add1) // 16
+  const add2 = tool.add(1, 2)(3)()
+  // console.log(add2) // 6
 
   // console.log(tool.xxx());
 

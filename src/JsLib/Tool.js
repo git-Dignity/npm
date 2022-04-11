@@ -1079,8 +1079,52 @@ class Tool {
     }
     return res
   }
+
+  /**
+   * @description 题目描述：实现一个 add 方法 使计算结果能够满足如下预期：
+   * @description add(1)(2)(3)()=6  柯里化
+   * 
+   * @description 实现思路
+   * @description 1. 首先获取第一个参数args1
+   * @description 2. 内部返回一个函数fn
+   * @description 3. fn函数，获取之前的参数和现在的参数合并
+   * @description 4. 为什么说之前的参数，因为fn内部使用递归去将柯里化的参数合并，直到现在的参数 无参才结束递归（所以后面()，就不能在加参数了哦）
+   * @description 5. 最后将数组，使用reduce相加（利用toString）
+   * 
+   * @description 实现add函数
+   *
+   * @param {*} args1
+   * @return {*} 
+   * @memberof Tool
+   * @example
+   * const add1 = tool.add(1)(2)(3)(4, 5)(1)()
+     console.log(add1) // 16
+     const add2 = tool.add(1, 2)(3)()
+     console.log(add2) // 6
+
+     说一下实现思路的【第四点】
+     tool.add(1)(2)(3)(4, 5)(1)()(1)
+     这样子会报错，已经()，就不能在执行柯里化传参了
+   */
+  add(...args1) {
+    let allArgs = [...args1]
+  
+    function fn(...args2) {
+      if (!args2.length) return fn.toString()
+      allArgs = [...allArgs, ...args2]
+      return fn
+    }
+  
+    fn.toString = function () {
+      return allArgs.reduce((pre, next) => pre + next)
+    }
+  
+    return fn
+  }
+
 }
 
 export default Tool
+
 
 // 3. 第三部分：字符串：https://juejin.cn/post/6844903966526930951#heading-32
