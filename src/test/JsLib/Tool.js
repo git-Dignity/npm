@@ -175,15 +175,6 @@ export default (isLog) => {
   // };
   // document.body.addEventListener('click', tool.once(startApp)); // 只执行一次startApp
 
-  // console.log(tool.flattenObject({ a: { b: { c: 1 } }, d: 1 })) // {a.b.c: 1, d: 1}
-  // console.log(
-  //   tool.flattenObject({
-  //     a: { b: { c: 1, c1: 2 }, b1: 5, b2: { bbb: 55 } },
-  //     d: 1,
-  //   })
-  // ) // {a.b.c: 1, a.b.c1: 2, a.b1: 5, a.b2.bbb: 55, d: 1}
-
-  // console.log(tool.unflattenObject({ 'a.b.c': 1, d: 1 }));  // { a: { b: { c: 1 } }, d: 1 }
 
   // console.log(tool.forOwn({ foo: 'bar', a: 1 }, v => console.log(v)));  // bar 1
 

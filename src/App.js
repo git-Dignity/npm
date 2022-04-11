@@ -426,7 +426,7 @@ class App {
     initLRUCache(false)
     initObjectTool(true)
     initFile(false)
-    initDom(true)
+    initDom(false)
     initTool(false)
     initArrayTool(false)
     initStrTool(false)

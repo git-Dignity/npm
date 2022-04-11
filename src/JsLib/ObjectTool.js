@@ -33,6 +33,12 @@ class ObjectTool {
    * @param {*} object
    * @return {*}
    * @memberof ObjectTool
+   * @example
+   * console.log(objectTool.cleanObject({
+        name: '',
+        value:123
+    }))
+    { value: 123 }
    */
   cleanObject(object) {
     if (!object) {
@@ -49,7 +55,6 @@ class ObjectTool {
 
     return result
   }
-
 
   /**
    * @description 实现思路：
@@ -94,6 +99,194 @@ class ObjectTool {
 
     return flag
   }
+
+  /**
+   * @description 计算一个对象的层数
+   * @description 题目描述：给你一个对象，统计一下它的层数
+   *
+   * @param {Object} obj
+   * @return {Number} 
+   * @memberof ObjectTool
+   * @example
+   * var obj = {
+      a: {
+        c: [1, 2],
+      },
+      b: 1,
+    }
+    obj.a.c.d = obj // 无限循环
+
+    const obj1 = {
+      a: { b: [1] },
+      c: { d: { e: { f: 1 } } },
+    }
+
+    console.log(objectTool.loopGetLevel(obj)) // Uncaught Error: Maximum call stack size exceeded...
+    console.log(objectTool.loopGetLevel(obj1)) // 4
+   */
+  loopGetLevel(obj) {
+    if (this.cycleDetector(obj)) {
+      throw new TypeError("Maximum call stack size exceeded...")
+    }
+    var res = 1 // 默认肯定是一级
+
+    function computedLevel(obj, level) {
+      var level = level ? level : 0
+      if (typeof obj === "object") {
+        for (var key in obj) {
+          if (typeof obj[key] === "object") {
+            computedLevel(obj[key], level + 1)
+          } else {
+            res = level + 1 > res ? level + 1 : res
+          }
+        }
+      } else {
+        res = level > res ? level : res
+      }
+    }
+    computedLevel(obj)
+
+    return res
+  }
+
+  /**
+   * @description 实现思路：
+   * @description 1. 先判断obj是否为对象
+   * @description 2. 内部有个返回函数（内部处理，若为数组、对象，即for递归调用）
+   * 
+   * @description 对象的扁平化（以键的路径扁平化对象）
+   *
+   * @param {Object} obj
+   * @return {Object} 
+   * @memberof ObjectTool
+   * @example
+   * const obj2 = {
+      a: {
+        b: 1,
+        c: 2,
+        d: { e: 5 },
+      },
+      b: [1, 3, { a: 2, b: 3 }],
+      c: 3,
+    }
+
+    const flatten = objectTool.flatten(obj2)
+    console.log(flatten)
+    // {
+    //  'a.b': 1,
+    //  'a.c': 2,
+    //  'a.d.e': 5,
+    //  'b[0]': 1,
+    //  'b[1]': 3,
+    //  'b[2].a': 2,
+    //  'b[2].b': 3
+    //   c: 3
+    // }
+   */
+  flatten(obj) {
+    const isObject = (val) => typeof val === "object" && val !== null
+
+    if (!isObject(obj)) return
+    const res = {}
+    const dfs = (cur, prefix) => {
+      if (isObject(cur)) {
+        if (Array.isArray(cur)) {
+          cur.forEach((item, index) => {
+            dfs(item, `${prefix}[${index}]`)
+          })
+        } else {
+          for (let key in cur) {
+            dfs(cur[key], `${prefix}${prefix ? "." : ""}${key}`)
+          }
+        }
+      } else {
+        res[prefix] = cur
+      }
+    }
+    dfs(obj, "")
+    return res
+  }
+
+  
+  /**
+   * @description 实现思路：
+   * @description 使用递归。
+   * @description 利用Object.keys(obj)联合Array.prototype.reduce()，以每片叶子节点转换为扁平的路径节点
+   * @description 如果键的值是一个对象，则函数使用调用适当的自身prefix以创建路径Object.assign()。
+   * @description 否则，它将适当的前缀键值对添加到累加器对象。
+   * @description prefix除非您希望每个键都有一个前缀，否则应始终省略第二个参数。
+   * @description 以键的路径扁平化对象
+   * 
+   * @description 对象的扁平化（以键的路径扁平化对象）（方法二）
+   *
+   * @param {Object} obj 目标对象
+   * @param {string} [prefix=""] 扁平的路径节点（前缀）  主要是给递归用的
+   * @return {Object}
+   * @memberof ObjectTool
+   * @example
+   * flattenObject({ a: { b: { c: 1 } }, d: 1 })  // {a.b.c: 1, d: 1}
+   *
+   * flattenObject({
+   *   a: { b: { c: 1, c1: 2 }, b1: 5, b2: { bbb: 55 } },
+   *   d: 1,
+   * })  // {a.b.c: 1, a.b.c1: 2, a.b1: 5, a.b2.bbb: 55, d: 1}
+   */
+   flattenObject(obj, prefix = "") {
+    return Object.keys(obj).reduce((acc, k) => {
+      const pre = prefix.length ? prefix + "." : ""
+
+      if (typeof obj[k] === "object") {
+        Object.assign(acc, this.flattenObject(obj[k], pre + k))
+      } else {
+        acc[pre + k] = obj[k]
+      }
+
+      return acc
+    }, {})
+  }
+
+  /**
+   * @description 思路：将这种'a.b.c'转为{"a":{"b":{"c":1}}}，再借助JSON.parse将字符串转成JSON对象
+   * @description 那么如何转成{"a":{"b":{"c":1}}}
+   * @description 1. 用split用点切割成数组，map帮每一个前面加{"x":，最后一个不加，就变成{"a":{"b":{"c":
+   * @description 2. 再拼上他的值；{"a":{"b":{"c":1
+   * @description 3. 那是不是缺少三个右花括号，用repeat方法复制三个花括号，即：{"a":{"b":{"c":1}}}
+   * @description 4. 有字符串JSON了，用JSON.parse转成对象
+   *
+   * @description 用途：在做Tree组件或复杂表单时取值非常舒服。
+   * @description 与上面的flattenObject方法相反，展开对象。
+   * @description 以键的路径展开对象（与flattenObject相反）
+   *
+   * @param {Object} obj
+   * @return {Object}
+   * @memberof ObjectTool
+   * @example
+   * unflattenObject({ 'a.b.c': 1, d: 1 });  // { a: { b: { c: 1 } }, d: 1 }
+   */
+  unflattenObject(obj) {
+    return Object.keys(obj).reduce((acc, k) => {
+      if (k.indexOf(".") !== -1) {
+        const keys = k.split(".")
+
+        Object.assign(
+          acc,
+          JSON.parse(
+            "{" +
+              keys
+                .map((v, i) => (i !== keys.length - 1 ? `"${v}":{` : `"${v}":`))
+                .join("") +
+              obj[k] +
+              "}".repeat(keys.length)
+          )
+        )
+      } else {
+        acc[k] = obj[k]
+      }
+      return acc
+    }, {})
+  }
+
+
 }
 
 export default ObjectTool
