@@ -1,7 +1,7 @@
 /*
  * @Author: zemin zheng
  * @Date: 2022-03-16 18:05:18
- * @LastEditTime: 2022-03-17 11:32:41
+ * @LastEditTime: 2022-04-12 16:23:43
  * @LastEditors: zemin zheng
  * @Description: 算法
  * @FilePath: \npm\src\Algorithm\Algorithm.js
@@ -255,7 +255,6 @@ class Algorithm {
     return !stack.length
   }
 
-
   /**
    * @description 扁平数据结构转Tree
    * @description 面试了十几个高级前端，竟然连（扁平数据结构转Tree）都写不出来：https://juejin.cn/post/6983904373508145189#heading-6
@@ -323,19 +322,19 @@ class Algorithm {
    * @description 思路：
    * @description 实则是给itemMap添加children，又借助一开始result.push了第一个节点元素（对象引用的值一样，itemMap变，result添加的第一个也变）
    * @description 先把数据转成Map去存储，之后遍历的同时借助对象的引用，直接从Map找对应的数据做存储
-   * 
+   *
    * @description 相比上一个解法一（递归遍历）
    * @description 有两次循环，该实现的时间复杂度为O(2n)，需要一个Map把数据存储起来，空间复杂度O(n)
-   * 
+   *
    * @description 不用递归，Map也能搞定（解法二）
    *
    * @param {Array} items 目标数组
-   * @return {*} 
+   * @return {*}
    * @memberof Algorithm
    */
   arrayToTree1(items) {
     const result = [] // 存放结果集
-    const itemMap = {} 
+    const itemMap = {}
 
     // 先转成map存储
     for (const item of items) {
@@ -360,19 +359,18 @@ class Algorithm {
     return result
   }
 
-
   /**
    * @description 思路
    * @description 主要思路也是先把数据转成Map去存储，之后遍历的同时借助对象的引用，直接从Map找对应的数据做存储。
    * @description 不同点在遍历的时候即做Map存储,有找对应关系。性能会更好
-   * 
+   *
    * @description 相比上一个解法二（Map for...of）
    * @description 一次循环就搞定了，该实现的时间复杂度为O(n)，需要一个Map把数据存储起来，空间复杂度O(n)
-   * 
+   *
    * @description 最优性能（解法三）
    *
    * @param {*} items
-   * @return {*} 
+   * @return {*}
    * @memberof Algorithm
    */
   arrayToTree2(items) {
@@ -407,6 +405,125 @@ class Algorithm {
       }
     }
     return result
+  }
+
+  /**
+   * @description 实现思路：
+   * @description 1. 正常递归版本是一个既简单又直接的逻辑，但是这个版本有个问题就是存在大量重复计算。
+   * @description 2. 如：当 n 为 5 的时候要计算fib(4) + fib(3)当 n 为 4 的要计算fib(3) + fib(2) ，这时fib(3)就是重复计算了。
+   * @description 3. 运行 fib(50) 等半天才会出结果。
+   * 
+   * @description 公式版：递归（慢）（方法一）
+   * 
+   * @description 实现斐波那契数列
+   *
+   * @param {Number} n
+   * @return {Number} 
+   * @memberof Algorithm
+   * @example
+   * const fib1 = algorithm.fib1(6)
+     console.log(fib1); // 8
+   */
+  fib1(n) {
+    if (n < 0) throw new Error("输入的数字不能小于0")
+    if (n < 2) {
+      return n
+    }
+    return this.fib1(n - 1) + this.fib1(n - 2)
+  }
+
+  /**
+   * @description 实现思路：
+   * @description 1. 这个版本没有重复计算问题，速度也明显快了很多。这并不代表循环比递归好。
+   * @description 2. 循环的问题在于状态变量太多，为了实现 fib 这里使用了 4 个状态变量(f0,f1,curFib,i) 
+   * @description 3. 而状态变量 在写、修改、删除的过程中需要格外小心。状态变量多了阅读起来也不那么优美了
+   * 
+   * @description 迭代:for 循环（变量多、空间复杂度大）（方法二）
+
+   * @description 实现斐波那契数列
+   *
+   * @param {Number} n
+   * @return {Number} 
+   * @memberof Algorithm
+   * @example
+   * const fib2 = algorithm.fib2(6)
+     console.log(fib2); // 8
+   */
+  fib2(n) {
+    if (n < 0) throw new Error("输入的数字不能小于0")
+    let f0 = 0,
+      f1 = 1,
+      curFib = f0
+    if (n < 2) {
+      return n
+    }
+    for (let i = 1; i < n; i++) {
+      curFib = f0 + f1
+      f0 = f1
+      f1 = curFib
+    }
+    return curFib
+  }
+
+
+  /**
+   * @description 实现思路：
+   * @description 1. 把前两位数字做成参数巧妙的避免了重复计算，性能也有明显的提升。
+   * @description 2. n 做递减运算，前两位数字做递增（斐波那契数列的递增）,这段代码一个减，一个增。
+   * 
+   * @description 去除重复计算的递归版本（借助传参减少变量）（方法三）
+   * 
+   * @description 实现斐波那契数列
+   *
+   * @param {Number} n
+   * @return {Number} 
+   * @memberof Algorithm
+   * @example
+   * const fib3 = algorithm.fib3(6)
+     console.log(fib3); // 8
+
+     n = 6；a=0;b=1
+     n=5;a=1;b=1
+     n=4;a=1;b=2
+     n=3;a=2,b=3
+     n=2;a=3;b=5
+     n=1;a=5,b=8
+     n=0;a=8;b=13
+   */
+  fib3(n) {
+    if (n < 0) throw new Error("输入的数字不能小于0")
+    if (n < 2) return n
+    function _fib(n, a, b) {
+      if (n === 0) return a
+      return _fib(n - 1, b, a + b)
+    }
+    return _fib(n, 0, 1)
+  }
+
+  /**
+   * @description 去除重复计算的for循环版本（方法四）
+   * 
+   * @description 实现斐波那契数列
+   *
+   * @param {Number} n
+   * @return {Number} 
+   * @memberof Algorithm
+   * @example
+   * const fib4 = algorithm.fib4(6)
+     console.log(fib4); // 8
+   */
+  fib4(n) {
+    if (n < 0) throw new Error("输入的数字不能小于0")
+    if (n < 2) {
+      return n
+    }
+    let list = []
+    list[0] = 0
+    list[1] = 1
+    for (let i = 1; i < n; i++) {
+      list[i + 1] = list[i] + list[i - 1]
+    }
+    return list[n]
   }
 }
 

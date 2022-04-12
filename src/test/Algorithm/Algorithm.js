@@ -1,7 +1,7 @@
 /*
  * @Author: zemin zheng
  * @Date: 2021-09-15 16:40:43
- * @LastEditTime: 2022-03-17 11:31:03
+ * @LastEditTime: 2022-04-12 16:24:28
  * @LastEditors: zemin zheng
  * @Description: 算法系列 -- 测试文件
  * @FilePath: \npm\src\test\Algorithm\Algorithm.js
@@ -107,6 +107,22 @@ export default (isLog) => {
   //       ]
   //   }
   // ]
+
+  
+
+  const fib1 = algorithm.fib1(6)
+  // console.log(fib1); // 8
+
+  const fib2 = algorithm.fib2(6)
+  // console.log(fib2); // 8
+
+  const fib3 = algorithm.fib3(6)
+  // console.log(fib3); // 8
+
+  const fib4 = algorithm.fib4(6)
+  // console.log(fib4); // 8
+
+  
 
   // arrayToTree end 
 

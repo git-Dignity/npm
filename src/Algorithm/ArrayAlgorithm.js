@@ -1,3 +1,11 @@
+/*
+ * @Author: zemin zheng
+ * @Date: 2022-03-29 11:19:25
+ * @LastEditTime: 2022-04-12 11:50:14
+ * @LastEditors: zemin zheng
+ * @Description: 算法 -- 数组篇
+ * @FilePath: \npm\src\Algorithm\ArrayAlgorithm.js
+ */
 class ArrayAlgorithm {
   constructor() {}
 

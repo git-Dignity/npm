@@ -1,4 +1,12 @@
-// 面试题
+/*
+ * @Author: zemin zheng
+ * @Date: 2022-03-30 14:33:30
+ * @LastEditTime: 2022-04-12 11:50:31
+ * @LastEditors: zemin zheng
+ * @Description: 算法 -- 面试篇
+ * @FilePath: \npm\src\Algorithm\Interview.js
+ */
+
 
 class Interview {
   constructor() {}

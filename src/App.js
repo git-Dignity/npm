@@ -62,6 +62,16 @@ import initStringHand from "./test/HandWrit/StringHand"
 import initPromiseHand from "./test/HandWrit/PromiseHand"
 
 
+// 面试系列测试
+
+// 面试 -- 数值类
+import initInterviewNumber from './test/Interview/Number'
+// 面试 -- 定时器延时器类
+import initSetTimeoutSetInterval from './test/Interview/SetTimeoutSetInterval'
+// 面试 -- 数组类
+import initInterviewArray from './test/Interview/Array'
+
+
 // 算法
 import { Algorithm } from "./Algorithm/index"
 
@@ -427,7 +437,7 @@ class App {
     initObjectTool(false)
     initFile(false)
     initDom(false)
-    initTool(true)
+    initTool(false)
     initArrayTool(false)
     initStrTool(false)
     initCheck(false)
@@ -435,15 +445,18 @@ class App {
     initDateOperation(false)
     this.initDesignModel()
 
-    initAlgorithm(false)
+    initAlgorithm(true)
     initArrayAlgorithm(false)
-    initInterview(true)
+    initInterview(false)
     this.initHandleWrite()
 
     initNumberVal(false)
     initInternet(false)
     initScheduler(false)
     initTimerDelay(false)
+    initInterviewNumber(false)
+    initSetTimeoutSetInterval(false)
+    initInterviewArray(false)
   }
 }
 
