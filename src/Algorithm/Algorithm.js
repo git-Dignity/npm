@@ -1,7 +1,7 @@
 /*
  * @Author: zemin zheng
  * @Date: 2022-03-16 18:05:18
- * @LastEditTime: 2022-04-12 16:23:43
+ * @LastEditTime: 2022-04-12 16:29:07
  * @LastEditors: zemin zheng
  * @Description: 算法
  * @FilePath: \npm\src\Algorithm\Algorithm.js
@@ -414,6 +414,7 @@ class Algorithm {
    * @description 3. 运行 fib(50) 等半天才会出结果。
    * 
    * @description 公式版：递归（慢）（方法一）
+   * @description https://github.com/lgwebdream/FE-Interview/issues/9
    * 
    * @description 实现斐波那契数列
    *

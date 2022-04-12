@@ -1065,7 +1065,7 @@ class Tool {
   currying(fn, ...args1) {
     // 获取fn参数有几个
     const length = fn.length
-    let allArgs = [...args1]  // 1
+    let allArgs = [...args1] // 1
     const res = (...arg2) => {
       // arg2 2,3
       allArgs = [...allArgs, ...arg2]
@@ -1108,23 +1108,99 @@ class Tool {
    */
   add(...args1) {
     let allArgs = [...args1]
-  
+
     function fn(...args2) {
       if (!args2.length) return fn.toString()
       allArgs = [...allArgs, ...args2]
       return fn
     }
-  
+
     fn.toString = function () {
       return allArgs.reduce((pre, next) => pre + next)
     }
-  
+
     return fn
   }
 
+  /**
+   * @description 题目描述：
+   * @description 1. 在 js 中经常会出现嵌套调用这种情况，如 a.b.c.d.e，但是这么写很容易抛出异常。
+   * @description 2. 你需要这么写 a && a.b && a.b.c && a.b.c.d && a.b.c.d.e，但是显得有些啰嗦与冗长了。
+   * @description 3. 特别是在 graphql 中，这种嵌套调用更是难以避免。
+   * @description 4. 这时就需要一个 get 函数，使用 get(a, 'b.c.d.e') 简单清晰，并且容错性提高了很多。
+   * 
+   * @description 实现思路：
+   * @description 1. 先对第二个参数path进行转化，以“.”切割成数组
+   * @description 2. 对数组进行遍历，将每次获取到的属性值存进result变量
+   * @description 3. 下次遍历的时候，result就可以拿到上次的值，进行取属性
+   * @description 4. 需注意的是：null取数组会报错，所以使用Object包装一下
+   * @description 5. 若属性值为空，则返回第三个参数defaultValue
+   * @description 6. for of可对数组对象都可遍历
+   * 
+   * @description https://github.com/lgwebdream/FE-Interview/issues/20
+   * @description 实现 lodash 的_.get
+   *
+   * @param {Array/Object} source 目标数组/对象
+   * @param {String} path 获取对象的字符串路径
+   * @param {*} [defaultValue=undefined] 若值为空，则可传入默认值作为返回值
+   * @return {*} 
+   * @memberof Tool
+   * @example
+   * const get1 = tool._get({ a: null }, "a.b.c", 3)
+     console.log(get1) // output: 3
+     const get2 = tool._get({ a: [{ b: 1 }] }, "a[0].b", 3)
+     console.log(get2) // output: 1
+   */
+  _get(source, path, defaultValue = undefined) {
+    // a[3].b -> a.3.b -> [a,3,b]
+    // path 中也可能是数组的路径，全部转化成 . 运算符并组成数组
+    const paths = path.replace(/\[(\d+)\]/g, ".$1").split(".")
+    let result = source
+    for (const p of paths) {
+      // 注意 null 与 undefined 取属性会报错，所以使用 Object 包装一下。
+      result = Object(result)[p]
+      if (result == undefined) {
+        return defaultValue
+      }
+    }
+    return result
+  }
+
+  /**
+   * @description 和上面方法_get类似，只不过此方法使用形参的方式传参
+   *
+   * @param {*} obj 目标数组对象
+   * @param {*} args 形参
+   * @return {*} 
+   * @memberof Tool
+   * @example
+   * const getVal1 = tool.getVal({ a: null }, "a", "0", "b")
+     console.log(getVal1) //  null
+     const getVal2 = tool.getVal({ a: [{ b: 1 }] }, "a", "0", "b")
+     console.log(getVal2) //  1
+   */
+  getVal(obj, ...args) {
+    let out = null
+    if (obj || obj === 0) {
+      out = obj
+      if (args && args.length > 0) {
+        for (let index = 0; index < args.length; index++) {
+          const key = args[index]
+          out = out[key]
+          if (out === undefined || out === null || out === "") {
+            return null
+          }
+        }
+      } else {
+        if (out === undefined || out === null || out === "") {
+          return null
+        }
+      }
+    }
+    return out
+  }
 }
 
 export default Tool
-
 
 // 3. 第三部分：字符串：https://juejin.cn/post/6844903966526930951#heading-32

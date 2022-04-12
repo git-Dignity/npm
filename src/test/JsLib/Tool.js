@@ -1,7 +1,7 @@
 /*
  * @Author: zemin zheng
  * @Date: 2021-08-24 13:16:31
- * @LastEditTime: 2022-03-31 14:23:07
+ * @LastEditTime: 2022-04-12 17:36:43
  * @LastEditors: zemin zheng
  * @Description: 工具测试
  * @FilePath: \npm\src\test\JsLib\Tool.js
@@ -205,6 +205,16 @@ export default (isLog) => {
   // console.log(add1) // 16
   const add2 = tool.add(1, 2)(3)()
   // console.log(add2) // 6
+
+  const get1 = tool._get({ a: null }, "a.b.c", 3)
+  // console.log(get1) //  3
+  const get2 = tool._get({ a: [{ b: 1 }] }, "a[0].b", 3)
+  // console.log(get2) //  1
+
+  const getVal1 = tool.getVal({ a: null }, "a", "0", "b")
+  // console.log(getVal1) //  null
+  const getVal2 = tool.getVal({ a: [{ b: 1 }] }, "a", "0", "b")
+  // console.log(getVal2) //  1
 
   // console.log(tool.xxx());
 

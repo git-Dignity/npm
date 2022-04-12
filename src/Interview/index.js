@@ -9,9 +9,11 @@
 import Number from './Number'
 import SetTimeoutSetInterval from './SetTimeoutSetInterval'
 import Array from './Array'
+import String from './String'
 
 export {
     Number,
     SetTimeoutSetInterval,
-    Array
+    Array,
+    String
 }

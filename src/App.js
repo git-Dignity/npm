@@ -70,6 +70,8 @@ import initInterviewNumber from './test/Interview/Number'
 import initSetTimeoutSetInterval from './test/Interview/SetTimeoutSetInterval'
 // 面试 -- 数组类
 import initInterviewArray from './test/Interview/Array'
+// 面试 -- 字符串类
+import initInterviewString from './test/Interview/String'
 
 
 // 算法
@@ -437,7 +439,7 @@ class App {
     initObjectTool(false)
     initFile(false)
     initDom(false)
-    initTool(false)
+    initTool(true)
     initArrayTool(false)
     initStrTool(false)
     initCheck(false)
@@ -445,7 +447,7 @@ class App {
     initDateOperation(false)
     this.initDesignModel()
 
-    initAlgorithm(true)
+    initAlgorithm(false)
     initArrayAlgorithm(false)
     initInterview(false)
     this.initHandleWrite()
@@ -457,6 +459,7 @@ class App {
     initInterviewNumber(false)
     initSetTimeoutSetInterval(false)
     initInterviewArray(false)
+    initInterviewString(false)
   }
 }
 
