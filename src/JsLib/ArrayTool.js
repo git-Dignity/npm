@@ -741,6 +741,37 @@ class ArrayTool {
 
     return keys.every((k) => this.equals(a[k], b[k]))
   }
+
+  /**
+   * @description 实现思路
+   * @description 负索引：其实也就是你传过来的 索引 - 数组的长度，就可以获取到对应的数组值
+   * 
+   * @description https://github.com/lgwebdream/FE-Interview/issues/36
+   * 
+   * @description 使用ES6 的Proxy实现数组负索引。 
+   * @description（负索引：例如，可以简单地使用arr[-1]替代arr[arr.length-1]访问最后一个元素，[-2]访问倒数第二个元素，以此类推）
+   *
+   * @param {Array} arr
+   * @return {*} 
+   * @memberof ArrayTool
+   * @example
+   * var proxyArray = arrayTool.proxyArray([1, 2, 3, 4, 5, 6, 7, 8, 9])
+     console.log(proxyArray[1]) // 2
+     console.log(proxyArray[-10]) // 9
+     console.log(proxyArray[-20]) // 8
+   */
+  proxyArray(arr) {
+    const length = arr.length
+    return new Proxy(arr, {
+      get(target, key) {
+        key = +key
+        while (key < 0) {
+          key += length
+        }
+        return target[key]
+      },
+    })
+  }
 }
 
 export default ArrayTool

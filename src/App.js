@@ -60,6 +60,8 @@ import initObjectHand from "./test/HandWrit/ObjectHand"
 import initStringHand from "./test/HandWrit/StringHand"
 // 手写系列 -- Promise篇
 import initPromiseHand from "./test/HandWrit/PromiseHand"
+// 手写系列 -- MVVM篇
+import initMVVMHand from './test/HandWrit/MVVMHand' 
 
 
 // 面试系列测试
@@ -433,13 +435,14 @@ class App {
     initObjectHand(false)
     initStringHand(false)
     initPromiseHand(false, true)
+    initMVVMHand(true)
 
     initStorage(false)
     initLRUCache(false)
     initObjectTool(false)
     initFile(false)
     initDom(false)
-    initTool(true)
+    initTool(false)
     initArrayTool(false)
     initStrTool(false)
     initCheck(false)

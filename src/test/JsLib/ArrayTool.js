@@ -1,12 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2021-08-19 12:47:51
- * @LastEditTime: 2021-09-07 14:52:43
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-04-12 18:42:14
+ * @LastEditors: zemin zheng
  * @Description: 数组工具类 -- 测试文件
  * @FilePath: \npm\src\test\JsLib\ArrayTool.js
  */
- 
+
 import { ArrayTool } from "../../JsLib"
 
 export default (isLog) => {
@@ -25,7 +25,6 @@ export default (isLog) => {
 
   // console.log(arrayTool.intersectionBy([2.1,2.5, 1.2], [2.3, 3.4], Math.floor))  // [2.1, 2.5]
 
-
   // console.log(arrayTool.countOccurrences([1,2,2,3],2)) // 2
   // console.log(arrayTool.countOccurrences([1, 1, 2, 1, '1', '1', 2, 3], "1")); // 2
 
@@ -34,18 +33,18 @@ export default (isLog) => {
   // console.log(arrayTool.listChunk([1, 2, 3, 4, 5, 6, 7, 8, 9], 0)) // []
   // console.log(arrayTool.listChunk([1, 2, 3, 4, 5, 6, 7, 8, 9], -1)) // []
 
-  const person={
-      name:'xiaoming',
-      child:{
-          name:'Jack',
-          eat: function(){
-              console.log('阿巴');
-          },
-          date: new Date()
-      }
+  const person = {
+    name: "xiaoming",
+    child: {
+      name: "Jack",
+      eat: function () {
+        console.log("阿巴")
+      },
+      date: new Date(),
+    },
   }
 
-  // deepCopy start 
+  // deepCopy start
 
   // let personCopy = arrayTool.deepCopy(person)
   // personCopy.child.eat = []
@@ -68,35 +67,33 @@ export default (isLog) => {
 
   // console.log(arrayTool.uniqueMultiDimensionalArray([undefined, null, null, 1, 1, [111, 22], [111, 22]])); // 要实现一下
 
-//   console.log(
-//     arrayTool.uniqueMultiDimensionalArray([
-//       ["你的", "我", "它"],
-//       ["我", "你的", "它"],
-//       ["一", "二", "三"],
-//       ["三", "二", "一"],
-//       ["你d", "a", "它"],
-//       ["a", "你d", "它"],
-//       ["one", "two", "three"],
-//       ["three", "two", "one"],
-//     ])
-//   ) 
+  //   console.log(
+  //     arrayTool.uniqueMultiDimensionalArray([
+  //       ["你的", "我", "它"],
+  //       ["我", "你的", "它"],
+  //       ["一", "二", "三"],
+  //       ["三", "二", "一"],
+  //       ["你d", "a", "它"],
+  //       ["a", "你d", "它"],
+  //       ["one", "two", "three"],
+  //       ["three", "two", "one"],
+  //     ])
+  //   )
   //  [ ["你的", "它", "我"], ["二", "三", "一"], ["你d", "它", "a"], ["one", "three", "two"] ]
 
-//   console.log(
-//     arrayTool.uniqueMultiDimensionalArray1([
-//       ["你的", "我", "它"],
-//       ["我", "你的", "它"],
-//       ["一", "二", "三"],
-//       ["三", "二", "一"],
-//       ["你d", "a", "它"],
-//       ["a", "你d", "它"],
-//       ["one", "two", "three"],
-//       ["three", "two", "one"],
-//     ])
-//   ) 
+  //   console.log(
+  //     arrayTool.uniqueMultiDimensionalArray1([
+  //       ["你的", "我", "它"],
+  //       ["我", "你的", "它"],
+  //       ["一", "二", "三"],
+  //       ["三", "二", "一"],
+  //       ["你d", "a", "它"],
+  //       ["a", "你d", "它"],
+  //       ["one", "two", "three"],
+  //       ["three", "two", "one"],
+  //     ])
+  //   )
   //  [ ["你的", "它", "我"], ["二", "三", "一"], ["你d", "它", "a"], ["one", "three", "two"] ]
-
- 
 
   // console.log(arrayTool.booleanAll([4, 2, 3], x => x > 1));   // true
   // console.log(arrayTool.booleanAll([4, 2, 3], x => x > 2));   // false
@@ -162,11 +159,13 @@ export default (isLog) => {
 
   // console.log(arrayTool.nest(comments));   // [{ id: 1, parent_id: null, children: [...] }]
 
-
   // console.log(arrayTool.equals({ a: [2, { e: 3 }], b: [4], c: 'foo' }, { a: [2, { e: 3 }], b: [4], c: 'foo' }));  // true
   // console.log(arrayTool.equals([{ a: [2, { e: 3 }], b: [4], c: 'foo' }], [{ a: [2, { e: 3 }], b: [4], c: 'foo' }]));  // true
 
-  // console.log(arrayTool.xxx());
+  var proxyArray = arrayTool.proxyArray([1, 2, 3, 4, 5, 6, 7, 8, 9])
+  // console.log(proxyArray[1]) // 2
+  // console.log(proxyArray[-10]) // 9
+  // console.log(proxyArray[-20]) // 8
 
   // console.log(arrayTool.xxx());
 
@@ -227,7 +226,8 @@ export default (isLog) => {
   // console.log(arrayTool.xxx());
 
   // console.log(arrayTool.xxx());
-  
+
+  // console.log(arrayTool.xxx());
 
   arrayTool.end()
 }
