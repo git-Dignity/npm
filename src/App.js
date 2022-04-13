@@ -47,6 +47,8 @@ import initBrowser from "./test/Browser/Browser"
 import initStorage from "./test/Storage/Storage"
 // LRU缓存函数
 import initLRUCache from "./test/Storage/LRUCache"
+// 基于 Localstorage 设计一个 1M 的缓存系统，需要实现缓存淘汰机制
+import initLocalstorage1M from "./test/Storage/Localstorage1M"
 
 // 手写系列测试
 
@@ -60,8 +62,6 @@ import initObjectHand from "./test/HandWrit/ObjectHand"
 import initStringHand from "./test/HandWrit/StringHand"
 // 手写系列 -- Promise篇
 import initPromiseHand from "./test/HandWrit/PromiseHand"
-// 手写系列 -- MVVM篇
-import initMVVMHand from './test/HandWrit/MVVMHand' 
 
 
 // 面试系列测试
@@ -435,10 +435,10 @@ class App {
     initObjectHand(false)
     initStringHand(false)
     initPromiseHand(false, true)
-    initMVVMHand(true)
 
     initStorage(false)
     initLRUCache(false)
+    initLocalstorage1M(false)
     initObjectTool(false)
     initFile(false)
     initDom(false)
