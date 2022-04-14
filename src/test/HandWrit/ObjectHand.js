@@ -75,5 +75,43 @@ export default (isLog) => {
   // console.log(testd) // { name: 'Dignity_', age: 18, gender: '男' }
   // console.log(testa === testd) // true
 
+  // merge array
+  var object = {
+    a: [{ b: 2 }, { d: 4 }],
+  }
+  objectHand.merge(object, { a: [{ c: 3 }, { e: 5 }] })
+  // console.log(JSON.stringify(object)) // {"a":[{"b":2},{"d":4},{"c":3},{"e":5}]}
+
+  // merge object
+  var object = {
+    a: { b: { c: 1 } },
+  }
+  objectHand.merge(object, { a: { b: { d: 2 } } })
+  // console.log(JSON.stringify(object));  // {"a":{"b":{"c":1,"d":2}}}
+
+  // overwrite primitive value
+  // 如果后面的属性和目标对象的属性一样（且非undefined），后者会覆盖前者
+  var object = {
+    a: { b: 1 },
+  };
+  objectHand.merge(object, { a: { b: 2 } });
+  // console.log(JSON.stringify(object));  // {"a":{"b":2}}
+
+  // // skip undefined  
+  // 如果后面的属性和目标对象的属性一样（且后者是undefined），值还是前者
+  object = {
+    a: { b: 1 },
+  };
+  objectHand.merge(object, { a: { b: undefined } });
+  // console.log(JSON.stringify(object));  // {"a":{"b":1}}
+
+  // multiple sources
+  // 若值为数组或者对象，则进行合并属性值
+  var object = {
+    a: { b: { c: 1, d: [1] } },
+  };
+  objectHand.merge(object, { a: { b: { e: 2 } } }, { a: { b: { d: [2] } } });
+  // console.log(JSON.stringify(object));  // {"a":{"b":{"c":1,"d":[1,2],"e":2}}}
+
   objectHand.end()
 }

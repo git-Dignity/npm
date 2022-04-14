@@ -70,12 +70,12 @@ class ObjectHand {
 
   /**
    * @description 获取隐式原型Object.getPrototypeOf(target)  相当于 proto = target.__proto__
-   * 
+   *
    * @description instanceOf手写（和上面一样，入参相反）
    *
    * @param {*} target 目标对象
    * @param {*} origin 父
-   * @return {Boolean} 
+   * @return {Boolean}
    * @memberof ObjectHand
    * @example
    * function Person(name) {
@@ -97,6 +97,112 @@ class ObjectHand {
       proto = Object.getPrototypeOf(proto)
     }
     return false
+  }
+
+  /**
+   * @description 实现思路
+   * @description 1. 因为for of只能遍历数组，所以我们利用扩展运算符将参数转为数组
+   * @description 2. 拿到for of遍历的每一个source，再次进行for in循环
+   * @description 3. 拿到for of遍历的每一个key，若该key没有在目标对象object中，则跳过，进行下一个
+   * @description 4. 判断是不是对象数组，不是的话直接加在目标对象的属性上
+   * @description 5. 如果是的话，判断一下该属性是否是对象数组 && 是否和目标对象的属性名字的类型一致
+   * @description 6. 如果不是，那就说明该属性是目标数组没有的，直接加在目标对象的属性上
+   * @description 7. 如果是的话，再判断他是不是对象
+   * @description 8. 如果不是，则跟目标对象的属性合并起来
+   * @description 9. 如果是的话，进行递归调用merge，再次循环步骤1~8
+   * 
+   * @description 注意事项：
+   * @description 1. 如果后面的属性和目标对象的属性一样
+   * @description  1.1. 后者的值不是null、undefined
+   * @description   1.1.1. 若值为数组或者对象，则进行合并属性值
+   * @description   1.1.2. 若值非引用类型则， 后者会覆盖前者
+   * @description  1.2. 后者的值若是null、undefined，就跳过，还是前者的值
+   * 
+   * @description https://q.shanyue.tech/fe/code/498.html
+   * 
+   * @description 实现lodash.merge（合并对象）
+   *
+   * @param {Object} object
+   * @param {*} sources
+   * @memberof ObjectHand
+   * @example
+   * // merge array
+   * var object = {
+      a: [{ b: 2 }, { d: 4 }],
+     }
+     objectHand.merge(object, { a: [{ c: 3 }, { e: 5 }] })
+     console.log(JSON.stringify(object)) // {"a":[{"b":2},{"d":4},{"c":3},{"e":5}]}
+     
+    // merge object
+    var object = {
+      a: { b: { c: 1 } },
+    }
+    objectHand.merge(object, { a: { b: { d: 2 } } })
+    // console.log(JSON.stringify(object));  // {"a":{"b":{"c":1,"d":2}}}
+
+    // overwrite primitive value
+    // 如果后面的属性和目标对象的属性一样（且非undefined），后者会覆盖前者
+    var object = {
+      a: { b: 1 },
+    };
+    objectHand.merge(object, { a: { b: 2 } });
+    // console.log(JSON.stringify(object));  // {"a":{"b":2}}
+
+    // // skip undefined  
+    // 如果后面的属性和目标对象的属性一样（且后者是undefined），值还是前者
+    object = {
+      a: { b: 1 },
+    };
+    objectHand.merge(object, { a: { b: undefined } });
+    // console.log(JSON.stringify(object));  // {"a":{"b":1}}
+
+    // multiple sources
+    // 若值为数组或者对象，则进行合并属性值
+    var object = {
+      a: { b: { c: 1, d: [1] } },
+    };
+    objectHand.merge(object, { a: { b: { e: 2 } } }, { a: { b: { d: [2] } } });
+    // console.log(JSON.stringify(object));  // {"a":{"b":{"c":1,"d":[1,2],"e":2}}}
+   */
+  merge(object, ...sources) {
+    // 获取引用类型的类型
+    const getRawType = (val) => {
+      return Object.prototype.toString.call(val).slice(8, -1)
+    }
+    const isPlainObject = (val) => {
+      return getRawType(val) === "Object"
+    }
+
+    const isPlainObjectOrArray = (val) => {
+      return isPlainObject(val) || Array.isArray(val)
+    }
+    
+    // for...of遍历可数组
+    for (const source of sources) {
+      // for...in遍历对象数组
+      for (const key in source) {
+        if (source[key] === undefined && key in object) {
+          continue
+        }
+        if (isPlainObjectOrArray(source[key])) {
+          if (
+            isPlainObjectOrArray(object[key]) &&
+            getRawType(object[key]) === getRawType(source[key])
+          ) {
+            // 是对象才进行递归
+            if (isPlainObject(object[key])) {
+              this.merge(object[key], source[key])
+            } else {
+              object[key] = object[key].concat(source[key])
+            }
+          } else {
+            object[key] = source[key]
+          }
+        } else {
+          object[key] = source[key]
+        }
+      }
+    }
   }
 }
 
