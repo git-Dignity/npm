@@ -39,7 +39,9 @@ export default (isLog) => {
 
   // console.log(strTool.stripHTMLTags('<p><em>lorem</em> <strong>ipsum</strong></p>'))   // 'lorem ipsum'
 
-  // console.log(strTool.xxx())   // 1
+  // console.log(strTool.getFrequentChar2("abcdassd"))   // ["a", 2]
+
+  console.log(strTool.trim(" dg   g145415  44 ",1)) // dgg14541544
 
   // console.log(strTool.xxx())   // 1
 

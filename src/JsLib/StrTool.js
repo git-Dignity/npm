@@ -99,11 +99,11 @@ class StrTool {
 
   /**
    * @description 思路：利用Blob对象，默认编码是UTF-8（中文：3；英文：1）
-   * 
+   *
    * @description 获取不同类型变量的字节长度
    *
    * @param {*} val 值/引用
-   * @return {Number} 
+   * @return {Number}
    * @memberof StrTool
    * @example
    * typeSize('2333哈哈')   // 10
@@ -190,6 +190,69 @@ class StrTool {
    */
   stripHTMLTags(str) {
     return str.replace(/<[^>]*>/g, "")
+  }
+
+  /**
+   * @description 实现思路：
+   * @description 1. dict对象有全部属性的key、value。方便给maxChar赋值
+   * @description 2. 对目标字符串str进行for...of遍历
+   * @description 3. dict对象负责记录每次循环的属性和次数
+   * @description 4. 如果dict有属性次数大于maxChar的，maxChar存起来
+   * @description 5. 迭代器遍历结束，返回maxChar
+   * 
+   * @description https://q.shanyue.tech/fe/code/652.html
+   * 
+   * @description for...of可遍历数组字符串，对象不可以，因为对象没有迭代器Symbol（最近在看各种for）
+   * @description 一边进行计数统计一遍进行大小比较，只需要 1 次 O(n) 的算法复杂度
+   * 
+   * @description 统计字符串中出现次数最多的字符及次数
+   *
+   * @param {String} str 目标字符串
+   * @return {Array} [属性名, 次数]
+   * @memberof StrTool
+   * @example
+   * getFrequentChar2("abcdassd") // ["a", 2]
+   */
+  getFrequentChar2(str) {
+    const dict = {}
+    let maxChar = ["", 0]
+    for (const char of str) {
+      dict[char] = (dict[char] || 0) + 1
+      if (dict[char] > maxChar[1]) {
+        maxChar = [char, dict[char]]
+      }
+    }
+    return maxChar
+  }
+
+  
+  /**
+   * @description 去除空格
+   *
+   * @param {string} str 待处理字符串
+   * @param {number} [type=1] 去除空格类型 1-所有空格  2-前后空格  3-前空格 4-后空格 默认为1
+   * @return {String}
+   * @memberof StrTool
+   * @example
+   * trim(" dg   g145415  44 ",1) // dgg14541544
+   */
+   trim(str, type = 1) {
+    if (type && type !== 1 && type !== 2 && type !== 3 && type !== 4) return
+    switch (type) {
+      case 1:
+        return str.replace(/\s/g, "")
+      // return str.trim()
+      case 2:
+        return str.replace(/(^\s)|(\s*$)/g, "")
+      case 3:
+        return str.replace(/(^\s)/g, "")
+      // return str.trimStart()
+      case 4:
+        return str.replace(/(\s$)/g, "")
+      // return str.trimEnd()
+      default:
+        return str
+    }
   }
 }
 

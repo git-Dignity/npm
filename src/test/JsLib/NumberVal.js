@@ -30,6 +30,8 @@ export default (isLog) => {
     // console.log(numberVal.randomNumInteger(10)) // 8
     // console.log(numberVal.randomNumInteger(10,20))    // 16
 
+    // console.log(numberVal.notRepeatNum(6))    // 549783
+
     // console.log(numberVal.add(0.1,0.2))  // 0.3
 
     // console.log(numberVal.sub(0.2, 0.1)) // 0.1

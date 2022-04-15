@@ -875,6 +875,8 @@ class ArrayTool {
     }
     return result
   }
+
+  
 }
 
 export default ArrayTool
