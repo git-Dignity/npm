@@ -74,6 +74,8 @@ import initSetTimeoutSetInterval from './test/Interview/SetTimeoutSetInterval'
 import initInterviewArray from './test/Interview/Array'
 // 面试 -- 字符串类
 import initInterviewString from './test/Interview/String'
+// 面试 -- 网络类
+import initInterviewInternet from './test/Interview/Internet'
 
 
 // 算法
@@ -432,7 +434,7 @@ class App {
     // this.initPopover()
     initJSHand(false) // 还没有写完
     initArrayHand(false)
-    initObjectHand(true)
+    initObjectHand(false)
     initStringHand(false)
     initPromiseHand(false, true)
 
@@ -463,6 +465,7 @@ class App {
     initSetTimeoutSetInterval(false)
     initInterviewArray(false)
     initInterviewString(false)
+    initInterviewInternet(true)
   }
 }
 

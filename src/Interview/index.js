@@ -10,10 +10,12 @@ import Number from './Number'
 import SetTimeoutSetInterval from './SetTimeoutSetInterval'
 import Array from './Array'
 import String from './String'
+import Internet from './Internet'
 
 export {
     Number,
     SetTimeoutSetInterval,
     Array,
-    String
+    String,
+    Internet
 }

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<script>
+    // 简述 koa 的中间件原理，手写 koa-compose 代码
+    // https://q.shanyue.tech/fe/code/643.html
+
+    /*
+      解读koa-compose 
+      compose是将多个函数合并成一个函数（形如： g() + h() => g(h())），
+      koa-compose则是将 koa/koa-router 各个中间件合并执行，结合 next() 就形成了洋葱式模型
+      如：下例子
+      结果是1 2 3 4 5 6，可以看出先按顺序执行 middlewares 数组中每个中间件 next 前的代码，之后倒序执行 next 后的代码，
+      相当于一根牙签横穿洋葱，先从外到内，再从内到外，所以叫做洋葱模型。
+    */
+
+    const middlewares = [];
+
+    middlewares.push(async function (ctx, next) {
+        console.log("1");
+        await next();
+        console.log("6");
+    });
+
+    middlewares.push(async function (ctx, next) {
+        console.log("2");
+        await next();
+        console.log("5");
+    });
+
+    middlewares.push(async function (ctx, next) {
+        console.log("3");
+        await next();     // await一直在等next有才执行
+        console.log("4");
+    });
+
+    async function run() {
+        const middleware = middlewares.shift();
+        console.log(middleware);
+        await (middleware && middleware({}, run));
+    }
+
+    run(); // expect output: 1 2 3 4 5 6
+
+    /* 
+      这个就很有意思了，我来分析分析
+
+      1. 执行run方法，首先shift获取第一个函数出来，并且执行它，即
+      async function (ctx, next) {
+        console.log("1");
+        await next();
+        console.log("6");
+      }
+      传入参数{}, run，代入
+      async function ({}, run) {
+        console.log("1");
+        await next();
+        console.log("6");
+      }
+      输出1
+
+      2. 遇到next()，next即run，执行run
+      run() {
+        const middleware = middlewares.shift();
+        console.log(middleware);
+        await (middleware && middleware({}, run));
+      }
+      取出第二个函数出来，并且执行它，即
+      async function (ctx, next) {
+        console.log("2");
+        await next();
+        console.log("5");
+      }
+      传入参数{}, run，代入
+      async function ({}, run) {
+        console.log("2");
+        await next();
+        console.log("5");
+      }
+      输出2
+
+      3. 遇到next()，next即run，执行run
+      run中取出第三个函数出来，并且执行它，即
+      async function (ctx, next) {
+        console.log("3");
+        await next();     
+        console.log("4");
+      }
+      输出3
+
+      4. 遇到next()，next即run，执行run
+      此时middlewares数组已无值，await (middleware && middleware({}, run)); 并不会执行
+      console.log(middleware);  这里打印可以看到也是undefined
+      接着next执行完，输出4
+      
+      5. 第二个函数看到第三个函数已经执行完，即第二个next执行完成
+      输出5，同理
+      第一个函数看到第二个函数已经执行完，即第一个next执行完成
+      输出6
+      结束
+
+      传入函数，让其await执行函数，这样就先执行next前的代码，之后执行next就倒序执行next后的代码
+      从外到内，再从内到外，洋葱思想
+    */
+</script>

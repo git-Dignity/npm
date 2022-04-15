@@ -43,12 +43,13 @@ export default (isLog) => {
     // console.log(numberVal.sum(1, 2, 3, 4)) // 10
     // console.log(numberVal.sum(...[1, 2, 3, 4])) // 10
 
-    console.log(numberVal.toCurrency(123456.789, 'EUR')) // €123,456.79
-    console.log(numberVal.toCurrency(123456.789, 'USD', 'en-us')) // $123,456.79
-    console.log(numberVal.toCurrency(123456.789, 'USD', 'fa')) // ‎$۱۲۳٬۴۵۶٫۷۹
-    console.log(numberVal.toCurrency(322342436423.2435, 'JPY')) // JP¥322,342,436,423
+    // console.log(numberVal.toCurrency(123456.789, 'EUR')) // €123,456.79
+    // console.log(numberVal.toCurrency(123456.789, 'USD', 'en-us')) // $123,456.79
+    // console.log(numberVal.toCurrency(123456.789, 'USD', 'fa')) // ‎$۱۲۳٬۴۵۶٫۷۹
+    // console.log(numberVal.toCurrency(322342436423.2435, 'JPY')) // JP¥322,342,436,423
 
-    // console.log(numberVal.xxx()) //
+    // console.log(numberVal.numberThousands(1234567)) // 1,234,567
+    // console.log(numberVal.numberThousands(1234567.89)) // 1,234,567.89
 
     // console.log(numberVal.xxx()) //
 

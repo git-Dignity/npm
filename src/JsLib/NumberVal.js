@@ -277,6 +277,43 @@ class NumberVal {
       currency: curr,
     }).format(n)
   }
+
+  /**
+   * @description 实现思路：
+   * @description 1. 要进行循环，首先我们需要先转为字符串
+   * @description 2. 通过split切割小数点，让小数点前后分离（解决小数点转换异常）
+   * @description 3. 进行while循环，条件是：整数部分长度只要大于3，即一直循环
+   * @description 4. 循环内，先用substring取后三位，取完replace删掉，赋值给result变量（累加的）
+   * @description 5. 整数部分可能只剩下1~2个，便跳出循环
+   * @description 6. 若还有长度，即进行累加在result变量上
+   * @description 7. 最后一步返回，result，若有小数点decimal，也拼接上
+   * 
+   * @description https://q.shanyue.tech/fe/code/610.html
+   * 
+   * @description 数字添加千位符
+   *
+   * @param {Number} number 
+   * @return {Dobule} 
+   * @memberof NumberVal
+   * @example
+   * numberVal.numberThousands(1234567) // 1,234,567
+   * numberVal.numberThousands(1234567.89) // 1,234,567.89
+   */
+  numberThousands(number) {
+    const numberStr = String(number);
+    let result = "";
+    let [interger, decimal] = numberStr.split("."); // decimal解决小数点的问题
+    while (interger.length > 3) {
+      // 倒数三位数字
+      let subStr = interger.substring(interger.length - 3);
+      interger = interger.replace(subStr, "");
+      result = `,${subStr}${result}`;
+    }
+    if (interger.length) {
+      result = `${interger}${result}`;
+    }
+    return result + (decimal ? `.${decimal}` : "");
+  }
 }
 
 export default NumberVal
