@@ -445,7 +445,7 @@ class App {
     initFile(false)
     initDom(false)
     initTool(false)
-    initArrayTool(false)
+    initArrayTool(true)
     initStrTool(false)
     initCheck(false)
     initBrowser(false)
@@ -465,7 +465,7 @@ class App {
     initSetTimeoutSetInterval(false)
     initInterviewArray(false)
     initInterviewString(false)
-    initInterviewInternet(true)
+    initInterviewInternet(false)
   }
 }
 

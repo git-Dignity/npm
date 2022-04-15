@@ -167,6 +167,18 @@ export default (isLog) => {
   // console.log(proxyArray[-10]) // 9
   // console.log(proxyArray[-20]) // 8
 
+  // maxBy 
+  const data = [{ value: 6 }, { value: 2 }, { value: 7 },{ value: 4 }, { value: 7 },{ value: 1 }]
+
+  const maxBy1 = arrayTool.maxBy1(data, (x) => x.value)
+  // console.log(maxBy1) //=> {value: 7}
+
+  const maxBy2 = arrayTool.maxBy2(data, (x) => x.value)
+  // console.log(maxBy2) //=> [{ value: 7 }, { value: 7 }]
+
+  const maxBy3 = arrayTool.maxBy3(data, (x) => x.value)
+  // console.log(maxBy3) //=> [{ value: 7 }, { value: 7 }]
+
   // console.log(arrayTool.xxx());
 
   // console.log(arrayTool.xxx());

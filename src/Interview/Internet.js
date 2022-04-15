@@ -26,10 +26,6 @@ class Internet {
     console.log("面试 -- 网络类Internet end^_^_^_^_^_^_^_^_^_^")
   }
 
-  async run(arr) {
-    const middleware = arr.shift()
-    await (middleware && middleware({}, run))
-  }
 }
 
 export default Internet

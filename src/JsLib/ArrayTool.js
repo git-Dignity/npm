@@ -772,6 +772,109 @@ class ArrayTool {
       },
     })
   }
+
+  /**
+   * @description 实现思路：
+   * @description 1. 利用reduce对数组进行遍历
+   * @description 2. 将传入的keyBy给定条件的函数作为函数，参数则是每次reduce遍历的x, y，进行比较，
+   * @description 3. 会将大的那个值存到reduce内，即reduce的第二个参数中
+   * @description 4. 接着继续reduce循环，直到结束
+   * @description 5. 返回reduce的第二个参数，即存的最大值
+   * 
+   * @description https://q.shanyue.tech/fe/code/646.html
+   * @description 如果最大的项有多个，只能返回最后一个
+   * @description 实现一个函数 maxBy，根据给定条件找到最大的数组项
+   *
+   * @param {Array} list 目标数组
+   * @param {Function} keyBy 给定条件的函数
+   * @return {*} 
+   * @memberof ArrayTool
+   * @example
+   * const data = [{ value: 6 }, { value: 2 }, { value: 7 },{ value: 4 }, { value: 7 },{ value: 1 }]
+
+     const maxBy1 = arrayTool.maxBy1(data, (x) => x.value)
+     console.log(maxBy1) //=> {value: 7}
+   */
+  maxBy1(list, keyBy) {
+    return list.reduce((x, y) => {
+      return keyBy(x) > keyBy(y) ? x : y
+    })
+  }
+
+  /**
+   * @description 实现思路：这个也有意思
+   * @description 1. 使用slice删掉第一项，将这第一项作为reduce初始值传入
+   * @description 2. 使用reduce遍历数组list
+   * @description 3. 比较。每次遍历的项和初始值比大小，若x大于初始值则替换掉初始值的值为x
+   * @description 4. 若相等，则往初始值push进去
+   * @description 5. 直到遍历结束，返回acc
+   * 
+   * @description 如果最大的项有多个，则多个都返回
+   * @description 实现一个函数 maxBy，根据给定条件找到最大的数组项（升级版）（方法一）
+   *
+   * @param {Array} list 目标数组
+   * @param {Function} keyBy 给定条件的函数
+   * @return {*} 
+   * @memberof ArrayTool
+   * @example
+   * const data = [{ value: 6 }, { value: 2 }, { value: 7 },{ value: 4 }, { value: 7 },{ value: 1 }]
+
+     const maxBy2 = arrayTool.maxBy2(data, (x) => x.value)
+     console.log(maxBy2) //=> [{ value: 7 }, { value: 7 }]
+   */
+  maxBy2(list, keyBy) {
+    return list.slice(1).reduce(
+      (acc, x) => {
+        // console.log(acc, x);
+        if (keyBy(x) > keyBy(acc[0])) {
+          return [x]
+        }
+        if (keyBy(x) === keyBy(acc[0])) {
+          return [...acc, x]
+        }
+        return acc
+      },
+      [list[0]]
+    )
+  }
+
+  /**
+   * @description 实现思路：
+   * @description 其实实现思路就是上方的maxBy2一样的，只不过上面用reduce会写法简洁，这里用for实现
+   * 
+   * @description 实现一个函数 maxBy，根据给定条件找到最大的数组项（升级版）（方法二）
+   *
+   * @param {Array} list 目标数组
+   * @param {Function} keyBy 给定条件的函数
+   * @return {*} 
+   * @memberof ArrayTool
+   * @example
+   * const data = [{ value: 6 }, { value: 2 }, { value: 7 },{ value: 4 }, { value: 7 },{ value: 1 }]
+
+     const maxBy3 = arrayTool.maxBy3(data, (x) => x.value)
+     console.log(maxBy3) //=> [{ value: 7 }, { value: 7 }]
+   */
+  maxBy3(array, keyBy) {
+    if (!array || !array.length) {
+      return null
+    }
+    const length = array.length
+    let max = array[0]
+    let result = [max]
+    for (let i = 1; i < length; i++) {
+      const value = array[i]
+      if (keyBy(max) === keyBy(value)) {
+        result.push(value)
+      } else if (keyBy(max) < keyBy(value)) {
+        max = value
+        result = [max]
+      }
+    }
+    if (result.length === 1) {
+      return result[0]
+    }
+    return result
+  }
 }
 
 export default ArrayTool
