@@ -7,15 +7,17 @@
  * @FilePath: \npm\src\Interview\index.js
  */
 import Number from './Number'
-import SetTimeoutSetInterval from './SetTimeoutSetInterval'
+import SetTimeoutSetInterval from './SetTimeoutSetInterval' // 定时器延时器类
 import Array from './Array'
 import String from './String'
-import Internet from './Internet'
+import Internet from './Internet'   // 网络
+import Fun from './Fun' // 函数
 
 export {
     Number,
     SetTimeoutSetInterval,
     Array,
     String,
-    Internet
+    Internet,
+    Fun
 }

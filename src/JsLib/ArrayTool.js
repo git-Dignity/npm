@@ -113,6 +113,56 @@ class ArrayTool {
   }
 
   /**
+   * @description 获取差集 数组arr1相对于arr2所没有的
+   *
+   * @param {Array} arr1
+   * @param {Array} arr2
+   * @return {Array}
+   * @memberof ArrayTool
+   * @example
+   * diffArr([2.1,2.5, 1.2], [2.3, 2.5])  // [2.1, 1.2]
+   */
+  diffArr(arr1, arr2) {
+    return arr1.filter(function (val) {
+      return arr2.indexOf(val) === -1 // -1代表找不到
+    })
+  }
+
+  /**
+   * @description 大家一起合并，然后去重
+   * @description 获取并集
+   *
+   * @param {Array} arr1
+   * @param {Array} arr2
+   * @return {Array}
+   * @memberof ArrayTool
+   * @example
+   * unionArr([2.1,2.5, 1.2], [2.3, 2.5])  // [2.1, 2.5, 1.2, 2.3]
+   */
+  unionArr(arr1, arr2) {
+    return Array.from(new Set([...arr1, ...arr2]))
+  }
+
+  /**
+   * @description 获取补集 两个数组各自没有的集合
+   *
+   * @param {Array} arr1
+   * @param {Array} arr2
+   * @return {Array}
+   * @memberof ArrayTool
+   * @example
+   * complementArr([2.1,2.5, 1.2], [2.3, 2.5])  // [2.1, 1.2, 2.3]
+   */
+  complementArr(arr1, arr2) {
+    const _arr1Set = new Set(arr1)
+    const _arr2Set = new Set(arr2)
+    return [
+      ...arr1.filter((item) => !_arr2Set.has(item)),
+      ...arr2.filter((item) => !_arr1Set.has(item)),
+    ]
+  }
+
+  /**
    * @description 数组中某元素出现的次数  ([1,2,2,3],2)
    * @param {Array} arr
    * @param {Number/String} value
@@ -875,8 +925,6 @@ class ArrayTool {
     }
     return result
   }
-
-  
 }
 
 export default ArrayTool

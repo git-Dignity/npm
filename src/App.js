@@ -62,6 +62,8 @@ import initObjectHand from "./test/HandWrit/ObjectHand"
 import initStringHand from "./test/HandWrit/StringHand"
 // 手写系列 -- Promise篇
 import initPromiseHand from "./test/HandWrit/PromiseHand"
+// 手写系列 -- Vue篇
+import initVueHand from "./test/HandWrit/VueHand"
 
 
 // 面试系列测试
@@ -76,6 +78,8 @@ import initInterviewArray from './test/Interview/Array'
 import initInterviewString from './test/Interview/String'
 // 面试 -- 网络类
 import initInterviewInternet from './test/Interview/Internet'
+// 面试 -- 函数类
+import initInterviewFun from './test/Interview/Fun'
 
 
 // 算法
@@ -437,6 +441,7 @@ class App {
     initObjectHand(false)
     initStringHand(false)
     initPromiseHand(false, true)
+    initVueHand(true)
 
     initStorage(false)
     initLRUCache(false)
@@ -446,7 +451,7 @@ class App {
     initDom(false)
     initTool(false)
     initArrayTool(false)
-    initStrTool(true)
+    initStrTool(false)
     initCheck(false)
     initBrowser(false)
     initDateOperation(false)
@@ -466,6 +471,7 @@ class App {
     initInterviewArray(false)
     initInterviewString(false)
     initInterviewInternet(false)
+    initInterviewFun(false)
   }
 }
 

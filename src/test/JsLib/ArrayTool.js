@@ -25,6 +25,12 @@ export default (isLog) => {
 
   // console.log(arrayTool.intersectionBy([2.1,2.5, 1.2], [2.3, 3.4], Math.floor))  // [2.1, 2.5]
 
+  // console.log(arrayTool.diffArr([2.1,2.5, 1.2], [2.3, 2.5]))  // [2.1, 1.2]
+
+  // console.log(arrayTool.unionArr([2.1,2.5, 1.2], [2.3, 2.5]))  // [2.1, 2.5, 1.2, 2.3]
+
+  // console.log(arrayTool.complementArr([2.1,2.5, 1.2], [2.3, 2.5]))  // [2.1, 1.2, 2.3]
+
   // console.log(arrayTool.countOccurrences([1,2,2,3],2)) // 2
   // console.log(arrayTool.countOccurrences([1, 1, 2, 1, '1', '1', 2, 3], "1")); // 2
 

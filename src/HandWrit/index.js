@@ -11,6 +11,7 @@ import ArrayHand from './ArrayHand'
 import ObjectHand from './ObjectHand'
 import StringHand from './StringHand'
 import PromiseHand from './PromiseHand'
+import VueHand from './VueHand' // Vue相关底层方法
 
 export {
     JSHand,
@@ -18,4 +19,5 @@ export {
     ObjectHand,
     StringHand,
     PromiseHand,
+    VueHand
 }

@@ -244,6 +244,7 @@ class StrTool {
       // return str.trim()
       case 2:
         return str.replace(/(^\s)|(\s*$)/g, "")
+        // return str.trimStart().trimEnd() 
       case 3:
         return str.replace(/(^\s)/g, "")
       // return str.trimStart()
