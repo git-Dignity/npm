@@ -547,7 +547,7 @@ class Tool {
    *      }
    * });
    *
-   * //   console.log(sumTco(1, 5));   //6    实际上现在sum函数就是accumulator函数   else那得到的
+   * console.log(sumTco(1, 5));   //6    实际上现在sum函数就是accumulator函数   else那得到的
    */
   tco(f) {
     // 例子：
@@ -588,28 +588,6 @@ class Tool {
   }
 
 
-  /**
-   * @description 大小写转换
-   *
-   * @param {String} str 待转换的字符串
-   * @param {Number} type 1-全大写 2-全小写 3-首字母大写 其他-不转换
-   * @return {*}
-   * @memberof Tool
-   * @example
-   * turnCase("asFG",1)  // ASFG
-   */
-  turnCase(str, type) {
-    switch (type) {
-      case 1:
-        return str.toUpperCase()
-      case 2:
-        return str.toLowerCase()
-      case 3:
-        return str[0].toUpperCase() + str.substr(1).toLowerCase()
-      default:
-        return str
-    }
-  }
 
   /**
    * @description 随机16进制颜色 hexColor（方法一）

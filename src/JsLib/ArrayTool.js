@@ -925,6 +925,105 @@ class ArrayTool {
     }
     return result
   }
+
+  /**
+   * @description 实现思路
+   * @description 1. 利用reduce对数组进行遍历
+   * @description 2. 将每次遍历的x项传入by函数获取目标属性
+   * @description 3. 看看acc对象（存储每次遍历的x）有没有该属性
+   * @description 4. 有则push，无则创建该属性作为key，val为该遍历的x项
+   * 
+   * @description https://q.shanyue.tech/fe/code/698.html
+   * @description 实现一个函数 groupBy(类似 lodash.groupBy数组分组)
+   *
+   * @param {Array} collection 目标数组
+   * @param {Function} by 按by函数分组
+   * @return {Object} 
+   * @memberof ArrayTool
+   * @example
+   * const groupBy = arrayTool.groupBy(
+      [
+        { id: 1, name: "山月", sex: "male" },
+        { id: 2, name: "张三", sex: "female" },
+        { id: 3, name: "李四", sex: "female" },
+      ],
+      (x) => x.sex
+     )
+
+     console.log(JSON.stringify(groupBy))
+     // {
+     //   "male":[{"id":1,"name":"山月","sex":"male"}],
+     //   "female":[{"id":2,"name":"张三","sex":"female"},{"id":3,"name":"李四","sex":"female"}]
+     // }
+   */
+  groupBy(collection, by) {
+    return collection.reduce((acc, x) => {
+      if (acc[by(x)]) {
+        acc[by(x)].push(x)
+      } else {
+        acc[by(x)] = [x]
+      }
+      return acc
+    }, {})
+  }
+
+  /**
+   * @description 实现思路
+   * @description 1. 其实就内部实现两个方法where、orderBy
+   * @description 2. 第一个方法where可对属性进行过滤，那自然想到filter去过滤数据
+   * @description 3. 使用Object.entries去解析拿到where传入的对象进行解析获取属性
+   * @description 4. 从而再进行链式使用every进行遍历，where中可传正则，先判断是否是正则表达式
+   * @description 5. 是的话就使用test判断值是否相等，不是正则直接使用===判断是否相等
+   * @description 6. 过滤完后返回this
+   * @description 7. 第二个方法orderBy对属性进行排序，使用sort
+   * 
+   * @description https://q.shanyue.tech/fe/code/712.html
+   * @description 如何实现一个 ORM 类似的 find 链式调用
+   *
+   * @param {Array} data 目标数组
+   * @return {Array} 
+   * @memberof ArrayTool
+   * @example
+   * var dataArr = [
+      {userId: 8, title: 'title1'},
+      {userId: 11, title: 'other'},
+      {userId: 15, title: null},
+      {userId: 19, title: 'title2'}
+     ];
+    
+     // 查找data中，符合where中条件的数据，并根据orderBy中的条件进行排序
+     const result = arrayTool.findORM(dataArr).where({
+       "title": /\d$/   // 这里意思是过滤出数组中，满足title字段中符合 /\d$/的项（数字）
+     }).orderBy('userId', 'desc');  // 这里的意思是对数组中的项按照userId进行倒序排列
+    
+     console.log(result.data); // [{ userId: 19, title: 'title2'}, { userId: 8, title: 'title1' }];
+   */
+  findORM(data) {
+    return {
+      data,
+      where(match) {
+        this.data = this.data.filter((item) => {
+          return Object.entries(match).every(([key, value]) => {
+            if (
+              value instanceof RegExp &&
+              Object.prototype.toString.call(value).slice(8, -1) === "RegExp"
+            ) {
+              return value.test(item[key])
+            }
+            return item[key] === value
+          })
+        })
+        return this
+      },
+
+      orderBy(key, type) {
+        this.data.sort((x, y) =>
+          type !== "desc" ? x[key] - y[key] : y[key] - x[key]
+        )
+        return this
+      },
+    }
+  }
 }
 
 export default ArrayTool

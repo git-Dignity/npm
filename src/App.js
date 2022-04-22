@@ -64,6 +64,8 @@ import initStringHand from "./test/HandWrit/StringHand"
 import initPromiseHand from "./test/HandWrit/PromiseHand"
 // 手写系列 -- Vue篇
 import initVueHand from "./test/HandWrit/VueHand"
+// 手写系列 -- vue-router核心原理
+import initVueRouterHand from "./test/HandWrit/VueRouterHand"
 
 
 // 面试系列测试
@@ -441,7 +443,8 @@ class App {
     initObjectHand(false)
     initStringHand(false)
     initPromiseHand(false, true)
-    initVueHand(true)
+    initVueHand(false)
+    initVueRouterHand(false)
 
     initStorage(false)
     initLRUCache(false)
@@ -458,7 +461,7 @@ class App {
     this.initDesignModel()
 
     initAlgorithm(false)
-    initArrayAlgorithm(false)
+    initArrayAlgorithm(true)
     initInterview(false)
     this.initHandleWrite()
 

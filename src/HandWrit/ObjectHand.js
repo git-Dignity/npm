@@ -176,7 +176,7 @@ class ObjectHand {
     const isPlainObjectOrArray = (val) => {
       return isPlainObject(val) || Array.isArray(val)
     }
-    
+
     // for...of遍历可数组
     for (const source of sources) {
       // for...in遍历对象数组
@@ -202,6 +202,66 @@ class ObjectHand {
           object[key] = source[key]
         }
       }
+    }
+  }
+
+
+  /**
+   * @description 实现思路
+   * @description 1. 使用typeof看看该类型
+   * @description 2. 如果不是object类型，即使用String方法包裹返回
+   * @description 3. 如果是object类型，对obj进行for...in循环（其实不建议用for...in效率太慢，会去遍历原型链）
+   * @description 4. 如果for遍历的每一个值不是object，即'"' + v + '"'包裹
+   * @description 5. 如果是object，即递归调用jsonStringify
+   * @description 6. 步骤4、5返回值存在我们定义的json数组中
+   * @description 7. 遍历结束后，拼接字符串，"{ String(json) }"
+   * @description 8. 当然如果数组的话，用[]包裹
+   * 
+   * @description 注意事项
+   * @description 1. Boolean | Number| String 类型会自动转换成对应的原始值
+   * @description 2. undefined、任意函数以及symbol，会被忽略（出现在非数组对象的属性值中时），或者被转换成 null（出现在数组中时）
+   * @description 3. 不可枚举的属性会被忽略
+   * @description 4. 如果一个对象的属性值通过某种间接的方式指回该对象本身，即循环引用，属性也会被忽略
+   * 
+   * @description https://juejin.cn/post/6844903809206976520#heading-1
+   * @description 实现一个JSON.stringify
+   *
+   * @param {Object} obj 目标对象
+   * @return {String} 
+   * @memberof ObjectHand
+   * @example
+   * const jsonStringify1 = objectHand.jsonStringify({ x: 5 })
+     console.log(jsonStringify1) // "{"x":5}"
+
+     const jsonStringify2 = objectHand.jsonStringify([1, "false", false])
+     console.log(jsonStringify2) // "[1,"false",false]"
+
+     const jsonStringify3 = objectHand.jsonStringify({ b: undefined, c:[1], d:{a:1} })
+     console.log(jsonStringify3) // "{"b":"undefined","c":[1],"d":{"a":1}}"
+   */
+  jsonStringify(obj) {
+    let type = typeof obj
+    if (type !== "object") {
+      if (/string|undefined|function/.test(type)) {
+        obj = '"' + obj + '"'
+      }
+      return String(obj)
+    } else {
+      let json = []
+      let arr = Array.isArray(obj)
+      for (let k in obj) {
+        if (obj.hasOwnProperty(k)) {
+          let v = obj[k]
+          let type = typeof v
+          if (/string|undefined|function/.test(type)) {
+            v = '"' + v + '"'
+          } else if (type === "object") {
+            v = this.jsonStringify(v)
+          }
+          json.push((arr ? "" : '"' + k + '":') + String(v))
+        }
+      }
+      return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}")
     }
   }
 }

@@ -199,12 +199,12 @@ class StrTool {
    * @description 3. dict对象负责记录每次循环的属性和次数
    * @description 4. 如果dict有属性次数大于maxChar的，maxChar存起来
    * @description 5. 迭代器遍历结束，返回maxChar
-   * 
+   *
    * @description https://q.shanyue.tech/fe/code/652.html
-   * 
+   *
    * @description for...of可遍历数组字符串，对象不可以，因为对象没有迭代器Symbol（最近在看各种for）
    * @description 一边进行计数统计一遍进行大小比较，只需要 1 次 O(n) 的算法复杂度
-   * 
+   *
    * @description 统计字符串中出现次数最多的字符及次数
    *
    * @param {String} str 目标字符串
@@ -225,7 +225,6 @@ class StrTool {
     return maxChar
   }
 
-  
   /**
    * @description 去除空格
    *
@@ -236,7 +235,7 @@ class StrTool {
    * @example
    * trim(" dg   g145415  44 ",1) // dgg14541544
    */
-   trim(str, type = 1) {
+  trim(str, type = 1) {
     if (type && type !== 1 && type !== 2 && type !== 3 && type !== 4) return
     switch (type) {
       case 1:
@@ -244,7 +243,7 @@ class StrTool {
       // return str.trim()
       case 2:
         return str.replace(/(^\s)|(\s*$)/g, "")
-        // return str.trimStart().trimEnd() 
+      // return str.trimStart().trimEnd()
       case 3:
         return str.replace(/(^\s)/g, "")
       // return str.trimStart()
@@ -254,6 +253,76 @@ class StrTool {
       default:
         return str
     }
+  }
+
+  /**
+   * @description 大小写转换
+   *
+   * @param {String} str 待转换的字符串
+   * @param {Number} type 1-全大写 2-全小写 3-首字母大写 其他-不转换
+   * @return {*}
+   * @memberof StrTool
+   * @example
+   * turnCase("asFG",1)  // ASFG
+   */
+  turnCase(str, type) {
+    switch (type) {
+      case 1:
+        return str.toUpperCase()
+      case 2:
+        return str.toLowerCase()
+      case 3:
+        return str[0].toUpperCase() + str.substr(1).toLowerCase()
+      default:
+        return str
+    }
+  }
+
+  /**
+   * @description 实现思路
+   * @description 1. 使用replace进行查找替换
+   * @description 2. 使用正则匹配A-Z字母大写的，找到一个就往前面加“-”，并使用toLowerCase转为小写(A => -a)
+   * @description 3. 因为第一个大写字母前加了“-”，我们还需删掉第一个“-”字符，再返回
+   * @description 4. replace是每找到一个大写字符就替换，找完继续找下一个，即遍历，重复1-3步骤
+   * 
+   * @description https://q.shanyue.tech/fe/code/703.html
+   * @description 驼峰转短横线
+   *
+   * @param {String} str 目标字符串
+   * @return {String} 
+   * @memberof StrTool
+   * @example
+   * toKebabCase("GetElementById") // get-element-by-id
+   */
+  toKebabCase(str) {
+    let res = str.replace(/([A-Z])/g, (all, i) => {
+      return "-" + i.toLowerCase()
+    })
+    if (res.slice(0, 1) === "-") {
+      res = res.slice(1) //去除开头的-
+    }
+    return res
+  }
+  
+  /**
+   * @description 实现思路
+   * @description 1. 使用replace进行字符串替换
+   * @description 2. 使用正则匹配“-”字符和后面有字母的，使用toUpperCase转为大写（-a => A ）
+   * @description 3. 找完继续找下一个，即遍历，重复1-2步骤
+   * 
+   * @description https://q.shanyue.tech/fe/code/703.html
+   * @description 短横线转驼峰
+   *
+   * @param {*} str
+   * @return {*} 
+   * @memberof StrTool
+   * @example
+   * toCamelCase("get-element-by-id") // getElementById
+   */
+  toCamelCase(str) {
+    return str.replace(/-([a-zA-Z])/g, function (all, i) {
+      return i.toUpperCase()
+    })
   }
 }
 

@@ -34,7 +34,7 @@ export default (isLog) => {
     "f",
     "g",
   ])
-  //   console.log(combinationNewStr) // a;s;d;1-3;5-6;h2;9;12-15;f;g
+    // console.log(combinationNewStr) // a;s;d;1-3;5-6;h2;9;12-15;f;g
 
   //   twoSum
   const twoSum = algorithm.twoSum([3, 2, 4], 6)
@@ -48,6 +48,9 @@ export default (isLog) => {
 
   const twoSum3 = algorithm.twoSum1([2, 7, 11, 15], 9)
   // console.log(twoSum3) // [0, 1]
+
+  const twoSum4 = algorithm.twoSum1([2, 77, 7, 11, 15], 9)
+  // console.log(twoSum4) // [0, 2]
 
   //   twoSum end
 
@@ -64,6 +67,7 @@ export default (isLog) => {
   const isValid3 = algorithm.isValid1("{[(])}")
   // console.log(isValid3) // false
 
+
   // isValid end
 
   // arrayToTree start
@@ -77,6 +81,7 @@ export default (isLog) => {
   let result = []
   const arrayToTree = algorithm.arrayToTree(arr, result, 0)
   // console.log(arrayToTree)
+
 
   const arrayToTree1 = algorithm.arrayToTree1(arr)
   // console.log(arrayToTree1)
@@ -121,6 +126,7 @@ export default (isLog) => {
 
   const fib4 = algorithm.fib4(6)
   // console.log(fib4); // 8
+
 
   
 

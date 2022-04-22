@@ -93,25 +93,34 @@ export default (isLog) => {
   // 如果后面的属性和目标对象的属性一样（且非undefined），后者会覆盖前者
   var object = {
     a: { b: 1 },
-  };
-  objectHand.merge(object, { a: { b: 2 } });
+  }
+  objectHand.merge(object, { a: { b: 2 } })
   // console.log(JSON.stringify(object));  // {"a":{"b":2}}
 
-  // // skip undefined  
+  // // skip undefined
   // 如果后面的属性和目标对象的属性一样（且后者是undefined），值还是前者
   object = {
     a: { b: 1 },
-  };
-  objectHand.merge(object, { a: { b: undefined } });
+  }
+  objectHand.merge(object, { a: { b: undefined } })
   // console.log(JSON.stringify(object));  // {"a":{"b":1}}
 
   // multiple sources
   // 若值为数组或者对象，则进行合并属性值
   var object = {
     a: { b: { c: 1, d: [1] } },
-  };
-  objectHand.merge(object, { a: { b: { e: 2 } } }, { a: { b: { d: [2] } } });
+  }
+  objectHand.merge(object, { a: { b: { e: 2 } } }, { a: { b: { d: [2] } } })
   // console.log(JSON.stringify(object));  // {"a":{"b":{"c":1,"d":[1,2],"e":2}}}
+
+  const jsonStringify1 = objectHand.jsonStringify({ x: 5 })
+  // console.log(jsonStringify1) // "{"x":5}"
+
+  const jsonStringify2 = objectHand.jsonStringify([1, "false", false])
+  // console.log(jsonStringify2) // "[1,"false",false]"
+
+  const jsonStringify3 = objectHand.jsonStringify({ b: undefined, c:[1], d:{a:1} })
+  // console.log(jsonStringify3) // "{"b":"undefined","c":[1],"d":{"a":1}}"
 
   objectHand.end()
 }

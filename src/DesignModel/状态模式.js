@@ -6,7 +6,7 @@ class State{
         this.color = color;
     }
     handle(context){
-        console.log(`${this.color}`)
+        // console.log(`${this.color}`)
         context.setState(this)
     }
 }

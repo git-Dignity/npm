@@ -43,28 +43,10 @@ export default (isLog) => {
 
   // console.log(strTool.trim(" dg   g145415  44 ",1)) // dgg14541544
 
-  // console.log(strTool.xxx())   // 1
+  // console.log(strTool.turnCase("asFG",1))  // ASFG
 
-  // console.log(strTool.xxx())   // 1
-
-  // console.log(strTool.xxx())   // 1
-
-  // console.log(strTool.xxx())   // 1
-
-  // console.log(strTool.xxx())   // 1
-
-  // console.log(strTool.xxx())   // 1
-
-  // console.log(strTool.xxx())   // 1
-
-  // console.log(strTool.xxx())   // 1
-
-  // console.log(strTool.xxx())   // 1
-  // console.log(strTool.xxx())   // 1
-
-  // console.log(strTool.xxx())   // 1
-
-  // console.log(strTool.xxx())   // 1
+  // console.log(strTool.toKebabCase("GetElementById")) // get-element-by-id
+  // console.log(strTool.toCamelCase("get-element-by-id")) // getElementById
 
   // console.log(strTool.xxx())   // 1
 
@@ -83,13 +65,6 @@ export default (isLog) => {
   // console.log(strTool.xxx())   // 1
 
   // console.log(strTool.xxx())   // 1
-
-  // console.log(strTool.xxx())   // 1
-
-  // console.log(strTool.xxx())   // 1
-
-  // console.log(strTool.xxx())   // 1
-  
   // console.log(strTool.xxx())   // 1
 
   // console.log(strTool.xxx())   // 1
@@ -119,7 +94,36 @@ export default (isLog) => {
   // console.log(strTool.xxx())   // 1
 
   // console.log(strTool.xxx())   // 1
-  
-  
+
+  // console.log(strTool.xxx())   // 1
+
+  // console.log(strTool.xxx())   // 1
+
+  // console.log(strTool.xxx())   // 1
+
+  // console.log(strTool.xxx())   // 1
+
+  // console.log(strTool.xxx())   // 1
+
+  // console.log(strTool.xxx())   // 1
+
+  // console.log(strTool.xxx())   // 1
+
+  // console.log(strTool.xxx())   // 1
+
+  // console.log(strTool.xxx())   // 1
+
+  // console.log(strTool.xxx())   // 1
+
+  // console.log(strTool.xxx())   // 1
+
+  // console.log(strTool.xxx())   // 1
+
+  // console.log(strTool.xxx())   // 1
+
+  // console.log(strTool.xxx())   // 1
+
+  // console.log(strTool.xxx())   // 1
+
   strTool.end()
 }

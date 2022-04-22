@@ -12,6 +12,9 @@ import ObjectHand from './ObjectHand'
 import StringHand from './StringHand'
 import PromiseHand from './PromiseHand'
 import VueHand from './VueHand' // Vue相关底层方法
+// MVVMHand.html
+import VueRouterHand from './VueRouterHand' // 手写vue-router的核心原理
+
 
 export {
     JSHand,
@@ -19,5 +22,6 @@ export {
     ObjectHand,
     StringHand,
     PromiseHand,
-    VueHand
+    VueHand,
+    VueRouterHand
 }

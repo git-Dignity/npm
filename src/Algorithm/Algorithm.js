@@ -30,12 +30,23 @@ class Algorithm {
   }
 
   /**
+   * @description 思路分析：
+   * @description 1. 先定义i为0，m则为1
+   * @description 2. 通过while循环来让数组组合成相邻数字连接在一起
+   * @description 3. i小于传入的data长度，则一直循环下去
+   * @description 4. 循环内判断下一个数字和当前数字相减如果是等于1，则为相邻数字，即m++
+   * @description 5. 如果不是的话，则证明是不连续的，存进result
+   * @description 6. 如果m-1大于i则证明是那个连续的，因为之前进入if的时候让m++了，此时m-1就会大于i，则相连数字拼接起来
+   * @description 7. 若小于i，则证明是不连续的，直接将值存进result
+   * @description 8. 将m值赋值i，m++
+   * @description 9. 直到i大于传入的data的长度，循环结束，返回result
+   *
    * @description 不规则json数组,组合成新string数据(轻微烧脑3种解法):https://www.jianshu.com/p/1573d778c558
    *
    * @description 相邻数字连接在一起
    *
-   * @param {*} data
-   * @return {*}
+   * @param {Array} data
+   * @return {String}
    * @memberof Algorithm
    * @example
    * ["a", "s", "d", "1", "2", "3", "5", "6", "h6", "9", "12", "13", "14", "15", "f", "g"]
@@ -54,7 +65,7 @@ class Algorithm {
         // console.log(m)
         m++
       } else {
-        // console.log(data[i] + '-' + data[m - 1]);
+        // console.log(data[i] + "-" + data[m - 1])
         result.push(m - 1 > i ? data[i] + "-" + data[m - 1] : data[i])
         i = m
         m += 1
@@ -465,7 +476,6 @@ class Algorithm {
     }
     return curFib
   }
-
 
   /**
    * @description 实现思路：

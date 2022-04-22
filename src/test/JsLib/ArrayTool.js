@@ -173,8 +173,15 @@ export default (isLog) => {
   // console.log(proxyArray[-10]) // 9
   // console.log(proxyArray[-20]) // 8
 
-  // maxBy 
-  const data = [{ value: 6 }, { value: 2 }, { value: 7 },{ value: 4 }, { value: 7 },{ value: 1 }]
+  // maxBy
+  const data = [
+    { value: 6 },
+    { value: 2 },
+    { value: 7 },
+    { value: 4 },
+    { value: 7 },
+    { value: 1 },
+  ]
 
   const maxBy1 = arrayTool.maxBy1(data, (x) => x.value)
   // console.log(maxBy1) //=> {value: 7}
@@ -184,6 +191,35 @@ export default (isLog) => {
 
   const maxBy3 = arrayTool.maxBy3(data, (x) => x.value)
   // console.log(maxBy3) //=> [{ value: 7 }, { value: 7 }]
+
+  const groupBy = arrayTool.groupBy(
+    [
+      { id: 1, name: "山月", sex: "male" },
+      { id: 2, name: "张三", sex: "female" },
+      { id: 3, name: "李四", sex: "female" },
+    ],
+    (x) => x.sex
+  )
+
+  // console.log(JSON.stringify(groupBy))
+  // {
+  //   "male":[{"id":1,"name":"山月","sex":"male"}],
+  //   "female":[{"id":2,"name":"张三","sex":"female"},{"id":3,"name":"李四","sex":"female"}]
+  // }
+
+  var dataArr = [
+    {userId: 8, title: 'title1'},
+    {userId: 11, title: 'other'},
+    {userId: 15, title: null},
+    {userId: 19, title: 'title2'}
+  ];
+  
+  // 查找data中，符合where中条件的数据，并根据orderBy中的条件进行排序
+  const result = arrayTool.findORM(dataArr).where({
+    "title": /\d$/   // 这里意思是过滤出数组中，满足title字段中符合 /\d$/的项
+  }).orderBy('userId', 'desc');  // 这里的意思是对数组中的项按照userId进行倒序排列
+  
+  console.log(result.data); // [{ userId: 19, title: 'title2'}, { userId: 8, title: 'title1' }];
 
   // console.log(arrayTool.xxx());
 

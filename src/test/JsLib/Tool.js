@@ -127,7 +127,7 @@ export default (isLog) => {
   //   console.log(sumTco(1, 5));   //6    实际上现在sum函数就是accumulator函数   else那得到的
 
   
-  // console.log(tool.turnCase("asFG",1))  // ASFG
+  
   // console.log(tool.hexColor())
 
   //         console.log(tool.escapeHTML(`
