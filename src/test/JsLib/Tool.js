@@ -107,7 +107,10 @@ export default (isLog) => {
   // window.addEventListener('resize', tool.debounce(printWidth, 900,true), false)
   // window.addEventListener('resize', tool.debounce(printHeight, 900,false), false)
 
+  
+
   // window.addEventListener("mousemove",tool.throttle(printHeight,1000,2));
+
 
   // console.log(tool.type([""]))  //array
 
@@ -147,6 +150,8 @@ export default (isLog) => {
   // console.log(tool.cutNumber(1.545454658648));   // 1.55
   // console.log(tool.cutNumber(1.545454658648, 4));   // 1.5455
 
+  // console.log(tool.keepDecimal(1.335, 2));   // 1.34
+
   // const getPow =  () =>Math.pow(2, 10);
   // console.log(tool.timeTaken(getPow));  // timeTaken: 0.010009765625 ms   // 1024
 
@@ -169,6 +174,10 @@ export default (isLog) => {
   // hub.emit("message", { hello: "world" }) // Message event fired
   // 为什么只打印一个，那是因为上面已经停止订阅了handler，自然不会打印出{ hello: "world" }；
   // message有两个订阅者，所以Message event fired还在，打印。
+
+
+
+
 
   // const startApp = function(event) {
   //   console.log(this, event); // document.body, MouseEvent
@@ -201,10 +210,12 @@ export default (isLog) => {
   const a = tool.currying(add, 1)
   // console.log(a(2, 3)) // 6
 
+
   const add1 = tool.add(1)(2)(3)(4, 5)(1)()
   // console.log(add1) // 16
   const add2 = tool.add(1, 2)(3)()
   // console.log(add2) // 6
+
 
   const get1 = tool._get({ a: null }, "a.b.c", 3)
   // console.log(get1) //  3

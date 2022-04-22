@@ -178,11 +178,15 @@ class Tool {
   }
 
   /**
+   * @description Object.fromEntries() 方法把键值对列表转换为一个对象 ['foo', 'bar']  - { foo: "bar" }
+   * 
    * @description 获取url参数（URLSearchParams）
    *
    * @param {String} [url=window.location.search] ?和后面的参数
    * @return {Object}
    * @memberof Tool
+   * const getURLParameters2 = tool.getURLParameters2("?n=哈哈&s=Smith")
+     console.log(getURLParameters2) // {n: '哈哈', s: 'Smith'}
    */
   getURLParameters2(url = window.location.search) {
     // 创建一个URLSearchParams实例
@@ -412,6 +416,8 @@ class Tool {
    * @description 首先执行函数，在接下来的200ms内有函数进来，不执行
    * @description 200ms后，有函数进来，才重复上一步的操作
    *
+   * @description 注意内部返回函数，会清空定时器
+   *
    * @description 函数防抖
    *
    * @param {Function} func 函数
@@ -461,6 +467,8 @@ class Tool {
   }
 
   /**
+   * @description 注意内部返回函数，没清空定时器
+   *
    * @description 函数节流（限制一个函数在一定时间内只能执行一次。）
    * @param {Function} func 函数
    * @param {Number} wait 延迟执行毫秒数
@@ -542,7 +550,6 @@ class Tool {
    *          return sumTco(x + 1, y - 1)//重点在这里, 每次递归返回真正函数其实还是accumulator函数
    *      }
    *      else {
-   *          //   console.log(x)
    *          return x
    *      }
    * });
@@ -586,8 +593,6 @@ class Tool {
       }
     }
   }
-
-
 
   /**
    * @description 随机16进制颜色 hexColor（方法一）
@@ -816,6 +821,51 @@ class Tool {
       number = Number(number)
     }
     return Number(number.toFixed(no))
+  }
+
+  /**
+   * @description 解决1.335.toFixed(2) // 1.33 错误
+   *
+   * @description 更加强壮，字符串、数字、NaN、异常处理
+   * @description 保留到小数点以后n位
+   *
+   * @param {*} val
+   * @param {number} [num=2]
+   * @return {*}
+   * @memberof Tool
+   * @example
+   * keepDecimal(1.335, 2);   // 1.34
+   */
+  keepDecimal(val, num = 2) {
+    if (val === "--" || val === "" || val === null || val == undefined) {
+      return "--"
+    }
+    if (Object.prototype.toString.call(val) == "[object String]") {
+      let val_new = parseFloat(val)
+      if (isNaN(val_new)) {
+        return val
+      } else {
+        try {
+          return (Math.round(val_new * 100) / 100).toFixed(num)
+          // val_new.toFixed(num)
+        } catch (error) {
+          console.error(error)
+          return val
+        }
+      }
+    }
+
+    if (isNaN(val)) {
+      return val
+    } else {
+      try {
+        return (Math.round(val * 100) / 100).toFixed(num)
+        // val_new.toFixed(num)
+      } catch (error) {
+        console.error(error)
+        return val
+      }
+    }
   }
 
   /**
