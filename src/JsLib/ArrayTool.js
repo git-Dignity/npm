@@ -332,6 +332,8 @@ class ArrayTool {
     return newArr
   }
 
+
+
   /**
    * @description 利用属性名比较
    * @description localeCompare对字符串进行排序
@@ -467,6 +469,8 @@ class ArrayTool {
     )
   }
 
+
+
   /**
    * @description 其它类型转数组
    *
@@ -532,8 +536,12 @@ class ArrayTool {
         )
       }, [])
     }
+
+    // depth为0的时候走这
     return arr.slice()
   }
+
+
 
   /**
    * @description has() 方法返回一个布尔值来指示对应的值value是否存在Set对象中。
@@ -643,7 +651,11 @@ class ArrayTool {
 
   /**
    * @description 后面加min，整体值就肯定比min最小值要大，自然不小于最小值
-   * @description Math.random() * (max - min + 1))  最大值减去最小值 + 1去乘Math.random()随机数0-1的数，那么就是两个差值的随机数；再去加最小值，算起来肯定不会超出最大值
+   * @description Math.random() * (max - min + 1))  最大值减去最小值 + 1去乘Math.random()随机数0-1的数，
+   * @description 那么就是两个差值的随机数；再去加最小值，算起来肯定不会超出最大值
+   * 
+   * @description 比如：max:20;min:10，那么Math.floor(Math.random() * (max - min + 1))，返回的值肯定是20-10 = 10；10以内的值
+   * 
    * @description 生成两数之间指定长度的随机数组
    *
    * @param {number} min 最小值
@@ -659,8 +671,10 @@ class ArrayTool {
     return Array.from(
       { length: n },
       () => Math.floor(Math.random() * (max - min + 1)) + min
+      
     )
   }
+  
 
   /**
    * @description Math.random() * arr.length  肯定在数组长度的范围内

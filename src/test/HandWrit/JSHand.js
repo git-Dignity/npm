@@ -27,7 +27,7 @@ export default (isLog) => {
     console.log(`Hello , my name is ${this.name}`)
   }
 
-  let handsomeBoy = jSHand.objectFactory(Person, "Nealyang", 25)
+  // let handsomeBoy = jSHand.objectFactory(Person, "Nealyang", 25)
   //   console.log(handsomeBoy.name) // Nealyang
   //   console.log(handsomeBoy.isHandsome) // true
   //   handsomeBoy.sayName() // Hello , my name is Nealyang
@@ -47,13 +47,13 @@ export default (isLog) => {
     }
   }
 
-  bar.call(null)
+  // bar.call(null)
 
   // console.log(bar()); //  {value: 2, name: undefined, age: undefined}
 
-  // console.log(bar.mycall(obj11, "kevin", 18)) // {value: 1, name: {…}, age: "kevin"}
+  // console.log(bar.myCall(obj11, "kevin", 18)) // {value: 1, name: {…}, age: "kevin"}
 
-  // console.log(bar.myCall1(obj11, "kevin", 18)) // {value: 1, name: {…}, age: "kevin"}
+  // console.log(bar.myCall1(obj11, "kevin", 18)) // {value: 1, name: "kevin", age: 18}
 
   const myObj = {
     name: "阿泽",
@@ -70,6 +70,8 @@ export default (isLog) => {
   // apply例子
   // console.log(bar.myApply(obj11, ['kevin', 18]));  // {value: 1, name: {…}, age: "kevin"}
 
+  // console.log(bar.myApply1(obj11, ['kevin', 18]));  // {value: 1, name: "kevin", age: 18}
+
   // myObj.testFn.myApply2(myObj2, [22]) // Dignity_22岁了
 
   // bind例子
@@ -80,14 +82,17 @@ export default (isLog) => {
 
   // fun.mybind2(obj45, 1, 2)() // Tom
   // fun.mybind3(obj45, 1, 2)(3) // Tom
+  // fun.mybind3(obj45, 1, 2)(3) // Tom
   // fun.mybind4(obj45, 1, 2)() // Tom
-  fun.myBind(obj45, 1)(3, 4) // Tom
+  // fun.myBind(obj45, 1)(3, 4) // Tom
 
   function f(y, z) {
     return this.x + y + z
   }
   var m = f.mybind4({ x: 1 }, 2)
   // console.log(m(3)) // 6
+
+  // console.log(f.mybind3({ x: 1 }, 1)(3)) // 5
 
   jSHand.end()
 }

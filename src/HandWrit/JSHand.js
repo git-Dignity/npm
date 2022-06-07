@@ -481,7 +481,7 @@ Function.prototype.mybind3 = function (context) {
  * @description 我们一步一步来演进bind的最终版
  * @description bind() 函数会创建一个新函数（称为绑定函数）
  * @description 是在ie8下，bind使用不了，写下兼容版
- * 
+ *
  * @description call、bind从入参看，是一样的，有何区别？
  * @description bind不会执行函数，call会
  *

@@ -30,6 +30,7 @@ export default (isLog) => {
   }
   obj.a.c.d = obj
   // console.log(objectTool.cycleDetector(obj)) // true
+  // console.log(objectTool.cycleDetector1(obj)) // true
 
   const obj1 = {
     a: { b: [1] },

@@ -67,6 +67,8 @@ export default (isLog) => {
   const isValid3 = algorithm.isValid1("{[(])}")
   // console.log(isValid3) // false
 
+  
+
 
   // isValid end
 

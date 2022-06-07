@@ -449,7 +449,7 @@ class App {
     initStorage(false)
     initLRUCache(false)
     initLocalstorage1M(false)
-    initObjectTool(false)
+    initObjectTool(true)
     initFile(false)
     initDom(false)
     initTool(false)
@@ -461,11 +461,11 @@ class App {
     this.initDesignModel()
 
     initAlgorithm(false)
-    initArrayAlgorithm(true)
+    initArrayAlgorithm(false)
     initInterview(false)
     this.initHandleWrite()
 
-    initNumberVal(false)
+    initNumberVal(true)
     initInternet(false)
     initScheduler(false)
     initTimerDelay(false)

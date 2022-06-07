@@ -84,8 +84,10 @@ class ObjectTool {
       const keys = Object.keys(o)
       for (const key of keys) {
         const temp = o[key]
+
         if (typeof temp === "object" && temp !== null) {
           if (arr.indexOf(temp) >= 0) {
+            console.log(arr, temp)
             flag = true
             return
           }
@@ -98,6 +100,52 @@ class ObjectTool {
     cycle(obj)
 
     return flag
+  }
+
+  /**
+   * @description 实现思路：
+   * @description 用一个WeakMap存储每一个遍历过的对象，遍历每一个都存起来，下次找到WeakMap中存在，则说明环引用
+   * 
+   * @description 如何检测并避免循环依赖(上面的cycleDetector方法的第二种方法)
+   * @description https://q.shanyue.tech/fe/node/525.html
+   *
+   * @param {Object} obj 目标对象
+   * @return {Boolean} 
+   * @memberof ObjectTool
+   * @example
+     var obj = {
+        a: {
+            c: [1, 2],
+        },
+        b: 1,
+     }
+     obj.a.c.d = obj
+     console.log(objectTool.cycleDetector1(obj)) // true
+   */
+  cycleDetector1(obj) {
+    const isObject = (obj) =>
+      Object.prototype.toString.call(obj) === "[object Object]"
+    const isPrimitive = (obj) =>
+      /Number|Boolean|String|Undefined|Null|Symbol/.test(
+        Object.prototype.toString.call(obj)
+      )
+    const memory = new WeakMap()
+    let isCycled = false
+    const traverse = function (value) {
+      if (!isPrimitive(value)) {
+        if (memory.has(value)) {
+          isCycled = true
+          return
+        }
+        memory.set(value, true)
+        const keys = Object.keys(value)
+        for (const key of keys) {
+          traverse(value[key])
+        }
+      }
+    }
+    traverse(obj)
+    return isCycled
   }
 
   /**
@@ -207,7 +255,6 @@ class ObjectTool {
     return res
   }
 
-  
   /**
    * @description 实现思路：
    * @description 使用递归。
@@ -216,7 +263,7 @@ class ObjectTool {
    * @description 否则，它将适当的前缀键值对添加到累加器对象。
    * @description prefix除非您希望每个键都有一个前缀，否则应始终省略第二个参数。
    * @description 以键的路径扁平化对象
-   * 
+   *
    * @description 对象的扁平化（以键的路径扁平化对象）（方法二）
    *
    * @param {Object} obj 目标对象
@@ -231,7 +278,7 @@ class ObjectTool {
    *   d: 1,
    * })  // {a.b.c: 1, a.b.c1: 2, a.b1: 5, a.b2.bbb: 55, d: 1}
    */
-   flattenObject(obj, prefix = "") {
+  flattenObject(obj, prefix = "") {
     return Object.keys(obj).reduce((acc, k) => {
       const pre = prefix.length ? prefix + "." : ""
 
@@ -285,8 +332,6 @@ class ObjectTool {
       return acc
     }, {})
   }
-
-
 }
 
 export default ObjectTool
