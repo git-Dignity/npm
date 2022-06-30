@@ -60,6 +60,7 @@ class ObjectTool {
    * @description 实现思路：
    * @description 用一个数组存储每一个遍历过的对象，下次找到数组中存在，则说明环引用
    * 
+   * @description for...of无法遍历对象，所以才用Object.keys将对象转为数组（keys属性）
    * @description https://juejin.cn/post/7023906112843808804#heading-4
    * @description 判断一个对象有环引用
    *
@@ -105,6 +106,7 @@ class ObjectTool {
   /**
    * @description 实现思路：
    * @description 用一个WeakMap存储每一个遍历过的对象，遍历每一个都存起来，下次找到WeakMap中存在，则说明环引用
+   * @description 他的判断是否存在是在for循环外判断，可以减少次数，而且使用WeakMap弱引用可避免内存泄漏
    * 
    * @description 如何检测并避免循环依赖(上面的cycleDetector方法的第二种方法)
    * @description https://q.shanyue.tech/fe/node/525.html
@@ -149,6 +151,13 @@ class ObjectTool {
   }
 
   /**
+   * @description 实现思路：
+   * @description 1. 先判断该对象是否有环引用
+   * @description 2. 内部定义一个函数computedLevel，方便做递归操作
+   * @description 3. computedLevel接收两个参数（值，层级），在判断该值是否为对象
+   * @description 4. 是对象的话，进行for...in循环，如果循环内还是对象就去递归computedLevel
+   * @description 5. 否则则层级 + 1
+   * 
    * @description 计算一个对象的层数
    * @description 题目描述：给你一个对象，统计一下它的层数
    *

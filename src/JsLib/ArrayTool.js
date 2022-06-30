@@ -43,6 +43,9 @@ class ArrayTool {
   }
 
   /**
+   * @description 实现思路：
+   * @description 通过while循环，内部使用Math.random随机数让数组的项乱赋值
+   *
    * @description 数组乱序
    * @param {Array} arr
    * @return {Array}
@@ -81,6 +84,7 @@ class ArrayTool {
 
   /**
    * @description has() 方法返回一个布尔值来指示对应的值value是否存在Set对象中。
+   *
    * @description 数组交集（方法二）
    * @param {Array} arr1
    * @param {Array} arr2
@@ -259,7 +263,7 @@ class ArrayTool {
     if (obj instanceof Date) return new Date(obj)
     if (obj instanceof RegExp) return new RegExp(obj)
 
-    if (cache.has(obj)) return cache.get(obj) // 如果出现循环引用，则返回缓存的对象，防止递归进入死循环
+    if (cache.has(obj)) return cache.get(obj) // 如果出现循环引用，则返回缓存的对象，防止递归进入死循环（Node的循环引用也返回缓存对象）
     let cloneObj = new obj.constructor() // 使用对象所属的构造函数创建一个新对象
     cache.set(obj, cloneObj) // 缓存对象，用于循环引用的情况
     // console.log(cloneObj, '---');
@@ -272,6 +276,7 @@ class ArrayTool {
 
     return cloneObj
   }
+
 
   /**
    * @description 数组去重
@@ -331,8 +336,6 @@ class ArrayTool {
     }, new Map())
     return newArr
   }
-
-
 
   /**
    * @description 利用属性名比较
@@ -431,6 +434,8 @@ class ArrayTool {
   }
 
   /**
+   * @description Math.abs：返回绝对值
+   *
    * @description 判断两个数字约等于
    *
    * @param {Number} v1
@@ -468,8 +473,6 @@ class ArrayTool {
       [[], []]
     )
   }
-
-
 
   /**
    * @description 其它类型转数组
@@ -541,11 +544,12 @@ class ArrayTool {
     return arr.slice()
   }
 
-
-
   /**
    * @description has() 方法返回一个布尔值来指示对应的值value是否存在Set对象中。
    * @description 寻找差异（查找两个数组之间的差异，并返回第一个数组独有的）
+   *
+   * @description 可以使用filter + indexof过滤（在上面的diffArr）（方法一）
+   * @description 差集（数组arr1相对于arr2所没有的）（方法二）
    *
    * @param {Array} arr1
    * @param {Array} arr2
@@ -653,9 +657,9 @@ class ArrayTool {
    * @description 后面加min，整体值就肯定比min最小值要大，自然不小于最小值
    * @description Math.random() * (max - min + 1))  最大值减去最小值 + 1去乘Math.random()随机数0-1的数，
    * @description 那么就是两个差值的随机数；再去加最小值，算起来肯定不会超出最大值
-   * 
+   *
    * @description 比如：max:20;min:10，那么Math.floor(Math.random() * (max - min + 1))，返回的值肯定是20-10 = 10；10以内的值
-   * 
+   *
    * @description 生成两数之间指定长度的随机数组
    *
    * @param {number} min 最小值
@@ -671,10 +675,8 @@ class ArrayTool {
     return Array.from(
       { length: n },
       () => Math.floor(Math.random() * (max - min + 1)) + min
-      
     )
   }
-  
 
   /**
    * @description Math.random() * arr.length  肯定在数组长度的范围内
@@ -771,6 +773,7 @@ class ArrayTool {
    * @description 思路：去判断他们可能会相等的情况（数字、日期、非对象）、再去判断不相等的情况（原型、对象长度不一致直接返回false）
    * @description 如果以上都满足，那就是对象数组类型了，通过every函数让对象里面的属性去做递归（只要有一个为false，那结果就为false）
    *
+   * @description 情况：全等、日期、不是对象、原型、对象的长度一样、递归
    * @description 在两个变量之间进行深度比较以确定它们是否全等。
    * @description 此代码段精简的核心在于Array.prototype.every()的使用。
    *
@@ -990,6 +993,8 @@ class ArrayTool {
    * @description 5. 是的话就使用test判断值是否相等，不是正则直接使用===判断是否相等
    * @description 6. 过滤完后返回this
    * @description 7. 第二个方法orderBy对属性进行排序，使用sort
+   * 
+   * @description Object.entries()方法返回一个给定对象自身可枚举属性的键值对数组(对象 -> 数组)
    * 
    * @description https://q.shanyue.tech/fe/code/712.html
    * @description 如何实现一个 ORM 类似的 find 链式调用

@@ -40,7 +40,7 @@ class JSHand {
    * @description 2. 将构造函数的显式原型Prototype赋值给新对象obj的隐式原型
    * @description 3. 改变this指向，执行构造函数的属性给新对象，apply、call
    * @description 4. 返回新对象
-   * @description 总的来说：其实就是想要构造函数的原型和属性
+   * @description 总的来说：其实就是想要构造函数的原型和自身属性
    *
    *
    * @description New手写
@@ -67,15 +67,18 @@ class JSHand {
       Constructor = [].shift.call(arguments) //取得外部传入的构造器
 
     var F = function () {}
-    F.prototype = Constructor.prototype
+    F.prototype = Constructor.prototype // 拿到原型链的属性
     obj = new F() //指向正确的原型
 
-    var ret = Constructor.apply(obj, arguments) //借用外部传入的构造器给obj设置属性
+    var ret = Constructor.apply(obj, arguments) //借用外部传入的构造器给obj设置属性，改变构造函数的this指向obj
 
     return typeof ret === "object" ? ret : obj //确保构造器总是返回一个对象
   }
 
   /**
+   * @description 实现思路：
+   * @description 1. 拿到构造函数的原型
+   * @description 2. 改变构造函数fn的this指向obj了，也拿到构造函数的属性方法了
    * @description New手写（简单版）
    *
    * @param {*} fn

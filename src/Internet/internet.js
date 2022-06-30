@@ -31,6 +31,8 @@ class Internet {
    * @description 实现思路：
    * @description 题目的愿意是阻止重复发送请求，firstFn执行的回调复用这一个请求的结果，那么实现就很简单啦！
    * @description 可以将请求的实例先存储起来，而成功和失败内部都可以感知到，进而将其重新置空，接受下一次请求
+   * 
+   * @description apply会帮我们执行的
    *
    * @description 如何防止重复发送请求
    *
@@ -185,5 +187,6 @@ class Internet {
     }
   }
 }
+
 
 export default Internet

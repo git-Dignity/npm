@@ -107,10 +107,7 @@ export default (isLog) => {
   // window.addEventListener('resize', tool.debounce(printWidth, 900,true), false)
   // window.addEventListener('resize', tool.debounce(printHeight, 900,false), false)
 
-  
-
   // window.addEventListener("mousemove",tool.throttle(printHeight,1000,2));
-
 
   // console.log(tool.type([""]))  //array
 
@@ -129,8 +126,6 @@ export default (isLog) => {
   })
   //   console.log(sumTco(1, 5));   //6    实际上现在sum函数就是accumulator函数   else那得到的
 
-  
-  
   // console.log(tool.hexColor())
 
   //         console.log(tool.escapeHTML(`
@@ -175,10 +170,6 @@ export default (isLog) => {
   // 为什么只打印一个，那是因为上面已经停止订阅了handler，自然不会打印出{ hello: "world" }；
   // message有两个订阅者，所以Message event fired还在，打印。
 
-
-
-
-
   // const startApp = function(event) {
   //   console.log(this, event); // document.body, MouseEvent
   // };
@@ -210,12 +201,10 @@ export default (isLog) => {
   const a = tool.currying(add, 1)
   // console.log(a(2, 3)) // 6
 
-
   const add1 = tool.add(1)(2)(3)(4, 5)(1)()
   // console.log(add1) // 16
   const add2 = tool.add(1, 2)(3)()
   // console.log(add2) // 6
-
 
   const get1 = tool._get({ a: null }, "a.b.c", 3)
   // console.log(get1) //  3

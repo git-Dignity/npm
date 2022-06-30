@@ -23,7 +23,7 @@ class TimerDelay {
   }
 
   /**
-   * @description setinterval 用来实现循环定时调用 可能会存在一定的问题 能用 settimeout 解决吗
+   * @description setInterval 用来实现循环定时调用 可能会存在一定的问题 能用 setTimeout 解决吗
    *
    * @description 实现思路：
    * @description 递归调用函数，使用setTimeout

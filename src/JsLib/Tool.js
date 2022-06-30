@@ -67,6 +67,8 @@ class Tool {
   }
 
   /**
+   * @description getBoundingClientRect()（翻译：获取绑定客户矩形）：获取到的是元素真实占用的宽度
+   *
    * @description 如何检查指定的元素在视口中是否可见？
    * @param {HTMLElement} el
    * @param {HTMLElement} partiallyVisible = false partiallyVisible是否开启全屏； 为true 需要全屏(上下左右)可以见
@@ -75,9 +77,11 @@ class Tool {
    * @example
    * // 需要左右可见
    * elementIsVisibleInViewport(document.querySelector('head'), document.querySelector('title')) // true
+   * elementIsVisibleInViewport(document.getElementById('aaa')));   // 需要左右可见 true
    *
    * // 需要全屏(上下左右)可以见
    * elementIsVisibleInViewport(document.querySelector('head'), document.querySelector('body')) // false
+   * elementIsVisibleInViewport(document.getElementById('aaa'),true);  // 需要全屏(上下左右)可以见
    */
   elementIsVisibleInViewport(el, partiallyVisible = false) {
     const { top, left, bottom, right } = el.getBoundingClientRect()
@@ -125,6 +129,9 @@ class Tool {
   }
 
   /**
+   * @description url.match(/ ([^?=&]+)(=([^&]*)) /g)  ==>  ['n=哈哈', 's=Smith']
+   * @description 利用reduce遍历，将a[属性] = 值
+   *
    * @description 如何创建一个包含当前URL参数的对象？
    * @param { String } url
    * @return { Object } {n: 'Adam', s: 'Smith'}
@@ -423,6 +430,13 @@ class Tool {
    *
    * @description 注意内部返回函数，会清空定时器
    *
+   * @description 提问：为什么要用闭包？（https://blog.csdn.net/weixin_44986776/article/details/123377618）
+   * @description 把return function () {}去掉不可以吗？
+   * @description 首先知道闭包的有一个作用就是可以使父级函数的内部环境在变量中一直存在
+   * @description 比如有个业务使用了debounce函数，用闭包后，对于该业务，timer将会一直存在，
+   * @description 如果不用闭包，每次触发将会生成一个新的time，if (timer)将永远不会被触发。
+   * @description 如果此时又有一个业务使用了debounce，用闭包的情况下，会为这个新的业务生成一个新的timer。
+   *
    * @description 函数防抖
    *
    * @param {Function} func 函数
@@ -515,9 +529,6 @@ class Tool {
     }
   }
 
-
-  
-
   /**
    * @description 判断数据类型
    * @param {*} target
@@ -547,6 +558,7 @@ class Tool {
   }
 
   /**
+   * @description 递归函数优化--尾递归（https://blog.csdn.net/qq_40278189/article/details/98459481）
    * @description 递归优化（尾递归）
    *
    * @param {Function} f 函数
@@ -832,6 +844,14 @@ class Tool {
   }
 
   /**
+   * @description 实现思路：
+   * @description 1. 先判断是否为字符串
+   * @description 1.1. 是的话就转成数字
+   * @description 1.2. 接着在看看是不是NaN，是则直接返回
+   * @description 1.3. 不是就把值先乘以100在除100，通过toFixed保留小数点
+   * @description 1.4 当然，计算过程中可能会保存，使用try...catch包裹
+   * @description 2. 如果是数字（执行1.2 ~ 1.4）
+   *
    * @description 解决1.335.toFixed(2) // 1.33 错误
    *
    * @description 更加强壮，字符串、数字、NaN、异常处理
@@ -855,7 +875,6 @@ class Tool {
       } else {
         try {
           return (Math.round(val_new * 100) / 100).toFixed(num)
-          // val_new.toFixed(num)
         } catch (error) {
           console.error(error)
           return val
@@ -868,7 +887,6 @@ class Tool {
     } else {
       try {
         return (Math.round(val * 100) / 100).toFixed(num)
-        // val_new.toFixed(num)
       } catch (error) {
         console.error(error)
         return val
@@ -943,6 +961,9 @@ class Tool {
   }
 
   /**
+   * @description 为什么要返回函数？
+   * @description 因为once要后面加（）括号才算执行的，加括号就相当于执行function
+   *
    * @description 只调用一次的函数
    *
    * @param {Function} fn 目标函数
@@ -1144,6 +1165,9 @@ class Tool {
    * @description 4. 需注意的是：null取数组会报错，所以使用Object包装一下
    * @description 5. 若属性值为空，则返回第三个参数defaultValue
    * @description 6. for of可对数组对象都可遍历
+   * 
+   * @description 关于第一点的写法，'sa[0].bs'.replace(/\[(\d+)\]/g, ".$1")  ->  'sa.0.bs'
+   * @description 正则匹配到中括号，[里面又有数字的\d]，就去掉[]，变成 .，后面在家$1就是中括号里面的值
    * 
    * @description https://github.com/lgwebdream/FE-Interview/issues/20
    * @description 实现 lodash 的_.get

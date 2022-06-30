@@ -64,7 +64,6 @@ export default (isLog) => {
   // console.log(personCopy);
 
 
-
   // deepCopy end
 
   // console.log(arrayTool.uniqueArray([undefined, null, null, 1, 1])) // [undefined, null, 1]
@@ -72,7 +71,6 @@ export default (isLog) => {
   // console.log(arrayTool.uniqueArray1([undefined, null, null, 1, 1])) // [undefined, null, 1]
 
   // console.log(arrayTool.uniqueArray2([undefined, null, null, 1, 1])) // [undefined, null, 1]
-
 
   // console.log(arrayTool.uniqueMultiDimensionalArray([undefined, null, null, 1, 1, [111, 22], [111, 22]])); // 要实现一下
 
@@ -115,7 +113,6 @@ export default (isLog) => {
 
   // console.log(arrayTool.bifurcate(['beep', 'boop', 'foo', 'bar'], [true, true, false, true]))    // [ ['beep', 'boop', 'bar'], ['foo'] ]
 
-
   // console.log(arrayTool.castArray(1));    // [1]
   // console.log(arrayTool.castArray([1]));  // [1]
   // console.log(arrayTool.castArray("消息No One Time跟我说"));  // ["消息No One Time跟我说"]
@@ -137,8 +134,6 @@ export default (isLog) => {
   // console.log(arrayTool.flatten([1, [2, [3, [4, 5], 6], 7], 8], 2)); //  [1, 2, 3, [4, 5], 6, 7, 8]
   // console.log(arrayTool.flatten([1, [2, [3, [4, 5], 6], 7], 8], 3)); //  [1, 2, 3, 4, 5, 6, 7, 8]
 
-  
-
   // console.log(arrayTool.indexOfAll([1, 2, 3, 1, 2, 3], 1)); // [0,3]
   // console.log(arrayTool.indexOfAll([1, 2, 3], 4)); // []
 
@@ -148,7 +143,7 @@ export default (isLog) => {
   // console.log(arrayTool.minN([1, 2, 4, 3], 3, 'asc'));  // [1, 2, 3]
   // console.log(arrayTool.minN([1, 2, 4, 3], 3, 'desc'));  // [4, 3, 2]
 
-  console.log([1, 2, 3, 4, 5, 6].filter(arrayTool.negate((n => n % 2 === 0))));  // [ 1, 3, 5 ]
+  // console.log([1, 2, 3, 4, 5, 6].filter(arrayTool.negate((n) => n % 2 === 0))) // [ 1, 3, 5 ]
 
   // console.log(arrayTool.randomIntArrayInRange(10,20,10)); // [11, 12, 10, 15, 18, 12, 15, 16, 13, 15]
   // console.log(arrayTool.randomIntArrayInRange(10,10,10)); // [10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
@@ -214,17 +209,20 @@ export default (isLog) => {
   // }
 
   var dataArr = [
-    {userId: 8, title: 'title1'},
-    {userId: 11, title: 'other'},
-    {userId: 15, title: null},
-    {userId: 19, title: 'title2'}
-  ];
-  
+    { userId: 8, title: "title1" },
+    { userId: 11, title: "other" },
+    { userId: 15, title: null },
+    { userId: 19, title: "title2" },
+  ]
+
   // 查找data中，符合where中条件的数据，并根据orderBy中的条件进行排序
-  const result = arrayTool.findORM(dataArr).where({
-    "title": /\d$/   // 这里意思是过滤出数组中，满足title字段中符合 /\d$/的项
-  }).orderBy('userId', 'desc');  // 这里的意思是对数组中的项按照userId进行倒序排列
-  
+  const result = arrayTool
+    .findORM(dataArr)
+    .where({
+      title: /\d$/, // 这里意思是过滤出数组中，满足title字段中符合 /\d$/的项
+    })
+    .orderBy("userId", "desc") // 这里的意思是对数组中的项按照userId进行倒序排列
+
   // console.log(result.data); // [{ userId: 19, title: 'title2'}, { userId: 8, title: 'title1' }];
 
   // console.log(arrayTool.xxx());

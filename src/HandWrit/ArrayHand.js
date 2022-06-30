@@ -241,7 +241,7 @@ Array.prototype.zm_some = function (callback) {
  *
  * example6：二维数组去重，第二个参数已传
  * const newArr1 = playersTmp.zm_reduce(function (prev, cur) {
- *   !prev.includes(cur) && prev.push(cur)
+ *   !isContains(prev, cur) && prev.push(cur)
  *   return prev
  * }, [])
  * console.log(newArr1) // [({ name: "科比", num: 20 }, { name: "詹姆斯", num: 30 }, { name: "保罗", num: 0 })]
@@ -270,14 +270,13 @@ Array.prototype.zm_reduce = function (callback, initValue) {
     pre = arguments.length == 1 ? 0 : Number(initValue)
   }
 
+  // this指向目标数组
   for (let i = 0; i < this.length; i++) {
     pre = callback(pre, this[i], i, this)
   }
 
   return pre
 }
-
-
 
 
 /**
@@ -365,7 +364,8 @@ Array.prototype.zm_find = function (callback) {
  * @return {*}
  * @memberof ArrayHand
  * @example
- * const players = [{ name: '科比', num: 24 }, { name: '詹姆斯', num: 23 },{ name: '保罗', num: 3 }]
+ * const players = [{ name: '科比', num: 24 }, { name: '詹姆斯', num: 23 },{ name: '保罗', num: 3 },
+ *                  { name: "威少", num: 0 },{ name: "杜兰特", num: 35 }]
  * const fillArr = players.zm_fill('吖泽', 1, 3)
  * console.log(fillArr); // {name: '科比', num: 24},"吖泽","吖泽", {name: '威少', num: 0},{name: '杜兰特', num: 35}
  */
@@ -423,6 +423,8 @@ Array.prototype.zm_includes = function (value, start = 0) {
  * @description fill、join的区别？
  * @description fill根据第二、第三参数填充数组数组；而join将数组用分隔符拼成字符串，分隔符默认为,
  * @description 一个返回数组；一个返回字符串
+ * 
+ * @description join将数组切割成字符串拼接，而split将字符串切割成数组
  *
  * @description 实现思路：
  * @description 1. 接收分隔符s，默认是逗号，用来将数组拼成字符串
@@ -479,20 +481,20 @@ Array.prototype.zm_flat = function () {
  * @description fill、splice的区别？
  * @description fill将数组进行填充；而splice向/从数组添加/删除项目，并返回删除的项目
  * @description 都是返回数组；但fill不会改变原数组；splice会改变原数组
- * 
+ *
  * @description 特别提醒（先搞清楚每个变量的作用是什么）
  * @description length 要删除的长度
  * @description this.length  数组的长度
  * @description values.length 要添加进数组的长度
- * 
+ *
  * @description 易错点
  * @description 我自己手写的时候，这几处地方做错了，所以要特别注意
  * @description if (length === 0) return [] 这里我没有返回空数组
- * @description const cha = length - values.length; 这里的length我拿成this.length 
+ * @description const cha = length - values.length; 这里的length我拿成this.length
  * @description for (let i = start + length; i < tempArr.length; i++) { 这里的加length，我写做values.length
  * @description 要注意删除数组的时候，有两处if，里面的for循环对象是不一样的
- * 
- * 
+ *
+ *
  * @description 简版思路：
  * @description 先计算要删除的数组长度length
  * @description 对要添加进数组的项，添加到this中
@@ -525,7 +527,7 @@ Array.prototype.zm_flat = function () {
  * const spliceArr = fruits.zm_splice(1, 4, "Lemon", "Kiwi")
  * console.log(spliceArr)  // ["Orange", "Apple", "Mango"]
  * console.log(fruits) // ["Banana", "Lemon", "Kiwi"]
- * 
+ *
  * const spliceArr1 = fruits.zm_splice(1, 1, "Lemon", "Kiwi")
  * console.log(spliceArr1)  // ["Orange"]
  * console.log(fruits) // ["Banana", "Lemon", "Kiwi", "Apple", "Mango"]
@@ -569,6 +571,5 @@ Array.prototype.zm_splice = function (start, length, ...values) {
   }
   return res
 }
-
 
 export default ArrayHand

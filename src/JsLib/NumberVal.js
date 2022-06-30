@@ -224,8 +224,8 @@ class NumberVal {
     } catch (e) {
       t2 = 0
     }
-    r1 = Number(num1.toString().replace(".", ""))
-    r2 = Number(num2.toString().replace(".", ""))
+    r1 = Number(num1.toString().replace(".", "")) // 2
+    r2 = Number(num2.toString().replace(".", "")) // 1
     return (r1 / r2) * Math.pow(10, t2 - t1)
   }
 
