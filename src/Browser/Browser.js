@@ -150,7 +150,7 @@ class Browser {
 
   /**
    * @description pageXOffset(pageYOffset)为第一选择，没有则用scrollLeft(scrollTop)
-   * 
+   *
    * @description 返回当前滚动条位置
    *
    * @param {*} [el=window]
@@ -190,7 +190,7 @@ class Browser {
   /**
    * @description 滚动到指定元素区域的最下/最上
    *
-   * @param {HTMLElement} [element=document.documentElement] 指定元素 
+   * @param {HTMLElement} [element=document.documentElement] 指定元素
    * @param {Boolean} isEnd 方向  传true向上平滑，不传就是向下（默认）
    * @memberof Browser
    * @example
@@ -199,7 +199,9 @@ class Browser {
    */
   smoothScroll(element, isEnd = false) {
     isEnd = isEnd == true ? "start" : "end"
-    element = element ? document.querySelector(element) : document.documentElement
+    element = element
+      ? document.querySelector(element)
+      : document.documentElement
     element.scrollIntoView({
       behavior: "smooth", //平滑
       block: isEnd, //end向下滑动  start向上滑动
@@ -331,7 +333,7 @@ class Browser {
   /**
    * @description 检查当前标签页是否活动
    *
-   * @return {*} 
+   * @return {*}
    * @memberof Browser
    * @example
    * isBrowserTabFocused(); // true
@@ -341,6 +343,58 @@ class Browser {
   }
 
 
+
+  /**
+   * @description: 只有点击事件去触发才能生效，直接执行是不生效的，没有动作
+   * 
+   * @description: 浏览器全屏
+   *
+   * @param {Function} call 回调函数
+   * @return {Obejct} 
+   * @memberof Browser
+   */
+  fullScreen(call) {
+    return {
+      // 全屏
+      start: () => {
+        if (document.body.requestFullscreen) {
+          document.body.requestFullscreen()
+        } else if (document.documentElement.mozRequestFullScreen) {
+          document.documentElement.mozRequestFullScreen()
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          document.documentElement.webkitRequestFullscreen()
+        } else if (document.documentElement.msRequestFullscreen) {
+          document.documentElement.msRequestFullscreen()
+        }
+      },
+
+      // 取消全屏
+      cancel: () => {
+        if (document.exitFullscreen) {
+          document.exitFullscreen()
+        } else if (document.mozExitFullScreen) {
+          document.mozExitFullScreen()
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen()
+        }
+      },
+
+      // 添加事件
+      addEvent: () => {
+        document.addEventListener(
+          "fullscreenchange",
+          call(document.fullscreenElement ? true : false)
+        )
+      },
+      // 移除事件
+      removeEvent: () => {
+        window.removeEventListener(
+          "fullscreenchange",
+          call(document.fullscreenElement ? true : false)
+        )
+      },
+    }
+  }
 }
 
 export { Browser }

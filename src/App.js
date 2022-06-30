@@ -439,7 +439,7 @@ class App {
     // this.initProgressBar()
     // this.initPopover()
     initJSHand(false) // 还没有写完
-    initArrayHand(true)
+    initArrayHand(false)
     initObjectHand(false)
     initStringHand(false)
     initPromiseHand(false, true)
@@ -453,7 +453,7 @@ class App {
     initFile(false)
     initDom(false)
     initTool(false)
-    initArrayTool(true)
+    initArrayTool(false)
     initStrTool(false)
     initCheck(false)
     initBrowser(true)
