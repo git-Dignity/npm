@@ -4,7 +4,7 @@
  * @class Check
  */
 class Check {
-  constructor() {}
+  constructor() { }
 
   /**
    * @description 打印开始点
@@ -480,6 +480,25 @@ class Check {
     return /^[a-z]+$/g.test(value)
   }
 
+
+  /**
+   * @description 密码中同时含大写字母、小写字母、数字和特殊字符且长度在8-16之间
+   * @description (?=.{8,16})表示要大等于8位 或 小于16位
+   * @description (?=.*?[a-z])表示要有小写字母
+   * @description (?=.*?[A-Z])表示要有大写字母
+   * @description (?=.*?\d)表示要有数字
+   * @description (?=.*?[*?!&￥$%^#,./@";:><\[\]}{\-=+_\\|》《。，、？’‘“”~ ])`表示要有特殊字符
+   * @param {String} value 
+   * @return {Boolean}
+   * @memberof Check
+   * @example
+   * passCaseNumSpecialChar("123@")   // false
+   * passCaseNumSpecialChar("1sd44f1A@23@")   // true
+   */
+  passCaseNumSpecialChar(value) {
+    return /^(?=.{8,16})(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)(?=.*?[*?!&￥$%^#,./@";:><\[\]}{\-=+_\\|》《。，、？’‘“”~ `]).*$/.test(value)
+  }
+
   /**
    * @description 思路：
    * @description 1. 从右到左给卡号字符串编号，最右边第一位是1，最右边第二位是2，最右边第三位是3….
@@ -501,19 +520,19 @@ class Check {
    * luhnCheck("4485275742308327") // true
    * luhnCheck("6011329933655299") // false
    */
-  luhnCheck (num)  {
+  luhnCheck(num) {
     let arr = (num + '')
       .split('')
       .reverse()
       .map(x => parseInt(x));
     let lastDigit = arr.splice(0, 1)[0];
     let sum = arr.reduce((acc, val, i) => {
-       return  (i % 2 !== 0 ? acc + val : acc + ((val * 2) % 9) || 9)
+      return (i % 2 !== 0 ? acc + val : acc + ((val * 2) % 9) || 9)
     }, 0);
     sum += lastDigit;
     return sum % 10 === 0;
   };
-  
+
 }
 
 export default Check

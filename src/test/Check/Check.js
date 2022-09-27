@@ -1,8 +1,8 @@
 /*
  * @Author: zemin zheng
  * @Date: 2021-09-06 15:03:32
- * @LastEditTime: 2021-09-07 10:15:45
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-09-27 16:20:00
+ * @LastEditors: zemin zheng
  * @Description: 检查类测试
  * @FilePath: \npm\src\test\Check\Check.js
  */
@@ -17,7 +17,7 @@ export default (isLog) => {
   let check = new Check()
   check.start()
 
-  //   console.log(check.isNoWord("3436"))   // true
+  //   console.log(check.isNoWord("3436"))   // true 
 
   //   console.log(check.isCHNAndEN("啊实打实213"))
 
@@ -81,6 +81,9 @@ export default (isLog) => {
   //   console.log(check.isCapital("DG"))
 
   //   console.log(check.isLowercase("sdf"))
+
+  // console.log(check.passCaseNumSpecialChar("123@")) // false
+  // console.log(check.passCaseNumSpecialChar("sd44f1A@")) // true
 
   // console.log(check.luhnCheck("79927398713")) // false
   // console.log(check.luhnCheck("4485275742308327")) // true
