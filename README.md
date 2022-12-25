@@ -20,7 +20,9 @@ myCheck.isMPRelaxed(value)
 
 # 版本介绍
 
-### master
+### master 最稳定分支
+
+### develop 最新分支
 
 ### develop-1.1
 
