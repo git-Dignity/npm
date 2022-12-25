@@ -1,12 +1,12 @@
 /*
  * @Author: zemin zheng
  * @Date: 2021-08-24 13:16:31
- * @LastEditTime: 2022-04-12 17:36:43
+ * @LastEditTime: 2022-12-25 11:32:55
  * @LastEditors: zemin zheng
  * @Description: 工具测试
  * @FilePath: \npm\src\test\JsLib\Tool.js
  */
-
+import { Browser } from "../../Browser/Browser"
 import { Tool } from "../../JsLib"
 
 export default (isLog) => {
@@ -14,6 +14,7 @@ export default (isLog) => {
     return
   }
 
+  let browser = new Browser()
   let tool = new Tool()
   tool.start()
 
@@ -27,13 +28,14 @@ export default (isLog) => {
   // console.log(tool.getImages(document,true)) // 不去重  ['image1.jpg', 'image2.png', 'image1.png', '...']
   // console.log(tool.getImages(document,false))  //去重    ['image1.jpg', 'image2.png', '...']
   // console.log(tool.detectDeviceType()) // "Mobile" or "Desktop"
-  // console.log(tool.currentURL())   // http://localhost:9000/
+  // console.log(browser.currentURL())   // http://localhost:9000/
 
   // getURLParameters
 
-  // console.log(tool.getURLParameters(tool.currentURL()))
+  // console.log(tool.getURLParameters(browser.currentURL()))
 
   // console.log(tool.getURLParameters('http://url.com/page?n=哈哈&s=Smith')) // {n: 'Adam', s: 'Smith'}
+
 
   const getURLParameters1 = tool.getURLParameters1(
     "http://url.com/page?n=哈哈&s=Smith"
