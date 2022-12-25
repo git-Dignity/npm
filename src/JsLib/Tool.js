@@ -14,7 +14,7 @@ class Tool {
    * @memberof Tool
    */
   start() {
-    console.log("工具类Tool start^_^_^_^_^_^_^_^_^_^")
+    console.log("工具类Tool start^_^_^_^_^_^_^_^_^_^");
   }
 
   /**
@@ -23,7 +23,7 @@ class Tool {
    * @memberof Tool
    */
   end() {
-    console.log("工具类Tool end^_^_^_^_^_^_^_^_^_^")
+    console.log("工具类Tool end^_^_^_^_^_^_^_^_^_^");
   }
 
   /**
@@ -36,7 +36,7 @@ class Tool {
    * hasClass(document.getElementById('aaa'), 'a')
    */
   hasClass(el, className) {
-    return el.classList.contains(className)
+    return el.classList.contains(className);
   }
 
   /**
@@ -49,7 +49,7 @@ class Tool {
    * toggleClass(document.querySelector('p#b'), 'a')
    */
   toggleClass(el, className) {
-    el.classList.toggle(className)
+    el.classList.toggle(className);
   }
 
   /**
@@ -63,7 +63,7 @@ class Tool {
    * elementContains(document.querySelector('head'), document.querySelector('body')) // false
    */
   elementContains(parent, child) {
-    return parent !== child && parent.contains(child)
+    return parent !== child && parent.contains(child);
   }
 
   /**
@@ -84,13 +84,11 @@ class Tool {
    * elementIsVisibleInViewport(document.getElementById('aaa'),true);  // 需要全屏(上下左右)可以见
    */
   elementIsVisibleInViewport(el, partiallyVisible = false) {
-    const { top, left, bottom, right } = el.getBoundingClientRect()
-    const { innerHeight, innerWidth } = window
+    const { top, left, bottom, right } = el.getBoundingClientRect();
+    const { innerHeight, innerWidth } = window;
     return partiallyVisible
-      ? ((top > 0 && top < innerHeight) ||
-          (bottom > 0 && bottom < innerHeight)) &&
-          ((left > 0 && left < innerWidth) || (right > 0 && right < innerWidth))
-      : top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth
+      ? ((top > 0 && top < innerHeight) || (bottom > 0 && bottom < innerHeight)) && ((left > 0 && left < innerWidth) || (right > 0 && right < innerWidth))
+      : top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth;
   }
 
   /**
@@ -107,10 +105,8 @@ class Tool {
    * getImages(document,false) // ['image1.jpg', 'image2.png', '...']
    */
   getImages(el, includeDuplicates = false) {
-    const images = [...el.getElementsByTagName("img")].map((img) =>
-      img.getAttribute("src")
-    )
-    return includeDuplicates ? images : [...new Set(images)]
+    const images = [...el.getElementsByTagName("img")].map((img) => img.getAttribute("src"));
+    return includeDuplicates ? images : [...new Set(images)];
   }
 
   /**
@@ -121,18 +117,14 @@ class Tool {
    * detectDeviceType() // "Mobile" or "Desktop"
    */
   detectDeviceType() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    )
-      ? "Mobile"
-      : "Desktop"
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? "Mobile" : "Desktop";
   }
 
   /**
    * @description url.match(/ ([^?=&]+)(=([^&]*)) /g)  ==>  ['n=哈哈', 's=Smith']
    * @description 利用reduce遍历，将a[属性] = 值
    *
-   * @description 如何创建一个包含当前URL参数的对象？
+   * @description 如何创建一个包含当前URL参数的对象？（方法一）
    * @param { String } url
    * @return { Object } {n: 'Adam', s: 'Smith'}
    * @memberof Tool
@@ -144,12 +136,53 @@ class Tool {
   getURLParameters(url) {
     // reduce() 对于空数组是不会执行回调函数的。
 
-    return (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce(
-      (a, v) => (
-        (a[v.slice(0, v.indexOf("="))] = v.slice(v.indexOf("=") + 1)), a
-      ),
-      {}
-    )
+    return (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce((a, v) => ((a[v.slice(0, v.indexOf("="))] = v.slice(v.indexOf("=") + 1)), a), {});
+  }
+
+  /**
+   * @description 特殊处理：
+   * @description: 1. 重复出现的 key 要组装成数组，能被转成数字的就转成数字类型
+   * @description: 2. 中文需解码decodeURIComponent
+   * @description: 3. 未指定值得 key 约定为 true
+   * 
+   * @description 获取url参数（方法二）
+   *
+   * @param {String} url
+   * @return { Object } {city: "北京", enabled: true, id: (2) [123, 456], user: "anonymous"}
+   * @memberof Tool
+   * @example
+   * getURLParameters0("http://www.domain.com/?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&enabled")
+   * {city: "北京", enabled: true, id: (2) [123, 456], user: "anonymous"}
+   * 重复出现的 key(id) 要组装成数组，能被转成数字的就转成数字类型;
+   * 中文需解码; %E5%8C%97%E4%BA%AC -> 北京
+   * 未指定值得 key 约定为 true; enabled -> true
+   */
+  getURLParameters0(url) {
+    const paramsStr = /.+\?(.+)$/.exec(url)[1]; // 将 ? 后面的字符串取出来
+    const paramsArr = paramsStr.split("&"); // 将字符串以 & 分割后存到数组中
+    let paramsObj = {};
+    // 将 params 存到对象中
+    paramsArr.forEach((param) => {
+      if (/=/.test(param)) {
+        // 处理有 value 的参数
+        let [key, val] = param.split("="); // 分割 key 和 value
+        val = decodeURIComponent(val); // 解码
+        val = /^\d+$/.test(val) ? parseFloat(val) : val; // 判断是否转为数字
+
+        if (paramsObj.hasOwnProperty(key)) {
+          // 如果对象有 key，则添加一个值
+          paramsObj[key] = [].concat(paramsObj[key], val);
+        } else {
+          // 如果对象没有这个 key，创建 key 并设置值
+          paramsObj[key] = val;
+        }
+      } else {
+        // 处理没有 value 的参数
+        paramsObj[param] = true;
+      }
+    });
+
+    return paramsObj;
   }
 
   /**
@@ -159,7 +192,7 @@ class Tool {
    * @description 3. 对数组进行forEach循环，拿到每一项，在继续=切割split，拿到key、val
    *
    * @description decodeURIComponent() 函数可对 encodeURIComponent() 函数编码的 URI 进行解码
-   * @description 获取url参数（split方法）
+   * @description 获取url参数（split方法）（方法三）
    *
    * @param {String} url
    * @return {Object}
@@ -170,24 +203,24 @@ class Tool {
    * getURLParameters('http://url.com/page?n=哈哈&s=Smith') // {n: '哈哈', s: 'Smith'}
    */
   getURLParameters1(url) {
-    const res = {}
+    const res = {};
     if (url.includes("?")) {
-      const str = url.split("?")[1]
-      const arr = str.split("&")
+      const str = url.split("?")[1];
+      const arr = str.split("&");
       arr.forEach((item) => {
-        const key = item.split("=")[0]
-        const val = item.split("=")[1]
+        const key = item.split("=")[0];
+        const val = item.split("=")[1];
 
-        res[key] = decodeURIComponent(val) // 解码
-      })
+        res[key] = decodeURIComponent(val); // 解码
+      });
     }
-    return res
+    return res;
   }
 
   /**
    * @description Object.fromEntries() 方法把键值对列表转换为一个对象 ['foo', 'bar']  - { foo: "bar" }
    * 
-   * @description 获取url参数（URLSearchParams）
+   * @description 获取url参数（URLSearchParams）（方法四）
    *
    * @param {String} [url=window.location.search] ?和后面的参数
    * @return {Object}
@@ -197,9 +230,9 @@ class Tool {
    */
   getURLParameters2(url = window.location.search) {
     // 创建一个URLSearchParams实例
-    const urlSearchParams = new URLSearchParams(url)
+    const urlSearchParams = new URLSearchParams(url);
     // 把键值对列表转换为一个对象
-    return Object.fromEntries(urlSearchParams.entries())
+    return Object.fromEntries(urlSearchParams.entries());
   }
 
   /**
@@ -217,7 +250,7 @@ class Tool {
    * off(document.body, 'click', fn)
    */
   off(el, evt, fn, opts = false) {
-    el.removeEventListener(evt, fn, opts)
+    el.removeEventListener(evt, fn, opts);
   }
 
   /**
@@ -231,18 +264,18 @@ class Tool {
    * formatDuration(34325055574) // 397 days, 6 hours, 44 minutes, 15 seconds, 574 milliseconds
    */
   formatDuration(ms) {
-    if (ms < 0) ms = -ms
+    if (ms < 0) ms = -ms;
     const time = {
       day: Math.floor(ms / 86400000),
       hour: Math.floor(ms / 3600000) % 24,
       minute: Math.floor(ms / 60000) % 60,
       second: Math.floor(ms / 1000) % 60,
       millisecond: Math.floor(ms) % 1000,
-    }
+    };
     return Object.entries(time)
       .filter((val) => val[1] !== 0)
       .map(([key, val]) => `${val} ${key}${val !== 1 ? "s" : ""}`)
-      .join(", ")
+      .join(", ");
   }
 
   /**
@@ -256,11 +289,11 @@ class Tool {
    * httpGet('https://jsonplaceholder.typicode.com/posts/1', console.log) // {"userId": 1, "id": 1, "title": "sample title", "body": "my text"}
    */
   httpGet(url, callback, err = console.error) {
-    const request = new XMLHttpRequest()
-    request.open("GET", url, true)
-    request.onload = () => callback(request.responseText)
-    request.onerror = () => err(request)
-    request.send()
+    const request = new XMLHttpRequest();
+    request.open("GET", url, true);
+    request.onload = () => callback(request.responseText);
+    request.onerror = () => err(request);
+    request.send();
   }
 
   /**
@@ -275,12 +308,12 @@ class Tool {
    * httpPost('https://jsonplaceholder.typicode.com/posts', data, console.log) // {"userId": 1, "id": 1, "title": "sample title", "body": "my text"}
    */
   httpPost(url, data, callback, err = console.error) {
-    const request = new XMLHttpRequest()
-    request.open("POST", url, true)
-    request.setRequestHeader("Content-type", "application/json; charset=utf-8")
-    request.onload = () => callback(request.responseText)
-    request.onerror = () => err(request)
-    request.send(data)
+    const request = new XMLHttpRequest();
+    request.open("POST", url, true);
+    request.setRequestHeader("Content-type", "application/json; charset=utf-8");
+    request.onload = () => callback(request.responseText);
+    request.onerror = () => err(request);
+    request.send(data);
   }
 
   // 常用的工具函数，包含数字，字符串，数组和对象等等操作。
@@ -294,7 +327,7 @@ class Tool {
    * formatMoney('5465615654465')  // 5,465,615,654,465
    */
   formatMoney(num) {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
   /**
@@ -308,12 +341,12 @@ class Tool {
    */
   subText(str, length) {
     if (str.length === 0) {
-      return ""
+      return "";
     }
     if (str.length > length) {
-      return str.substr(0, length) + "..."
+      return str.substr(0, length) + "...";
     } else {
-      return str
+      return str;
     }
   }
 
@@ -326,21 +359,21 @@ class Tool {
    * formatFileSize(1254)  // 1.22KB
    */
   formatFileSize(fileSize) {
-    let temp
+    let temp;
     if (fileSize < 1024) {
-      return fileSize + "B"
+      return fileSize + "B";
     } else if (fileSize < 1024 * 1024) {
-      temp = fileSize / 1024
-      temp = temp.toFixed(2)
-      return temp + "KB"
+      temp = fileSize / 1024;
+      temp = temp.toFixed(2);
+      return temp + "KB";
     } else if (fileSize < 1024 * 1024 * 1024) {
-      temp = fileSize / (1024 * 1024)
-      temp = temp.toFixed(2)
-      return temp + "MB"
+      temp = fileSize / (1024 * 1024);
+      temp = temp.toFixed(2);
+      return temp + "MB";
     } else {
-      temp = fileSize / (1024 * 1024 * 1024)
-      temp = temp.toFixed(2)
-      return temp + "GB"
+      temp = fileSize / (1024 * 1024 * 1024);
+      temp = temp.toFixed(2);
+      return temp + "GB";
     }
   }
 
@@ -354,27 +387,27 @@ class Tool {
    */
   OutOsName(osVersion) {
     if (!osVersion) {
-      return
+      return;
     }
-    let str = osVersion.substr(0, 3)
+    let str = osVersion.substr(0, 3);
     if (str === "5.0") {
-      return "Win 2000"
+      return "Win 2000";
     } else if (str === "5.1") {
-      return "Win XP"
+      return "Win XP";
     } else if (str === "5.2") {
-      return "Win XP64"
+      return "Win XP64";
     } else if (str === "6.0") {
-      return "Win Vista"
+      return "Win Vista";
     } else if (str === "6.1") {
-      return "Win 7"
+      return "Win 7";
     } else if (str === "6.2") {
-      return "Win 8"
+      return "Win 8";
     } else if (str === "6.3") {
-      return "Win 8.1"
+      return "Win 8.1";
     } else if (str === "10.") {
-      return "Win 10"
+      return "Win 10";
     } else {
-      return "Win"
+      return "Win";
     }
   }
 
@@ -387,16 +420,16 @@ class Tool {
    */
   getOSType() {
     let u = navigator.userAgent,
-      app = navigator.appVersion
-    let isAndroid = u.indexOf("Android") > -1 || u.indexOf("Linux") > -1
-    let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+      app = navigator.appVersion;
+    let isAndroid = u.indexOf("Android") > -1 || u.indexOf("Linux") > -1;
+    let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
     if (isIOS) {
-      return "ios"
+      return "ios";
     }
     if (isAndroid) {
-      return "android"
+      return "android";
     }
-    return "其它"
+    return "其它";
   }
 
   /**
@@ -407,7 +440,7 @@ class Tool {
    * isMobile()  // false || true
    */
   isMobile() {
-    return "ontouchstart" in window
+    return "ontouchstart" in window;
   }
 
   // 说一下防抖：两个版本，
@@ -461,28 +494,28 @@ class Tool {
     // 立即执行版解说：timeout为null，callNow为true，执行函数,无触发定时器；
     // 一秒内，又调用这个函数，清空定时器（因为timeout为true），callNow为false，不执行函数；timeout为true，开启定时器，等待一秒无人访问就将timeout设null
 
-    let timeout
+    let timeout;
     return function () {
-      let context = this
-      let args = arguments //参数
+      let context = this;
+      let args = arguments; //参数
 
-      if (timeout) clearTimeout(timeout)
+      if (timeout) clearTimeout(timeout);
       // console.log(1)
       if (immediate) {
-        let callNow = !timeout
+        let callNow = !timeout;
         // timeout有就将其设为空
         timeout = setTimeout(() => {
-          timeout = null
+          timeout = null;
           // console.log(2)
-        }, wait)
+        }, wait);
         // console.log(3)
-        if (callNow) func.apply(context, args)
+        if (callNow) func.apply(context, args);
       } else {
         timeout = setTimeout(() => {
-          func.apply(context, args)
-        }, wait)
+          func.apply(context, args);
+        }, wait);
       }
-    }
+    };
   }
 
   /**
@@ -502,31 +535,31 @@ class Tool {
    * window.addEventListener("mousemove",throttle(printHeight,1000,2));
    */
   throttle(func, wait, type = 1) {
-    let previous, timeout
+    let previous, timeout;
     if (type === 1) {
-      previous = 0
+      previous = 0;
     } else if (type === 2) {
-      timeout = null
+      timeout = null;
     }
     return function () {
-      let context = this
-      let args = arguments
+      let context = this;
+      let args = arguments;
       if (type === 1) {
-        let now = Date.now()
+        let now = Date.now();
 
         if (now - previous > wait) {
-          func.apply(context, args)
-          previous = now
+          func.apply(context, args);
+          previous = now;
         }
       } else if (type === 2) {
         if (!timeout) {
           timeout = setTimeout(() => {
-            timeout = null
-            func.apply(context, args)
-          }, wait)
+            timeout = null;
+            func.apply(context, args);
+          }, wait);
         }
       }
-    }
+    };
   }
 
   /**
@@ -538,22 +571,22 @@ class Tool {
    * type([""])  //array
    */
   type(target) {
-    let ret = typeof target
+    let ret = typeof target;
     let template = {
       "[object Array]": "array",
       "[object Object]": "object",
       "[object Number]": "number - object",
       "[object Boolean]": "boolean - object",
       "[object String]": "string-object",
-    }
+    };
 
     if (target === null) {
-      return "null"
+      return "null";
     } else if (ret == "object") {
-      let str = Object.prototype.toString.call(target)
-      return template[str]
+      let str = Object.prototype.toString.call(target);
+      return template[str];
     } else {
-      return ret
+      return ret;
     }
   }
 
@@ -593,25 +626,25 @@ class Tool {
     // 这样就很巧妙地将“递归”改成了“循环”，而后一轮的参数会取代前一轮的参数，保证了调用栈只有一层。
     // 其实就是递归就开了很多个栈去跑每一层，尾递归就是内层跑完，才return给下一层，永远只有一个栈在跑
 
-    let value
-    let active = false
-    let accumulated = []
+    let value;
+    let active = false;
+    let accumulated = [];
 
     return function accumulator() {
-      accumulated.push(arguments) //每次将参数传入. 例如, 1 100000
+      accumulated.push(arguments); //每次将参数传入. 例如, 1 100000
 
       if (!active) {
-        active = true
+        active = true;
         // 出循环条件, 当最后一次返回一个数字而不是一个函数时, accmulated已经被shift(), 所以出循环
         while (accumulated.length) {
-          value = f.apply(this, accumulated.shift()) //调用累加函数, 传入每次更改后的参数, 并执行
+          value = f.apply(this, accumulated.shift()); //调用累加函数, 传入每次更改后的参数, 并执行
           // console.log(value)  // 会发现前面都是空的，最后一个才有值，因为前面的没必要存在栈里面，浪费资源
           // 反正这里的value都是空的，就不保存了，等到跳出while的时候，在return最后一个value就行
         }
-        active = false
-        return value
+        active = false;
+        return value;
       }
-    }
+    };
   }
 
   /**
@@ -623,13 +656,13 @@ class Tool {
    * hexColor()  // #000000
    */
   hexColor() {
-    let str = "#"
-    let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F"]
+    let str = "#";
+    let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F"];
     for (let i = 0; i < 6; i++) {
-      let index = Number.parseInt((Math.random() * 16).toString())
-      str += arr[index]
+      let index = Number.parseInt((Math.random() * 16).toString());
+      str += arr[index];
     }
-    return str
+    return str;
   }
 
   /**
@@ -641,8 +674,8 @@ class Tool {
    * randomHexColorCode()  // #000000
    */
   randomHexColorCode() {
-    let n = (Math.random() * 0xfffff * 1000000).toString(16)
-    return "#" + n.slice(0, 6)
+    let n = (Math.random() * 0xfffff * 1000000).toString(16);
+    return "#" + n.slice(0, 6);
   }
 
   /**
@@ -671,7 +704,7 @@ class Tool {
           "'": "&#39;",
           '"': "&quot;",
         }[tag] || tag)
-    )
+    );
   }
 
   /**
@@ -685,11 +718,11 @@ class Tool {
    * outOfNum(100,99)     // 99+
    */
   outOfNum(val, maxNum) {
-    val = val ? val - 0 : 0
+    val = val ? val - 0 : 0;
     if (val > maxNum) {
-      return `${maxNum}+`
+      return `${maxNum}+`;
     } else {
-      return val
+      return val;
     }
   }
 
@@ -707,14 +740,14 @@ class Tool {
     // previousElementSibling 属性返回指定元素的前一个兄弟元素（相同节点树层中的前一个元素节点）
 
     if (!el) {
-      return -1
+      return -1;
     }
 
-    let index = 0
+    let index = 0;
     do {
-      index++
-    } while ((el = el.previousElementSibling))
-    return index
+      index++;
+    } while ((el = el.previousElementSibling));
+    return index;
   }
 
   /**
@@ -730,7 +763,7 @@ class Tool {
     return Object.prototype.toString
       .call(obj)
       .replace(/^\[object (.+)\]$/, "$1")
-      .toLowerCase()
+      .toLowerCase();
   }
 
   /**
@@ -747,18 +780,17 @@ class Tool {
     // window.requestAnimationFrame() 告诉浏览器——你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。
     // 该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行
     // 所以requestAnimationFrame会一直回调，直到opacity大于1，则停止动画
-    el.style.opacity = type === "in" ? 0 : 1
-    let last = +new Date()
+    el.style.opacity = type === "in" ? 0 : 1;
+    let last = +new Date();
     const tick = () => {
-      const opacityValue =
-        type === "in" ? (new Date() - last) / 400 : -(new Date() - last) / 400
-      el.style.opacity = +el.style.opacity + opacityValue
-      last = +new Date()
+      const opacityValue = type === "in" ? (new Date() - last) / 400 : -(new Date() - last) / 400;
+      el.style.opacity = +el.style.opacity + opacityValue;
+      last = +new Date();
       if (type === "in" ? +el.style.opacity < 1 : +el.style.opacity > 0) {
-        requestAnimationFrame(tick)
+        requestAnimationFrame(tick);
       }
-    }
-    tick()
+    };
+    tick();
   }
 
   /**
@@ -772,19 +804,19 @@ class Tool {
    * stopCopyOrPaste(true,true)
    */
   stopCopyOrPaste(isStopCopy = true, isStopPaste = true) {
-    const html = document.querySelector("html")
+    const html = document.querySelector("html");
     if (isStopCopy && isStopPaste) {
-      html.oncopy = () => false
-      html.onpaste = () => false
-      return
+      html.oncopy = () => false;
+      html.onpaste = () => false;
+      return;
     }
     if (isStopCopy) {
-      html.oncopy = () => false
-      return
+      html.oncopy = () => false;
+      return;
     }
     if (isStopPaste) {
-      html.onpaste = () => false
-      return
+      html.onpaste = () => false;
+      return;
     }
   }
 
@@ -798,7 +830,7 @@ class Tool {
    * stopCopyOrPaste('<h1>哈哈哈哈<呵呵呵</h1>')  // 呵呵呵
    */
   removeHTML(str = "") {
-    return str.replace(/<[\/\!]*[^<>]*>/gi, "")
+    return str.replace(/<[\/\!]*[^<>]*>/gi, "");
   }
 
   /**
@@ -813,16 +845,13 @@ class Tool {
    *
    * uuid(4, "abcd")  // bccc
    */
-  uuid(
-    length = 8,
-    chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-  ) {
-    let result = ""
+  uuid(length = 8, chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") {
+    let result = "";
     for (var i = length; i > 0; --i) {
-      result += chars[Math.floor(Math.random() * chars.length)]
+      result += chars[Math.floor(Math.random() * chars.length)];
     }
 
-    return result
+    return result;
   }
 
   /**
@@ -838,9 +867,9 @@ class Tool {
    */
   cutNumber(number, no = 2) {
     if (typeof number != "number") {
-      number = Number(number)
+      number = Number(number);
     }
-    return Number(number.toFixed(no))
+    return Number(number.toFixed(no));
   }
 
   /**
@@ -866,30 +895,30 @@ class Tool {
    */
   keepDecimal(val, num = 2) {
     if (val === "--" || val === "" || val === null || val == undefined) {
-      return "--"
+      return "--";
     }
     if (Object.prototype.toString.call(val) == "[object String]") {
-      let val_new = parseFloat(val)
+      let val_new = parseFloat(val);
       if (isNaN(val_new)) {
-        return val
+        return val;
       } else {
         try {
-          return (Math.round(val_new * 100) / 100).toFixed(num)
+          return (Math.round(val_new * 100) / 100).toFixed(num);
         } catch (error) {
-          console.error(error)
-          return val
+          console.error(error);
+          return val;
         }
       }
     }
 
     if (isNaN(val)) {
-      return val
+      return val;
     } else {
       try {
-        return (Math.round(val * 100) / 100).toFixed(num)
+        return (Math.round(val * 100) / 100).toFixed(num);
       } catch (error) {
-        console.error(error)
-        return val
+        console.error(error);
+        return val;
       }
     }
   }
@@ -905,10 +934,10 @@ class Tool {
    * timeTaken(getPow);   // timeTaken: 0.010009765625 ms   // 1024
    */
   timeTaken(callback) {
-    console.time("timeTaken")
-    const r = callback()
-    console.timeEnd("timeTaken")
-    return r
+    console.time("timeTaken");
+    const r = callback();
+    console.timeEnd("timeTaken");
+    return r;
   }
 
   /**
@@ -946,18 +975,18 @@ class Tool {
     return {
       hub: Object.create(null),
       emit(event, data) {
-        ;(this.hub[event] || []).forEach((handler) => handler(data))
+        (this.hub[event] || []).forEach((handler) => handler(data));
       },
       on(event, handler) {
-        if (!this.hub[event]) this.hub[event] = []
-        this.hub[event].push(handler)
+        if (!this.hub[event]) this.hub[event] = [];
+        this.hub[event].push(handler);
       },
       off(event, handler) {
-        const i = (this.hub[event] || []).findIndex((h) => h === handler)
-        if (i > -1) this.hub[event].splice(i, 1)
-        if (this.hub[event].length === 0) delete this.hub[event]
+        const i = (this.hub[event] || []).findIndex((h) => h === handler);
+        if (i > -1) this.hub[event].splice(i, 1);
+        if (this.hub[event].length === 0) delete this.hub[event];
       },
-    }
+    };
   }
 
   /**
@@ -977,13 +1006,13 @@ class Tool {
    * document.body.addEventListener('click', tool.once(startApp)); // 只执行一次startApp
    */
   once(fn) {
-    let called = false
+    let called = false;
     return function () {
       if (!called) {
-        called = true
-        fn.apply(this, arguments)
+        called = true;
+        fn.apply(this, arguments);
       }
-    }
+    };
   }
 
   /**
@@ -997,7 +1026,7 @@ class Tool {
    * forOwn({ foo: 'bar', a: 1 }, v => console.log(v));  // bar 1
    */
   forOwn(obj, fn) {
-    return Object.keys(obj).forEach((key) => fn(obj[key], key, obj))
+    return Object.keys(obj).forEach((key) => fn(obj[key], key, obj));
   }
 
   /**
@@ -1023,7 +1052,7 @@ class Tool {
    * is(Boolean, new Boolean(true))); // true
    */
   is(type, val) {
-    return ![, null].includes(val) && val.constructor === type
+    return ![, null].includes(val) && val.constructor === type;
   }
 
   /**
@@ -1039,11 +1068,7 @@ class Tool {
    * getType(function (){}); // function
    */
   getType(v) {
-    return v === undefined
-      ? "undefined"
-      : v === null
-      ? "null"
-      : v.constructor.name.toLowerCase()
+    return v === undefined ? "undefined" : v === null ? "null" : v.constructor.name.toLowerCase();
   }
 
   /**
@@ -1068,7 +1093,7 @@ class Tool {
           "'": "&#39;",
           '"': "&quot;",
         }[tag] || tag)
-    )
+    );
   }
 
   /**
@@ -1093,20 +1118,20 @@ class Tool {
    */
   currying(fn, ...args1) {
     // 获取fn参数有几个
-    const length = fn.length
-    let allArgs = [...args1] // 1
+    const length = fn.length;
+    let allArgs = [...args1]; // 1
     const res = (...arg2) => {
       // arg2 2,3
-      allArgs = [...allArgs, ...arg2]
+      allArgs = [...allArgs, ...arg2];
       // 长度相等就返回执行结果
       if (allArgs.length === length) {
-        return fn(...allArgs)
+        return fn(...allArgs);
       } else {
         // 不相等继续返回函数
-        return res
+        return res;
       }
-    }
-    return res
+    };
+    return res;
   }
 
   /**
@@ -1136,19 +1161,19 @@ class Tool {
      这样子会报错，已经()，就不能在执行柯里化传参了
    */
   add(...args1) {
-    let allArgs = [...args1]
+    let allArgs = [...args1];
 
     function fn(...args2) {
-      if (!args2.length) return fn.toString()
-      allArgs = [...allArgs, ...args2]
-      return fn
+      if (!args2.length) return fn.toString();
+      allArgs = [...allArgs, ...args2];
+      return fn;
     }
 
     fn.toString = function () {
-      return allArgs.reduce((pre, next) => pre + next)
-    }
+      return allArgs.reduce((pre, next) => pre + next);
+    };
 
-    return fn
+    return fn;
   }
 
   /**
@@ -1186,16 +1211,16 @@ class Tool {
   _get(source, path, defaultValue = undefined) {
     // a[3].b -> a.3.b -> [a,3,b]
     // path 中也可能是数组的路径，全部转化成 . 运算符并组成数组
-    const paths = path.replace(/\[(\d+)\]/g, ".$1").split(".")
-    let result = source
+    const paths = path.replace(/\[(\d+)\]/g, ".$1").split(".");
+    let result = source;
     for (const p of paths) {
       // 注意 null 与 undefined 取属性会报错，所以使用 Object 包装一下。
-      result = Object(result)[p]
+      result = Object(result)[p];
       if (result == undefined) {
-        return defaultValue
+        return defaultValue;
       }
     }
-    return result
+    return result;
   }
 
   /**
@@ -1212,27 +1237,27 @@ class Tool {
      console.log(getVal2) //  1
    */
   getVal(obj, ...args) {
-    let out = null
+    let out = null;
     if (obj || obj === 0) {
-      out = obj
+      out = obj;
       if (args && args.length > 0) {
         for (let index = 0; index < args.length; index++) {
-          const key = args[index]
-          out = out[key]
+          const key = args[index];
+          out = out[key];
           if (out === undefined || out === null || out === "") {
-            return null
+            return null;
           }
         }
       } else {
         if (out === undefined || out === null || out === "") {
-          return null
+          return null;
         }
       }
     }
-    return out
+    return out;
   }
 }
 
-export default Tool
+export default Tool;
 
 // 3. 第三部分：字符串：https://juejin.cn/post/6844903966526930951#heading-32

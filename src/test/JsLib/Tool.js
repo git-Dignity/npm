@@ -1,22 +1,22 @@
 /*
  * @Author: zemin zheng
  * @Date: 2021-08-24 13:16:31
- * @LastEditTime: 2022-12-25 11:32:55
+ * @LastEditTime: 2022-12-25 14:07:11
  * @LastEditors: zemin zheng
  * @Description: 工具测试
  * @FilePath: \npm\src\test\JsLib\Tool.js
  */
-import { Browser } from "../../Browser/Browser"
-import { Tool } from "../../JsLib"
+import { Browser } from "../../Browser/Browser";
+import { Tool } from "../../JsLib";
 
 export default (isLog) => {
   if (!isLog) {
-    return
+    return;
   }
 
-  let browser = new Browser()
-  let tool = new Tool()
-  tool.start()
+  let browser = new Browser();
+  let tool = new Tool();
+  tool.start();
 
   // console.log(tool.hasClass(document.getElementById('aaa'), 'a')) // true
   // tool.toggleClass(document.querySelector('p#b'), 'a')
@@ -36,13 +36,13 @@ export default (isLog) => {
 
   // console.log(tool.getURLParameters('http://url.com/page?n=哈哈&s=Smith')) // {n: 'Adam', s: 'Smith'}
 
+  // console.log(tool.getURLParameters0("http://www.domain.com/?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&enabled"));
+  // {city: "广州", enabled: true, id: (2) [123, 456], user: "anonymous"}
 
-  const getURLParameters1 = tool.getURLParameters1(
-    "http://url.com/page?n=哈哈&s=Smith"
-  )
+  const getURLParameters1 = tool.getURLParameters1("http://url.com/page?n=哈哈&s=Smith");
   //  console.log(getURLParameters1) // {n: '哈哈', s: 'Smith'}
 
-  const getURLParameters2 = tool.getURLParameters2("?n=哈哈&s=Smith")
+  const getURLParameters2 = tool.getURLParameters2("?n=哈哈&s=Smith");
   //  console.log(getURLParameters2) // {n: '哈哈', s: 'Smith'}
 
   // const fn = () => console.log('!');
@@ -96,15 +96,15 @@ export default (isLog) => {
   // console.log(tool.getOffset(document.getElementById("btn")))  // {top: 8, left: 8}
   // console.log(tool.dataType([]))  // array
   // console.log(tool.isMobile())    // false || true
-  tool.setFade(document.getElementById("btn"))
-  tool.stopCopyOrPaste(true, true)
+  tool.setFade(document.getElementById("btn"));
+  tool.stopCopyOrPaste(true, true);
   // console.log(tool.removeHTML(tool.removeHTML('<h1>哈哈哈哈<呵呵呵</h1>')))
 
   function printWidth() {
-    console.info(window.document.body.clientWidth)
+    console.info(window.document.body.clientWidth);
   }
   function printHeight() {
-    console.info(window.document.body.clientHeight)
+    console.info(window.document.body.clientHeight);
   }
   // window.addEventListener('resize', tool.debounce(printWidth, 900,true), false)
   // window.addEventListener('resize', tool.debounce(printHeight, 900,false), false)
@@ -120,12 +120,12 @@ export default (isLog) => {
   // 尾递归
   var sumTco = tool.tco(function (x, y) {
     if (y > 0) {
-      return sumTco(x + 1, y - 1) //重点在这里, 每次递归返回真正函数其实还是accumulator函数
+      return sumTco(x + 1, y - 1); //重点在这里, 每次递归返回真正函数其实还是accumulator函数
     } else {
       //   console.log(x)
-      return x
+      return x;
     }
-  })
+  });
   //   console.log(sumTco(1, 5));   //6    实际上现在sum函数就是accumulator函数   else那得到的
 
   // console.log(tool.hexColor())
@@ -199,23 +199,23 @@ export default (isLog) => {
 
   // console.log(tool.escapeHTML('<a href="#">Me & you</a>')); // &lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;
 
-  const add = (a, b, c) => a + b + c
-  const a = tool.currying(add, 1)
+  const add = (a, b, c) => a + b + c;
+  const a = tool.currying(add, 1);
   // console.log(a(2, 3)) // 6
 
-  const add1 = tool.add(1)(2)(3)(4, 5)(1)()
+  const add1 = tool.add(1)(2)(3)(4, 5)(1)();
   // console.log(add1) // 16
-  const add2 = tool.add(1, 2)(3)()
+  const add2 = tool.add(1, 2)(3)();
   // console.log(add2) // 6
 
-  const get1 = tool._get({ a: null }, "a.b.c", 3)
+  const get1 = tool._get({ a: null }, "a.b.c", 3);
   // console.log(get1) //  3
-  const get2 = tool._get({ a: [{ b: 1 }] }, "a[0].b", 3)
+  const get2 = tool._get({ a: [{ b: 1 }] }, "a[0].b", 3);
   // console.log(get2) //  1
 
-  const getVal1 = tool.getVal({ a: null }, "a", "0", "b")
+  const getVal1 = tool.getVal({ a: null }, "a", "0", "b");
   // console.log(getVal1) //  null
-  const getVal2 = tool.getVal({ a: [{ b: 1 }] }, "a", "0", "b")
+  const getVal2 = tool.getVal({ a: [{ b: 1 }] }, "a", "0", "b");
   // console.log(getVal2) //  1
 
   // console.log(tool.xxx());
@@ -292,5 +292,5 @@ export default (isLog) => {
 
   // console.log(tool.xxx());
 
-  tool.end()
-}
+  tool.end();
+};

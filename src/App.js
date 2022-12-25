@@ -456,7 +456,7 @@ class App {
     initArrayTool(false)
     initStrTool(false)
     initCheck(false)
-    initBrowser(true)
+    initBrowser(false)
     initDateOperation(false)
     this.initDesignModel()
 
@@ -465,7 +465,7 @@ class App {
     initInterview(false)
     this.initHandleWrite()
 
-    initNumberVal(false)
+    initNumberVal(true)
     initInternet(false)
     initScheduler(false)
     initTimerDelay(false)
