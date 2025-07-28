@@ -1,4 +1,6 @@
-# [npm工具类](https://www.npmjs.com/package/javascript-tool-class)
+# [工具类npm地址](https://www.npmjs.com/package/javascript-tool-class)
+
+[JS 工具库 在线地址](http://zhengzemin.cn:9052/Tool.html)
 
 与大家分享自己所涉及到的npm知识，将常用方法封装成工具类
 
